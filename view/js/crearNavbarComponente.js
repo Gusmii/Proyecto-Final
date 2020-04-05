@@ -4,9 +4,11 @@ var htmlCode;
 var paginaActual;
 var nombrePaginas;
 var nombrePaginaActual;
-
+var adminPagina="ADMIN";
+var nombreAdminPagina="vAdmin.html";
+var tituloPaginaActual;
 $(document).ready(function(){
-  var usuario=localStorage.setItem("usuario","admin");
+  var usuario=localStorage.setItem("usuario","normal");
   usuario=localStorage.getItem("usuario");
 
   titulo=window.location.pathname.split("/");
@@ -18,10 +20,14 @@ $(document).ready(function(){
     paginaActual="HOME";
     nombrePaginaActual="index.html";
   }
-  
+  if(titulo[2]=="view"){
+	  tituloPaginaActual=titulo[3];
+  }else{
+	  tituloPaginaActual=titulo[2];
+  }
   if(paginaActual!="HOME"){
     nombrePaginaActual=titulo[2];
-    paginaActual=titulo[2].replace(".html","").slice(1).toUpperCase();
+    paginaActual=tituloPaginaActual.replace(".html","").slice(1).toUpperCase();
   }
   paginas = $.grep(paginas, function(value) {
     return value != paginaActual;
@@ -30,11 +36,12 @@ $(document).ready(function(){
     return value != nombrePaginaActual;
   });
   if(usuario=="normal"){
+	  
     paginas = $.grep(paginas, function(value) {
-      return value != paginaActual;
+      return value != adminPagina;
     });
     nombrePaginas = $.grep(nombrePaginas, function(value) {
-      return value != nombrePaginaActual;
+      return value != nombreAdminPagina;
     });
   }
    crearNavbar();
@@ -65,22 +72,18 @@ htmlCode+=`<ul class="navbar-nav mr-auto">`;
           if(paginas[i]=="QUIENESSOMOS"){
             htmlCode+=`<a class="nav-link" href="`+nombrePaginas[i]+`">QUIENES SOMOS</a>`;
           }else{
-            if(usuario!="admin"){
-              htmlCode+=``;
-            }else{
-              htmlCode+=`<a class="nav-link" href="`+nombrePaginas[i]+`">`+paginas[i]+`</a>`;
-            }
+            htmlCode+=`<a class="nav-link" href="`+nombrePaginas[i]+`">`+paginas[i]+`</a>`;
+            	  
+        	  
           }
         }
       }else{
         if(paginas[i]=="QUIENESSOMOS"){
           htmlCode+=`<a class="nav-link" href="view/`+nombrePaginas[i]+`">QUIENES SOMOS</a>`;
         }else{
-          if(usuario!="admin" && paginas[i]!="ADMIN"){
-            htmlCode+=``;
-          }else{
-            htmlCode+=`<a class="nav-link" href="view/`+nombrePaginas[i]+`">`+paginas[i]+`</a>`;
-          }
+        	htmlCode+=`<a class="nav-link" href="view/`+nombrePaginas[i]+`">`+paginas[i]+`</a>`;
+        	  
+          
         }
       }        
       htmlCode+=`</li>`;
