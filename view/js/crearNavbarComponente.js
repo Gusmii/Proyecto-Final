@@ -14,7 +14,7 @@ $(document).ready(function(){
   paginas=["HOME","VIAJES","ESTANCIAS","ADMIN","QUIENESSOMOS"];
   nombrePaginas=["index.html","vViajes.html","vEstancias.html","vAdmin.html","vQuienesSomos.html"];
  
-  if(titulo[1]=="index.html" || titulo[2]==""){
+  if(titulo[1]=="index.html" || titulo[2]==""|| titulo[2]=="index.html"){
     paginaActual="HOME";
     nombrePaginaActual="index.html";
   }
