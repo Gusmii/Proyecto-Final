@@ -4,23 +4,31 @@ var htmlCode;
 var paginaActual;
 var nombrePaginas;
 var nombrePaginaActual;
-
+var adminPagina="ADMIN";
+var nombreAdminPagina="vAdmin.html";
+var tituloPaginaActual;
+var usuario;
 $(document).ready(function(){
-  var usuario=localStorage.setItem("usuario","admin");
+  usuario=localStorage.setItem("usuario","normal");
+  usuario=localStorage.getItem("usuario");
 
   titulo=window.location.pathname.split("/");
   
   paginas=["HOME","VIAJES","ESTANCIAS","ADMIN","QUIENESSOMOS"];
   nombrePaginas=["index.html","vViajes.html","vEstancias.html","vAdmin.html","vQuienesSomos.html"];
  
-  if(titulo[1]=="index.html"){
+  if(titulo[1]=="index.html" || titulo[2]==""|| titulo[2]=="index.html"){
     paginaActual="HOME";
     nombrePaginaActual="index.html";
   }
-  
+  if(titulo[2]=="view"){
+	  tituloPaginaActual=titulo[3];
+  }else{
+	  tituloPaginaActual=titulo[2];
+  }
   if(paginaActual!="HOME"){
     nombrePaginaActual=titulo[2];
-    paginaActual=titulo[2].replace(".html","").slice(1).toUpperCase();
+    paginaActual=tituloPaginaActual.replace(".html","").slice(1).toUpperCase();
   }
   paginas = $.grep(paginas, function(value) {
     return value != paginaActual;
@@ -29,11 +37,12 @@ $(document).ready(function(){
     return value != nombrePaginaActual;
   });
   if(usuario=="normal"){
+	  
     paginas = $.grep(paginas, function(value) {
-      return value != paginaActual;
+      return value != adminPagina;
     });
     nombrePaginas = $.grep(nombrePaginas, function(value) {
-      return value != nombrePaginaActual;
+      return value != nombreAdminPagina;
     });
   }
    crearNavbar();
@@ -64,22 +73,18 @@ htmlCode+=`<ul class="navbar-nav mr-auto">`;
           if(paginas[i]=="QUIENESSOMOS"){
             htmlCode+=`<a class="nav-link" href="`+nombrePaginas[i]+`">QUIENES SOMOS</a>`;
           }else{
-            if(usuario!="admin"){
-              htmlCode+=``;
-            }else{
-              htmlCode+=`<a class="nav-link" href="`+nombrePaginas[i]+`">`+paginas[i]+`</a>`;
-            }
+            htmlCode+=`<a class="nav-link" href="`+nombrePaginas[i]+`">`+paginas[i]+`</a>`;
+            	  
+        	  
           }
         }
       }else{
         if(paginas[i]=="QUIENESSOMOS"){
           htmlCode+=`<a class="nav-link" href="view/`+nombrePaginas[i]+`">QUIENES SOMOS</a>`;
         }else{
-          if(usuario!="admin" && paginas[i]!="ADMIN"){
-            htmlCode+=``;
-          }else{
-            htmlCode+=`<a class="nav-link" href="view/`+nombrePaginas[i]+`">`+paginas[i]+`</a>`;
-          }
+        	htmlCode+=`<a class="nav-link" href="view/`+nombrePaginas[i]+`">`+paginas[i]+`</a>`;
+        	  
+          
         }
       }        
       htmlCode+=`</li>`;
@@ -93,33 +98,3 @@ htmlCode+=`<ul class="navbar-nav mr-auto">`;
     </span>`;
   $("#NavbarComponente").html(htmlCode);
 }
-
-
-// function crearNavbar(){console.log("hola");
-// $("#NavbarComponente").html(`<a class="navbar-brand" href="#" id="LinkImgLogo">
-// <img src="view/img/logoBlancoEspacio.png" id="ImgLogo" alt="">
-// </a>
-//   <ul class="navbar-nav mr-auto">
-//     <li class="nav-item active">
-//       <a class="nav-link" href="#">HOME <span class="sr-only">(current)</span></a>
-//     </li>
-
-    
-//     <li class="nav-item">
-//       <a class="nav-link" href="view/vViajes.html">VIAJES</a>
-//     </li>
-//     <li class="nav-item">
-//       <a class="nav-link" href="view/vEstancias.html">ESTANCIAS</a>
-//     </li>
-//     <li class="nav-item">
-//       <a class="nav-link" href="view/vQuienesSomos.html">QUIENES SOMOS</a>
-//     </li>
-    
-//   </ul>
-//   <span class="navbar-text">
-//       <a class="nav-link" href="#">ENTRAR</a>
-    
-//       <a class="nav-link" href="#">REGISTRARSE</a>
-//   </span>
-// `);
-// }
