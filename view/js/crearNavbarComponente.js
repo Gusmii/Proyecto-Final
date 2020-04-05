@@ -7,13 +7,14 @@ var nombrePaginaActual;
 
 $(document).ready(function(){
   var usuario=localStorage.setItem("usuario","admin");
+  usuario=localStorage.getItem("usuario");
 
   titulo=window.location.pathname.split("/");
   
   paginas=["HOME","VIAJES","ESTANCIAS","ADMIN","QUIENESSOMOS"];
   nombrePaginas=["index.html","vViajes.html","vEstancias.html","vAdmin.html","vQuienesSomos.html"];
  
-  if(titulo[1]=="index.html"){
+  if(titulo[1]=="index.html" || titulo[2]==""){
     paginaActual="HOME";
     nombrePaginaActual="index.html";
   }
@@ -93,33 +94,3 @@ htmlCode+=`<ul class="navbar-nav mr-auto">`;
     </span>`;
   $("#NavbarComponente").html(htmlCode);
 }
-
-
-// function crearNavbar(){console.log("hola");
-// $("#NavbarComponente").html(`<a class="navbar-brand" href="#" id="LinkImgLogo">
-// <img src="view/img/logoBlancoEspacio.png" id="ImgLogo" alt="">
-// </a>
-//   <ul class="navbar-nav mr-auto">
-//     <li class="nav-item active">
-//       <a class="nav-link" href="#">HOME <span class="sr-only">(current)</span></a>
-//     </li>
-
-    
-//     <li class="nav-item">
-//       <a class="nav-link" href="view/vViajes.html">VIAJES</a>
-//     </li>
-//     <li class="nav-item">
-//       <a class="nav-link" href="view/vEstancias.html">ESTANCIAS</a>
-//     </li>
-//     <li class="nav-item">
-//       <a class="nav-link" href="view/vQuienesSomos.html">QUIENES SOMOS</a>
-//     </li>
-    
-//   </ul>
-//   <span class="navbar-text">
-//       <a class="nav-link" href="#">ENTRAR</a>
-    
-//       <a class="nav-link" href="#">REGISTRARSE</a>
-//   </span>
-// `);
-// }
