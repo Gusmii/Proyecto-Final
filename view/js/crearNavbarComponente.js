@@ -7,8 +7,9 @@ var nombrePaginaActual;
 var adminPagina="ADMIN";
 var nombreAdminPagina="vAdmin.html";
 var tituloPaginaActual;
+var usuario;
 $(document).ready(function(){
-  var usuario=localStorage.setItem("usuario","normal");
+  usuario=localStorage.setItem("usuario","normal");
   usuario=localStorage.getItem("usuario");
 
   titulo=window.location.pathname.split("/");
