@@ -7,10 +7,51 @@ $(document).ready(function(){
 
     htmlCode=`<div  class="footer1">`;  //Aqui cargaremos dos listas, una de viajes y otra de estancias
 
+    htmlCode=`<ul>`; //Lista de Viajes
+    
+    htmlCode=`<a href="../vViajes.html"><li>`+Viajes+`</li></a>`;
+
+    htmlCode=`<li>`+Europa+`</li>`;
+    htmlCode=`<li>`+America+`</li>`;
+    htmlCode=`<li>`+Asia+`</li>`;
+    htmlCode=`<li>`+Africa+`</li>`;
+    htmlCode=`<li>`+Oceania+`</li>`;
+
+    htmlCode=`</ul>`;
+
+    htmlCode=`<ul>`; //Lista de Estancias
+    
+    htmlCode=`<a href="../vEstancias.html"><li>`+Estancias+`</li></a>`;
+
+    htmlCode=`<li>`+Europa+`</li>`;
+    htmlCode=`<li>`+America+`</li>`;
+    htmlCode=`<li>`+Asia+`</li>`;
+    htmlCode=`<li>`+Africa+`</li>`;
+    htmlCode=`<li>`+Oceania+`</li>`;
+
+    htmlCode=`</ul>`;
+
     htmlCode=`</div>`;
 
     htmlCode=`<div  class="footer2">`; //Aqui dentro estaran las redes sociales y dos palabras que redireccionan
 
+    htmlCode=`<div class="footerSuperior">`;
+    
+    htmlCode=`<a href="../vQuienesSomos.html"><p>Quienes somos</p></a>`; //Para redirigir a la pagina de Quienes Somos
+    
+    htmlCode=`<p data-toggle="modal">Contactanos</p>`; //Para hacer aparecer el modal
+
+    htmlCode=`</div>`;
+
+    htmlCode=`<div class="footerInferior">`; //Iconos de redes sociales
+
+    htmlCode=`<img src="../img/facebook.png">`; 
+
+    htmlCode=`<img src="../img/instagram.png">`; 
+
+    htmlCode=`<img src="../img/twitter.png">`; 
+
+    htmlCode=`</div>`;
 
     htmlCode=`</div>`;
 
