@@ -3,7 +3,6 @@ var titulo;
 var htmlCode;
 var paginaActual;
 var nombrePaginas;
-var nombrePaginaActual;
 var adminPagina="ADMIN";
 var nombreAdminPagina="vAdmin.html";
 var tituloPaginaActual;
@@ -22,7 +21,7 @@ $(document).ready(function(){
 	  //si la parte 2 del array pone index.html, si la parte 3 del arrray esta vacia,
 	  //o si la parte 3 del array pone index.html, la pagina actual será HOME
     paginaActual="HOME";
-    nombrePaginaActual="index.html";
+    tituloPaginaActual="index.html";
   }
   if(titulo[2]=="view"){
 	  //si en el array, la parte 3 es view,
@@ -39,16 +38,20 @@ $(document).ready(function(){
 	  //si no estamos en la pagina principal, 
 	  //la parte 3 del array sera el nombre de la pagina actual
 	  //y guardaremos el nombre con mayusculas y sin el .html 
-    nombrePaginaActual=titulo[2];
     paginaActual=tituloPaginaActual.replace(".html","").slice(1).toUpperCase();
   }
-  
+
+  if(titulo[2]=="view"){
+	  tituloPaginaActual=titulo[3];
+}else{
+	  tituloPaginaActual=titulo[2];
+}
   //utilizaremos las variables creadas anteriormente para quitarlas de su respectivo array
   paginas = $.grep(paginas, function(value) {
     return value != paginaActual;
   });
   nombrePaginas = $.grep(nombrePaginas, function(value) {
-    return value != nombrePaginaActual;
+    return value != tituloPaginaActual;
   });
   
   //si el usuario es normal, no se monstrara en el navbar el boton de admin, ya que borraremos
