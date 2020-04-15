@@ -1,0 +1,61 @@
+/* Footer Style*/
+
+.footer1 > ul > li{
+    list-style: none !important;
+    text-decoration: none !important;
+}
+
+.footer1 > ul > a{
+    list-style: none !important;
+    text-decoration: none !important;
+}
+
+/*Index container*/
+
+#FooterComponente{  
+    width: 100%;
+    height: 100%;
+    color: white !important;
+    margin: 0px;
+    
+}
+
+/*Grid container and stuff*/
+
+.footerIndex{  
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-areas: 
+    "A B C";
+}
+
+.footer1{
+margin: 2%;
+grid-area: A;
+}
+.footer2{
+margin: 2%;
+grid-area: B;
+}
+.footer3{
+margin: 2%;
+grid-area: C;
+}
+
+
+
+/* Footer icons */
+
+.footerInferior > img{  
+    margin: 5px;
+    width: 5%;
+    height: 5%;
+}
+
+/* Interaction changes */
+
+a:hover{
+    text-decoration: none;
+}
+
