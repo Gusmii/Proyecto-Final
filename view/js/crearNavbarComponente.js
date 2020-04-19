@@ -50,6 +50,9 @@ $(document).ready(function(){
   paginas = $.grep(paginas, function(value) {
     return value != paginaActual;
   });
+  if(tituloPaginaActual==""){
+	  tituloPaginaActual="index.html";
+  }
   nombrePaginas = $.grep(nombrePaginas, function(value) {
     return value != tituloPaginaActual;
   });
