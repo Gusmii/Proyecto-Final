@@ -30,5 +30,3 @@ class paisesModel extends paisesClass{
         mysqli_close ($this->link);
         
     }
-    
-  

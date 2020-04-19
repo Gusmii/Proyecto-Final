@@ -19,13 +19,34 @@ function crearFiltro(){
 
   htmlCode= `<div class="container">`;
   htmlCode+= `<br> <input class="form-control" id="myInput" type="text" placeholder="Buscar por ciudad">`;
-//  htmlCode+= ` <div id="myDIV">
-//    <p>I am a paragraph.</p>
-//    <div>I am a div element inside div.</div>
-//    <button class="btn">I am a button</button>
-//    <button class="btn btn-info">Another button</button>
-//    <p>Another paragraph.</p>
-//  </div>`;
+  htmlCode+= `<div class="container">`;
+  
+  htmlCode+=`<select class="selectpicker"> `;
+  htmlCode+=`</select> `;
+
+  
   $("#filtroEstancias").html(htmlCode);
+  htmlCode="<option hidden selected>CONTINENTES</option>";
+  
+  $.ajax({
+    dataType:"json",
+    url:"../controller/continentes/cSelectContinentes.php",
+    success: function(datosContinente){
+    	console.log(datosContinente);
+    	$.each(datosContinente,function(i,datoContinente){
+
+        	htmlCode+=`<optgroup label="`+datoContinente.nombre+`">`;
+        	htmlCode+=`</optgroup>`;
+      });//FIN DE GENERAR 
+
+    	$(".selectpicker").html(htmlCode);	
+
+ },
+    error: function(xhr){
+        alert("An error occured: "+xhr.status+" "+xhr.statusText);
+    }
+});
+	  
+
   
 }
