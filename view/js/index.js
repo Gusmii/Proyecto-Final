@@ -58,4 +58,5 @@ function mostrarCards(){
   }
 
   $("#ContenidoIndex").html(htmlCode);
+
 }
