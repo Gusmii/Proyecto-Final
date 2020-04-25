@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-04-2020 a las 18:07:37
--- Versión del servidor: 10.4.10-MariaDB
--- Versión de PHP: 7.1.33
+-- Tiempo de generación: 25-04-2020 a las 16:14:33
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -26,12 +26,6 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `allCiudades` ()  NO SQL
-SELECT * FROM ciudades$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `allContinentes` ()  NO SQL
-SELECT * FROM continentes$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `allEstancias` ()  NO SQL
 SELECT * FROM estancias$$
 
@@ -58,6 +52,18 @@ SELECT * FROM usuarios$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `allVuelos` ()  NO SQL
 SELECT * FROM vuelos$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllCiudades` ()  NO SQL
+SELECT * FROM ciudades$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllContinentes` ()  NO SQL
+SELECT * FROM continentes$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindContinenteById` (IN `pId` INT)  NO SQL
+select * from continentes where continentes.id=pId$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindPaisById` (IN `pId` INT)  NO SQL
+select * from paises where paises.id=pId$$
 
 DELIMITER ;
 
