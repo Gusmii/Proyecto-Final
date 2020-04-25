@@ -29,24 +29,33 @@ function crearFiltro(){
   htmlCode="<option hidden selected>CONTINENTES</option>";
   
   $.ajax({
-    dataType:"json",
-    url:"../controller/continentes/cSelectContinentes.php",
-    success: function(datosContinente){
-    	console.log(datosContinente);
-    	$.each(datosContinente,function(i,datoContinente){
+	    dataType:"json",
+	    url:"../controller/ciudades/cSelectCiudades.php",
+	    success: function(datosContinente){
+	    	console.log(datosContinente);
+	    	$.each(datosContinente,function(i,datoContinente){
 
-        	htmlCode+=`<optgroup label="`+datoContinente.nombre+`">`;
-        	htmlCode+=`</optgroup>`;
-      });//FIN DE GENERAR 
+	        	htmlCode+=`<option >`+datoContinente.nombre+`</option>`;
+	      });//FIN DE GENERAR 
 
-    	$(".selectpicker").html(htmlCode);	
+	    	$(".selectpicker").html(htmlCode);	
 
- },
-    error: function(xhr){
-        alert("An error occured: "+xhr.status+" "+xhr.statusText);
-    }
-});
+	 },
+	    error: function(xhr){
+	        alert("An error occured: "+xhr.status+" "+xhr.statusText);
+	    }
+	});
 	  
 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
 }
