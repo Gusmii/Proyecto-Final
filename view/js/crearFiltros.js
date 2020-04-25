@@ -21,24 +21,48 @@ function crearFiltro(){
   htmlCode+= `<br> <input class="form-control" id="myInput" type="text" placeholder="Buscar por ciudad">`;
   htmlCode+= `<div class="container">`;
   
-  htmlCode+=`<select class="selectpicker"> `;
+  htmlCode+=`<select class="selectCiudades"> `;
   htmlCode+=`</select> `;
 
   
   $("#filtroEstancias").html(htmlCode);
-  htmlCode="<option hidden selected>CONTINENTES</option>";
+  htmlCode="<option hidden selected>Ciudades</option>";
   
   $.ajax({
 	    dataType:"json",
 	    url:"../controller/ciudades/cSelectCiudades.php",
-	    success: function(datosContinente){
-	    	console.log(datosContinente);
-	    	$.each(datosContinente,function(i,datoContinente){
+	    success: function(datosCiudades){
+	    	console.log(datosCiudades);
+	    	var continentes=0;
+	    	var paises;
+	    	var ciudades;
+	    	for(var c=0;c<datosCiudades.length;c++){
 
-	        	htmlCode+=`<option >`+datoContinente.nombre+`</option>`;
-	      });//FIN DE GENERAR 
+    			
+		    	for(var d=0;d<datosCiudades.length;d++){
+		    			if(datosCiudades[c].objectContinente.id==datosCiudades[d].objectContinente.id){
+		        			if(datosCiudades[c].objectPais.id==datosCiudades[d].objectPais.id){
+			        			if(datosCiudades[c].nombre==datosCiudades[d].nombre){
+				        			htmlCode+=`<optgroup  label="`+datosCiudades[c].objectContinente.nombre.toUpperCase()+`" style="font-size:24px; color:skyblue">`;
+				        			htmlCode+=`<optgroup  label="`+datosCiudades[c].objectPais.nombre.toUpperCase()+`" style="font-size:18px; color:green">`;
 
-	    	$(".selectpicker").html(htmlCode);	
+						    	htmlCode+=`<option id="`+datosCiudades[d].id+`" style="font-size:15px; color:gray">`+datosCiudades[d].nombre.toUpperCase()+` </option>`;
+						    	
+//				    		console.log("C id continente"+datosCiudades[c].objectContinente.nombre+" //// d id continente"+datosCiudades[d].objectContinente.nombre);
+//				    		console.log("C id continente"+datosCiudades[c].nombre+" //// d id continente"+datosCiudades[d].nombre);
+				    			}
+			    			}
+
+		    	}
+		    			htmlCode+=` </optgroup>`;
+		    	}		    	
+		    	
+		    	htmlCode+=` </optgroup>`;
+
+	    	}		    	
+
+	    	
+	    	$(".selectCiudades").html(htmlCode);	
 
 	 },
 	    error: function(xhr){
