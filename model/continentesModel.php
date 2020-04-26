@@ -62,7 +62,24 @@ class continentesModel extends continentesClass{
        $this->CloseConnect();
     }
     
-
+    public function findContinenteById() {
+        $this->OpenConnect();
+        $id=$this->id;
+        $sql = "CALL spFindContinenteById($id)";
+        $result= $this->link->query($sql);
+        
+        if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {
+            $this->setId($row['id']);
+            $this->setNombre($row['nombre']);
+            
+            array_push($this->list, $this);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
+    
     function getListContinentesJson()   // convert country : $this->list to JSON
     {
         // returns the list of objects in a srting with JSON format

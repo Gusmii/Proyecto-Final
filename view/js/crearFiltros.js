@@ -21,32 +21,64 @@ function crearFiltro(){
   htmlCode+= `<br> <input class="form-control" id="myInput" type="text" placeholder="Buscar por ciudad">`;
   htmlCode+= `<div class="container">`;
   
-  htmlCode+=`<select class="selectpicker"> `;
+  htmlCode+=`<select class="selectCiudades"> `;
   htmlCode+=`</select> `;
 
   
   $("#filtroEstancias").html(htmlCode);
-  htmlCode="<option hidden selected>CONTINENTES</option>";
+  htmlCode="<option hidden selected>Ciudades</option>";
   
   $.ajax({
-    dataType:"json",
-    url:"../controller/continentes/cSelectContinentes.php",
-    success: function(datosContinente){
-    	console.log(datosContinente);
-    	$.each(datosContinente,function(i,datoContinente){
+	  type:"GET",
+	    dataType:"json",
+	    url:"../controller/ciudades/cSelectCiudades.php",
+	    success: function(datos){
 
-        	htmlCode+=`<optgroup label="`+datoContinente.nombre+`">`;
-        	htmlCode+=`</optgroup>`;
-      });//FIN DE GENERAR 
+	    	datosCiudades= jQuery.parseJSON(datos.datosCiudades);
+	    	datosPaises= jQuery.parseJSON(datos.datosPaises);
+	    	datosContinentes= jQuery.parseJSON(datos.datosContinentes);
+	    	console.log(datosCiudades);
+	    	console.log(datosPaises);
+	    	console.log(datosContinentes);
 
-    	$(".selectpicker").html(htmlCode);	
+	    	for(var a=0;a<datosContinentes.length;a++){
+	    		htmlCode+=`<optgroup  label="`+datosContinentes[a].nombre.toUpperCase()+`" style="font-size:24px; color:skyblue">`;
+		    	for(var b=0;b<datosPaises.length;b++){
 
- },
-    error: function(xhr){
-        alert("An error occured: "+xhr.status+" "+xhr.statusText);
-    }
-});
+		    		if(datosContinentes[a].id==datosPaises[b].objectContinente.id){
+	    				htmlCode+=`<option  label="`+datosPaises[b].nombre.toUpperCase()+`" style="font-size:18px; color:red"></option>`;
+
+
+			    	for(var c=0;c<datosCiudades.length;c++){
+			    		if(datosPaises[b].id==datosCiudades[c].objectPais.id){
+			    		
+					    	htmlCode+=`<option id="`+datosCiudades[c].id+`" style="font-size:15px; color:gray">`+datosCiudades[c].nombre.toUpperCase()+` </option>`;
+					    
+		    			}
+		    		}
+	    		}
+	    		}htmlCode+=` </optgroup>`;
+	    	
+	    }
+	    	
+	    	$(".selectCiudades").html(htmlCode);	
+
+	 },
+	    error: function(xhr){
+	        alert("An error occured: "+xhr.status+" "+xhr.statusText);
+	    }
+	});
 	  
 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
 }
