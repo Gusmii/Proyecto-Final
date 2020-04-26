@@ -1,11 +1,23 @@
+/* Body Style*/
+
 /* Footer Style*/
 
-.footer1 > ul > li{
+.footer1 > .footerLeft > ul > li{
     list-style: none !important;
     text-decoration: none !important;
 }
 
-.footer1 > ul > a{
+.footer1 > .footerRight > ul > li{
+    list-style: none !important;
+    text-decoration: none !important;
+}
+
+.footer1 > .footerLeft > ul > a{
+    list-style: none !important;
+    text-decoration: none !important;
+}
+
+.footer1 > .footerRight > ul > a{
     list-style: none !important;
     text-decoration: none !important;
 }
