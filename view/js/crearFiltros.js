@@ -29,38 +29,37 @@ function crearFiltro(){
   htmlCode="<option hidden selected>Ciudades</option>";
   
   $.ajax({
+	  type:"GET",
 	    dataType:"json",
 	    url:"../controller/ciudades/cSelectCiudades.php",
-	    success: function(datosCiudades){
+	    success: function(datos){
+
+	    	datosCiudades= jQuery.parseJSON(datos.datosCiudades);
+	    	datosPaises= jQuery.parseJSON(datos.datosPaises);
+	    	datosContinentes= jQuery.parseJSON(datos.datosContinentes);
 	    	console.log(datosCiudades);
-	    	var continentes=0;
-	    	var paises;
-	    	var ciudades;
-	    	for(var c=0;c<datosCiudades.length;c++){
+	    	console.log(datosPaises);
+	    	console.log(datosContinentes);
 
-    			
-		    	for(var d=0;d<datosCiudades.length;d++){
-		    			if(datosCiudades[c].objectContinente.id==datosCiudades[d].objectContinente.id){
-		        			if(datosCiudades[c].objectPais.id==datosCiudades[d].objectPais.id){
-			        			if(datosCiudades[c].nombre==datosCiudades[d].nombre){
-				        			htmlCode+=`<optgroup  label="`+datosCiudades[c].objectContinente.nombre.toUpperCase()+`" style="font-size:24px; color:skyblue">`;
-				        			htmlCode+=`<optgroup  label="`+datosCiudades[c].objectPais.nombre.toUpperCase()+`" style="font-size:18px; color:green">`;
+	    	for(var a=0;a<datosContinentes.length;a++){
+	    		htmlCode+=`<optgroup  label="`+datosContinentes[a].nombre.toUpperCase()+`" style="font-size:24px; color:skyblue">`;
+		    	for(var b=0;b<datosPaises.length;b++){
 
-						    	htmlCode+=`<option id="`+datosCiudades[d].id+`" style="font-size:15px; color:gray">`+datosCiudades[d].nombre.toUpperCase()+` </option>`;
-						    	
-//				    		console.log("C id continente"+datosCiudades[c].objectContinente.nombre+" //// d id continente"+datosCiudades[d].objectContinente.nombre);
-//				    		console.log("C id continente"+datosCiudades[c].nombre+" //// d id continente"+datosCiudades[d].nombre);
-				    			}
-			    			}
+		    		if(datosContinentes[a].id==datosPaises[b].objectContinente.id){
+	    				htmlCode+=`<option  label="`+datosPaises[b].nombre.toUpperCase()+`" style="font-size:18px; color:red"></option>`;
 
-		    	}
-		    			htmlCode+=` </optgroup>`;
-		    	}		    	
-		    	
-		    	htmlCode+=` </optgroup>`;
 
-	    	}		    	
-
+			    	for(var c=0;c<datosCiudades.length;c++){
+			    		if(datosPaises[b].id==datosCiudades[c].objectPais.id){
+			    		
+					    	htmlCode+=`<option id="`+datosCiudades[c].id+`" style="font-size:15px; color:gray">`+datosCiudades[c].nombre.toUpperCase()+` </option>`;
+					    
+		    			}
+		    		}
+	    		}
+	    		}htmlCode+=` </optgroup>`;
+	    	
+	    }
 	    	
 	    	$(".selectCiudades").html(htmlCode);	
 

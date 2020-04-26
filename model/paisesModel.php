@@ -43,6 +43,29 @@ class paisesModel extends paisesClass{
     public function CloseConnect() {
         mysqli_close ($this->link);
     }
+    function setListPaises()  // fill country : $this->list
+    {
+        $this->OpenConnect();
+        $sql="call spAllPaises()";
+        
+        $result = $this->link->query($sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {
+            $newPais=new paisesModel();
+            $newPais->setId($row['id']);
+            $newPais->setNombre($row['nombre']);
+            $newPais->setCodigo_continente($row['codigo_continente']);
+            
+            $continente= new continentesModel();
+            $continente->setId($row['codigo_continente']);
+            $continente->findContinenteById();
+            $newPais->setObjectContinente($continente);
+            
+            array_push($this->list, $newPais);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
     
     public function findPaisById() {
         $this->OpenConnect();
@@ -78,14 +101,12 @@ class paisesModel extends paisesClass{
         }
         return json_encode($arr);
     }
-    
-    function getListJsonStringObject() {
+    function getListPaisesJson() {
         // returns the list of objects in a srting with JSON format
         $arr=array();
         
         foreach ($this->list as $object) {
             $vars = $object->getObjectVars();
-    
             
             $objContinente=$object->getObjectContinente()->getObjectVars();
             $vars['objectContinente']=$objContinente;
