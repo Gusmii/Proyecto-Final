@@ -7,6 +7,49 @@ $(document).ready(function(){
   mostrarCards();
   
 });
+
+function signIn() {
+	//forms values vars	
+    $("#signIn").click(function() {	
+
+		//Recoge las variables
+		var user = $("#inUser").val();	
+    var password = $("#inPass").val();
+  
+        
+        console.log("UserJS: " + user);
+        console.log("PasswordJS: " + password);
+       
+		
+        $.ajax({
+			//verify values (user, password and captcha)      	
+			data:{'user':user,'password':password}, //Manda las variables 
+			url: "controller/login/cSignIn.php", 
+			method:"POST",
+			dataType:"json",
+			success: function(result) {
+				console.log(result);
+				
+				if(result.error == "Not error") {  //Si no hay ningun error manda a la vista
+					window.location.href="view/vEquiposVictorias.html";
+				}else if(result.error == "User or password error") {
+					alert(result.error);
+				}else if(result.error == "User or password error") {
+					alert(result.error);
+				}
+        	},
+           	error: function(xhr) {
+    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+				
+				//Si hay algun error vacia los inputs
+    			$("#username").val("");
+    			$("#password").val("");
+        	}      	
+        });
+    });
+}
+
+
 function mostrarCards(){
 
 //
