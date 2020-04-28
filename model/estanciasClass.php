@@ -7,12 +7,27 @@ class estanciasClass{
     protected $tipo;
     protected $precio;
     protected $ubicacion;
-    protected $fecha_inicio;
-    protected $fecha_fin;
+    protected $imagen;
     protected $puntuacion;
  
     
     
+    /**
+     * @return mixed
+     */
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    /**
+     * @param mixed $imagen
+     */
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
+    }
+
     /**
      * @return mixed
      */
@@ -47,15 +62,7 @@ class estanciasClass{
         return $this->ubicacion;
     }
 
-    public function getFecha_inicio()
-    {
-        return $this->fecha_inicio;
-    }
-
-    public function getFecha_fin()
-    {
-        return $this->fecha_fin;
-    }
+  
 
     public function getPuntuacion()
     {
@@ -104,21 +111,7 @@ class estanciasClass{
 
     /**
      * @param mixed 
-     */
-    public function setFecha_inicio($fecha_inicio)
-    {
-        $this->fecha_inicio = $fecha_inicio;
-    }
-
-    /**
-     * @param mixed 
-     */
-    public function setFecha_fin($fecha_fin)
-    {
-        $this->fecha_fin = $fecha_fin;
-    }
-
-    /**
+   
      * @param mixed 
      */
     public function setPuntuacion($puntuacion)
