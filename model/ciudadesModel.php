@@ -106,6 +106,34 @@ class ciudadesModel extends ciudadesClass{
         $this->CloseConnect();
     }
     
+    public function findCiudadById() {
+        $this->OpenConnect();
+        $id=$this->id;
+        $sql = "CALL spFindCiudadById($id)";
+        $result= $this->link->query($sql);
+        
+        if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {
+            $this->setId($row['id']);
+            $this->setNombre($row['nombre']);
+            $this->setCodigo_pais($row['codigo_pais']);
+            $this->setCodigo_continente($row['codigo_continente']);
+            
+            $pais= new paisesModel();
+            $pais->setId($row['codigo_pais']);
+            $pais->findPaisById();
+            $this->setObjectPais($pais);
+            
+            $continente= new continentesModel();
+            $continente->setId($row['codigo_continente']);
+            $continente->findContinenteById();
+            $this->setObjectContinente($continente);
+            
+            array_push($this->list, $this);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
     
 
     function getListCiudadesJson() {

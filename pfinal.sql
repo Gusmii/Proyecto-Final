@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-04-2020 a las 16:14:33
+-- Tiempo de generación: 28-04-2020 a las 16:21:11
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -26,12 +26,6 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `allEstancias` ()  NO SQL
-SELECT * FROM estancias$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `allPaises` ()  NO SQL
-SELECT * FROM paises$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `allReservas` ()  NO SQL
 SELECT * FROM reservas$$
 
@@ -59,11 +53,23 @@ SELECT * FROM ciudades$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllContinentes` ()  NO SQL
 SELECT * FROM continentes$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllEstancias` ()  NO SQL
+SELECT * FROM estancias$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllPaises` ()  NO SQL
+SELECT * FROM paises$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindCiudadById` (IN `pId` INT)  NO SQL
+select * from ciudades where ciudades.id=pId$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindContinenteById` (IN `pId` INT)  NO SQL
 select * from continentes where continentes.id=pId$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindPaisById` (IN `pId` INT)  NO SQL
 select * from paises where paises.id=pId$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindTipoById` (IN `pId` INT)  NO SQL
+select * from tipo_estancias where tipo_estancias.id=pId$$
 
 DELIMITER ;
 

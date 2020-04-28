@@ -8,8 +8,6 @@ class ciudadesClass{
     protected $codigo_continente;
 
 
-   
-    
     /**
      * @return mixed
      */
