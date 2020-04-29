@@ -69,7 +69,6 @@ function crearContenidoEstancias(){
 			        if(z%5===0 && a != 0){
 			        	htmlCode +=`<div id="verMasNumero`+i+`" class="text-center verMasEstancias"><button type="button" class="btn btn-primary active">VER MAS</button></div></div>`;
 			        		}else if(a === 4){
-					    		 i++;
 						        	htmlCode += `<div id="verMasNumero`+i+`" class="text-center verMasEstancias"><button type="button" class="btn btn-primary active">VER MAS</button></div>`;
 						        	 
 					    	 }
@@ -77,23 +76,30 @@ function crearContenidoEstancias(){
 		    	htmlCode+=`</div>`;
 
 		    	  $("#filtradasEstancias").html(htmlCode);
-		    	  for(var b=1;b<i+1;b++){
-			    		
-		    		  $( ".LoteNumero"+b).css({"display":"none!important"});
-		    		  $(".LoteNumero"+b+" > .cardEstancias").addClass("d-none");
-		    		  $(".LoteNumero"+b+" > .verMasEstancias").addClass("d-none");
-		    		  
-		    		  b--;
-		    		  if(b!=0){
-			    		  $(".LoteNumero"+b+" > .verMasEstancias > button").addClass("invisible");
- 
-		    		  }
-		    		  b++;
-		    	  	}
+		    	  
+	    		  $( ".Lotes").css({"display":"none!important"});
+	    		  $( ".Lotes > .cardEstancias").addClass("d-none");
+	    		  $( ".Lotes > .verMasEstancias").addClass("d-none");
+	    		  
+	    		  mostrarMas("0");
+	    		  
+	    		  function mostrarMas(numeroEstancias){
+		    		  $( ".Lotes > .verMasEstancias").removeClass("d-block");
+
+	    			  $( ".LoteNumero"+numeroEstancias).css({"display":"block!important"});
+		    		  $( ".LoteNumero"+numeroEstancias+" > .cardEstancias").addClass("d-block");
+		    		  $( ".LoteNumero"+numeroEstancias+" > .verMasEstancias").last().addClass("d-block");
+	    		  }
+
+	    		  
 		    	  $( ".verMasEstancias :button").click(function() {
 		    		  
 		    		  alert(" id: "+ $( this ).parent().attr("id") );
 		    		  alert(" id Lote: "+ $( this ).parent().parent().attr("id") );
+		    		  
+		    		  var numeroEstancias=($( this ).parent().parent().attr("id")).split("Numero");
+		    		  numeroEstancias=	(parseInt(numeroEstancias[1]))+1;
+		    		  mostrarMas(numeroEstancias);
 		    		});
 	    		  
 
