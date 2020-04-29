@@ -3,7 +3,7 @@
 include_once "connect_data.php";
 include_once 'estanciasClass.php';
 include_once 'tipo_estanciasModel.php';
-include_once 'ciudadesModel.php';
+include_once 'ciudadesModel.php'; 
 
 
 class estanciasModel extends estanciasClass{

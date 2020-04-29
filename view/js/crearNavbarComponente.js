@@ -117,9 +117,9 @@ htmlCode+=`<ul class="navbar-nav mr-auto">`;
 
     htmlCode+= `</ul>
     <span class="navbar-text">
-        <a class="nav-link" href="#">ENTRAR</a>
+        <a class="nav-link" data-toggle="modal" data-target="#modalLogin">ENTRAR</a>
       
-        <a class="nav-link" href="#">REGISTRARSE</a>
+        <a class="nav-link" data-toggle="modal" data-target="#modalLogin">REGISTRARSE</a>
     </span>`;
   $("#NavbarComponente").html(htmlCode);
   
