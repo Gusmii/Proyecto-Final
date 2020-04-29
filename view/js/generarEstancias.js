@@ -23,7 +23,7 @@ function crearContenidoEstancias(){
   
 	
 	
-	htmlCode +=``;
+	htmlCode =``;
 	
 	$.ajax({
 		  type:"GET",

@@ -108,7 +108,39 @@ class estanciasModel extends estanciasClass{
         $this->CloseConnect();
     }
     
-    
+    function filtrarEstancias($nombreFiltro)  // fill country : $this->list
+    {
+        $this->OpenConnect();
+        $sql="call spFiltrarEstancias($nombreFiltro)";
+        
+        $result = $this->link->query($sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {
+            $newEstancia=new estanciasModel();
+            $newEstancia->setId($row['id']);
+            $newEstancia->setNombre($row['nombre']);
+            $newEstancia->setPrecio($row['precio']);
+            $newEstancia->setPuntuacion($row['puntuacion']);
+            $newEstancia->setImagen($row['imagen']);
+            $newEstancia->setUbicacion($row['ubicacion']);
+            $newEstancia->setTipo($row['tipo']);
+            
+            
+            $ciudad= new ciudadesModel();
+            $ciudad->setId($row['ubicacion']);
+            $ciudad->findCiudadById();
+            $newEstancia->setObjectUbicacion($ciudad);
+            
+            $tipo= new tipo_estanciasModel();
+            $tipo->setId($row['tipo']);
+            $tipo->findTipoById();
+            $newEstancia->setObjectTipoEstancia($tipo);
+            
+            array_push($this->list, $newEstancia);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
     
     function getListEstanciasJson() {
         // returns the list of objects in a srting with JSON format

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-04-2020 a las 16:21:11
+-- Tiempo de generación: 29-04-2020 a las 16:15:08
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -58,6 +58,9 @@ SELECT * FROM estancias$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllPaises` ()  NO SQL
 SELECT * FROM paises$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFiltrarEstancias` (IN `pId` INT)  NO SQL
+select * from estancias where estancias.ubicacion = pId$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindCiudadById` (IN `pId` INT)  NO SQL
 select * from ciudades where ciudades.id=pId$$
