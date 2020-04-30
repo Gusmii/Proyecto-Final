@@ -1,6 +1,7 @@
 var htmlCode;
 var usuario;
 var nombreFiltro;
+var datosEstancias;
 
 $(document).ready(function(){
   usuario=localStorage.getItem("usuario");
@@ -38,9 +39,7 @@ function crearFiltro(){
 	    	datosCiudades= jQuery.parseJSON(datos.datosCiudades);
 	    	datosPaises= jQuery.parseJSON(datos.datosPaises);
 	    	datosContinentes= jQuery.parseJSON(datos.datosContinentes);
-//	    	console.log(datosCiudades);
-//	    	console.log(datosPaises);
-//	    	console.log(datosContinentes);
+	    	datosEstancias= jQuery.parseJSON(datos.datosEstancias);
 
 	    	for(var a=0;a<datosContinentes.length;a++){
 	    		htmlCode+=`<optgroup  label="`+datosContinentes[a].nombre.toUpperCase()+`" style="font-size:24px; color:skyblue">`;
@@ -65,6 +64,7 @@ function crearFiltro(){
 	    	$(".selectCiudades").html(htmlCode);	
 	    	$(".selectCiudades").on("change", function(){
 	    		nombreFiltro=$(this).val();
+//	    		alert(nombreFiltro);
 	    		filtroUbicacion(nombreFiltro);
 	    	});
 	 },
@@ -77,29 +77,21 @@ function crearFiltro(){
 	  htmlCode =``;
 	  nombreFiltro=parseInt(nombreFiltro);
 	  $("#filtradasEstancias").html("");
-
-		$.ajax({
-			data:{"nombreFiltro":nombreFiltro},
-			  type:"GET",
-			    dataType:"json",
-			    url:"../controller/estancias/cFilterEstancias.php",
-			    success: function(datos){
-
-			    	datosEstancias= jQuery.parseJSON(datos.datosEstancias);
-			    	console.log(datosEstancias);
 			    	
 			    	htmlCode ="";
 			    	htmlCode+=`<div id="contenedorEstancias" >`;
 			    	var i=-1;
-			    	var x=0;
+			    	var x=-1;
 			    	var z=0;
 				    	for(var a=0;a<datosEstancias.length;a++){
-				    	x++; 
-				    	if(x%5===0 && a != 0){
+							if(parseInt(datosEstancias[a].ubicacion)===nombreFiltro){
+
+								x++; 
+				    	if(x%5===0 && x != 0){
 				    		 i++;
 				    		 htmlCode += `<div id="LoteNumero`+i+`" class="Lotes LoteNumero`+i+`" >`;
 				        	
-				    	 }else if(a === 0){
+				    	 }else if(x === 0){
 				    		 i++;
 					        	htmlCode += `<div id="LoteNumero`+i+`" class="Lotes LoteNumero`+i+`">`;
 					        	 
@@ -120,13 +112,14 @@ function crearFiltro(){
 		    		        htmlCode +=`</div>`;
 				        htmlCode +=`</div>`;
 				       z=x+1;
-				        if(z%5===0 && a != 0){
+				        if(z%5===0 && x != 0){
 				        	htmlCode +=`<div id="verMasNumero`+i+`" class="text-center verMasEstancias"><button type="button" class="btn btn-primary active">VER MAS</button></div></div>`;
-				        		}else if(a === 4){
+				        		}else if(x === 4){
 							        	htmlCode += `<div id="verMasNumero`+i+`" class="text-center verMasEstancias"><button type="button" class="btn btn-primary active">VER MAS</button></div>`;
 							        	 
 						    	 }
 				        }
+				    	}
 			    	htmlCode+=`</div>`;
 
 			    	  $("#filtradasEstancias").html(htmlCode);
@@ -139,6 +132,7 @@ function crearFiltro(){
 		    		  
 		    		  function mostrarMas(numeroEstancias){
 			    		  $( ".Lotes > .verMasEstancias").removeClass("d-block");
+			    		  $( ".Lotes > .cardEstancias").removeClass("d-block");
 
 		    			  $( ".LoteNumero"+numeroEstancias).css({"display":"block!important"});
 			    		  $( ".LoteNumero"+numeroEstancias+" > .cardEstancias").addClass("d-block");
@@ -148,22 +142,13 @@ function crearFiltro(){
 		    		  
 			    	  $( ".verMasEstancias :button").click(function() {
 			    		  
-			    		  alert(" id: "+ $( this ).parent().attr("id") );
-			    		  alert(" id Lote: "+ $( this ).parent().parent().attr("id") );
+//			    		  alert(" id: "+ $( this ).parent().attr("id") );
+//			    		  alert(" id Lote: "+ $( this ).parent().parent().attr("id") );
 			    		  
 			    		  var numeroEstancias=($( this ).parent().parent().attr("id")).split("Numero");
 			    		  numeroEstancias=	(parseInt(numeroEstancias[1]))+1;
 			    		  mostrarMas(numeroEstancias);
 			    		});
-		    		  
-
-			    	  
-			    	  
-			 },
-			    error: function(xhr){
-			        alert("An error occured: "+xhr.status+" "+xhr.statusText);
-			    }
-			});
 			  
 		
 	  }

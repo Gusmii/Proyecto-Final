@@ -94,9 +94,9 @@ function crearContenidoEstancias(){
 	    		  
 		    	  $( ".verMasEstancias :button").click(function() {
 		    		  
-		    		  alert(" id: "+ $( this ).parent().attr("id") );
-		    		  alert(" id Lote: "+ $( this ).parent().parent().attr("id") );
-		    		  
+//		    		  alert(" id: "+ $( this ).parent().attr("id") );
+//		    		  alert(" id Lote: "+ $( this ).parent().parent().attr("id") );
+//		    		  
 		    		  var numeroEstancias=($( this ).parent().parent().attr("id")).split("Numero");
 		    		  numeroEstancias=	(parseInt(numeroEstancias[1]))+1;
 		    		  mostrarMas(numeroEstancias);

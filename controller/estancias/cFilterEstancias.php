@@ -9,6 +9,6 @@ $cEstancias->filtrarEstancias($nombreFiltro);
 
 $listEstanciasJson=$cEstancias->getListEstanciasJson();
 
-$resultados=array("datosEstancias"=>$listEstanciasJson);
+$resultados=array("datosEstanciasFiltrados"=>$listEstanciasJson);
 echo json_encode($resultados);
 
