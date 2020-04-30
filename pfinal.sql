@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-04-2020 a las 16:15:08
--- Versión del servidor: 10.1.36-MariaDB
--- Versión de PHP: 7.2.11
+-- Tiempo de generación: 29-04-2020 a las 16:26:26
+-- Versión del servidor: 10.4.10-MariaDB
+-- Versión de PHP: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -26,27 +26,6 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `allReservas` ()  NO SQL
-SELECT * FROM reservas$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `allReservas_estancias` ()  NO SQL
-SELECT * FROM reservas_estancias$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `allReservas_viajes` ()  NO SQL
-SELECT * FROM reservas_viajes$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `allTipo_estancias` ()  NO SQL
-SELECT * FROM tipo_estancias$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `allTipo_usuarios` ()  NO SQL
-SELECT * FROM tipo_usuarios$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `allUsuarios` ()  NO SQL
-SELECT * FROM usuarios$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `allVuelos` ()  NO SQL
-SELECT * FROM vuelos$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllCiudades` ()  NO SQL
 SELECT * FROM ciudades$$
 
@@ -58,6 +37,30 @@ SELECT * FROM estancias$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllPaises` ()  NO SQL
 SELECT * FROM paises$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllReservas` ()  NO SQL
+SELECT * FROM reservas$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllReservas_estancias` ()  NO SQL
+SELECT * FROM reservas_estancias$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllReservas_viajes` ()  NO SQL
+SELECT * FROM reservas_viajes$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllTipo_estancias` ()  NO SQL
+SELECT * FROM tipo_estancias$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllTipo_usuarios` ()  NO SQL
+SELECT * FROM tipo_usuarios$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllUsuarios` ()  NO SQL
+SELECT * FROM usuarios$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllVuelos` ()  NO SQL
+SELECT * FROM vuelos$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spEliminarUsuario` (IN `_id` INT)  NO SQL
+DELETE FROM `usuarios` WHERE usuarios.id = _id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFiltrarEstancias` (IN `pId` INT)  NO SQL
 select * from estancias where estancias.ubicacion = pId$$
@@ -73,6 +76,9 @@ select * from paises where paises.id=pId$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindTipoById` (IN `pId` INT)  NO SQL
 select * from tipo_estancias where tipo_estancias.id=pId$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertarUsuario` (IN `_apodo` VARCHAR(255), IN `_nombre` VARCHAR(255), IN `_apellidos` VARCHAR(255), IN `_dni` VARCHAR(255), IN `_correo` VARCHAR(255), IN `_contrasenia` VARCHAR(255), IN `_tipo` INT(11))  NO SQL
+INSERT INTO `usuarios`(`apodo`, `nombre`, `apellidos`, `dni`, `correo`, `contrasenia`, `tipo`) VALUES (_apodo, _nombre, _apellidos, _dni, _correo, _contrasenia, _tipo)$$
 
 DELIMITER ;
 

@@ -1,20 +1,19 @@
 <?php
-include_once '../model/userModel.php';
+include_once '../model/usuariosModel.php';
 
 //Recoge todos los datos
 $username=filter_input(INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS);
-$password1=filter_input(INPUT_POST, 'password1', FILTER_SANITIZE_SPECIAL_CHARS);
-$password2=filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_SPECIAL_CHARS);
+$password=filter_input(INPUT_POST, 'password1', FILTER_SANITIZE_SPECIAL_CHARS);
+
 
 $response=array();
 
 //user, password and captcha verify
-if(($username != null) && ($password1 != null) && ($password2 != null)) {  //Mira a ver si estan vacios
+if(($username != null) && ($password != null)) {  //Mira a ver si estan vacios
     
     $user = new userModel();            //Crea uno nuevo y setea los datos recividos
     $user->setUsername($username);
-    $user->setPassword1($password1);
-    $user->setPassword2($password2);
+    $user->setPassword1($password);
  
     if ($user->login()) { //si es correcto el username y el password inicia sesion
         session_start();
