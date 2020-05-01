@@ -8,7 +8,7 @@ $(document).ready(function(){
 
 
   crearFiltro();
-  
+  generarEstanciasPrincipales();
   $("#myInput").on("keyup", function() {
 	    var value = $(this).val().toLowerCase();
 	    $("#myDIV *").filter(function() {
@@ -16,6 +16,24 @@ $(document).ready(function(){
 	    });
 	  });
 });
+
+function generarEstanciasPrincipales(){
+	$.ajax({
+		  type:"GET",
+		    dataType:"json",
+		    url:"../controller/estancias/cSelectEstancias.php",
+		    success: function(datos){
+		datosEstancias= jQuery.parseJSON(datos.datosEstancias);
+		nombreFiltro=-1;  
+		filtroUbicacion(nombreFiltro,datosEstancias);
+	    	  
+		 },
+	    error: function(xhr){
+	        alert("An error occured: "+xhr.status+" "+xhr.statusText);
+	    }
+	});
+//	  
+}
 function crearFiltro(){
   var usuario=localStorage.getItem("usuario");
 
@@ -65,7 +83,7 @@ function crearFiltro(){
 	    	$(".selectCiudades").on("change", function(){
 	    		nombreFiltro=$(this).val();
 //	    		alert(nombreFiltro);
-	    		filtroUbicacion(nombreFiltro);
+	    		filtroUbicacion(nombreFiltro,datosEstancias);
 	    	});
 	 },
 	    error: function(xhr){
@@ -73,7 +91,9 @@ function crearFiltro(){
 	    }
 	});
 	  
-  function filtroUbicacion(nombreFiltro){
+}
+
+function filtroUbicacion(nombreFiltro,datosEstancias){
 	  htmlCode =``;
 	  nombreFiltro=parseInt(nombreFiltro);
 	  $("#filtradasEstancias").html("");
@@ -84,7 +104,7 @@ function crearFiltro(){
 			    	var x=-1;
 			    	var z=0;
 				    	for(var a=0;a<datosEstancias.length;a++){
-							if(parseInt(datosEstancias[a].ubicacion)===nombreFiltro){
+							if(parseInt(datosEstancias[a].ubicacion)===nombreFiltro || nombreFiltro==-1){
 
 								x++; 
 				    	if(x%5===0 && x != 0){
@@ -96,7 +116,7 @@ function crearFiltro(){
 					        	htmlCode += `<div id="LoteNumero`+i+`" class="Lotes LoteNumero`+i+`">`;
 					        	 
 				    	 }
-				    	 htmlCode +=`<div id="cardEstancias_`+a+`"  class="card mb-3 cardEstancias" style="max-width: 540px;"> `;
+				    	 htmlCode +=`<div id="cardEstancias_`+a+`"  class="card mb-3 cardEstancias  tipoEstancia_`+datosEstancias[a].objectTipoEstancia.id+`" style="max-width: 540px;"> `;
 				    		htmlCode +=` <div class="row no-gutters">`;
 				    			htmlCode += `<div class="col-md-4">`;
 				    					htmlCode +=`<img src="`+datosEstancias[a].imagen+`" class="card-img" alt="...">`;
@@ -152,12 +172,3 @@ function crearFiltro(){
 			  
 		
 	  }
-  
-  	
-  
-  
-  
-  
-  
-  
-}
