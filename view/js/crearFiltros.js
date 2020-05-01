@@ -2,6 +2,8 @@ var htmlCode;
 var usuario;
 var nombreFiltro;
 var datosEstancias;
+var tiposEstancias=[];
+
 
 $(document).ready(function(){
   usuario=localStorage.getItem("usuario");
@@ -37,12 +39,14 @@ function generarEstanciasPrincipales(){
 function crearFiltro(){
   var usuario=localStorage.getItem("usuario");
 
-  htmlCode= `<div class="container">`;
+  htmlCode= `<div class="container Filtros">`;
   htmlCode+= `<br> <input class="form-control" id="myInput" type="text" placeholder="Buscar por ciudad">`;
-  htmlCode+= `<div class="container">`;
+  htmlCode+= `<div class="container selectCities">`;
   
   htmlCode+=`<select class="selectCiudades"> `;
   htmlCode+=`</select> `;
+  htmlCode+= `<div class="container tiposEstanciasFilter"></div>`;
+
 
   
   $("#filtroEstancias").html(htmlCode);
@@ -84,6 +88,38 @@ function crearFiltro(){
 	    		nombreFiltro=$(this).val();
 //	    		alert(nombreFiltro);
 	    		filtroUbicacion(nombreFiltro,datosEstancias);
+	    		
+	    		var tamanio=$(".Lotes > .cardEstancias").length;
+		    	  for(var a=0;a<datosEstancias.length;a++){
+//		    		  alert(parseInt(datosEstancias[a].ubicacion)+"<- ubicacion nombreFiltro ->"+nombreFiltro);
+						if((parseInt(datosEstancias[a].ubicacion))==nombreFiltro){
+
+				    			 
+		    			  //alert("tamaño"+tamanio);
+				    			    
+		    				var posicion=  $.inArray(datosEstancias[a].objectTipoEstancia.tipo,tiposEstancias);
+		    					if(posicion==-1){
+		    						tiposEstancias.push(datosEstancias[a].objectTipoEstancia.tipo);
+		    					}
+				    			  
+						}
+			    	}
+		    	  htmlCode=`<ul id="filtrarTipoEstancia" style="list-style-type: none;">`;
+		    	  for(var a=0;a<tiposEstancias.length;a++){
+
+		    		  htmlCode+=`<li> <div id="valor_`+a+`"> <input style="display: inline-block;text-align: right" type="checkbox" value="`+tiposEstancias[a]+`" id="`+tiposEstancias[a]+`" /><label style="font-size:13px" for="`+tiposEstancias[a]+`">`+tiposEstancias[a]+`</label></div></li>`;
+					console.log("tiposEstancias: "+tiposEstancias);
+		    	  }		 
+		    	  htmlCode+="</ul >";
+
+		    	  $(".tiposEstanciasFilter").html(htmlCode);
+		    	  
+		    	  $(".tiposEstanciasFilter :checkbox").click(function() {
+		    		   $("div").hide();
+		    		   $("#filters :checkbox:checked").each(function() {
+		    		       $("." + $(this).val()).show();
+		    		   });
+		    		});
 	    	});
 	 },
 	    error: function(xhr){
@@ -147,6 +183,8 @@ function filtroUbicacion(nombreFiltro,datosEstancias){
 		    		  $( ".Lotes").css({"display":"none!important"});
 		    		  $( ".Lotes > .cardEstancias").addClass("d-none");
 		    		  $( ".Lotes > .verMasEstancias").addClass("d-none");
+				    	
+		    		 
 		    		  
 		    		  mostrarMas("0");
 		    		  
@@ -158,17 +196,15 @@ function filtroUbicacion(nombreFiltro,datosEstancias){
 			    		  $( ".LoteNumero"+numeroEstancias+" > .cardEstancias").addClass("d-block");
 			    		  $( ".LoteNumero"+numeroEstancias+" > .verMasEstancias").last().addClass("d-block");
 		    		  }
-
 		    		  
 			    	  $( ".verMasEstancias :button").click(function() {
-			    		  
-//			    		  alert(" id: "+ $( this ).parent().attr("id") );
-//			    		  alert(" id Lote: "+ $( this ).parent().parent().attr("id") );
-			    		  
+			    		  			    		  
 			    		  var numeroEstancias=($( this ).parent().parent().attr("id")).split("Numero");
 			    		  numeroEstancias=	(parseInt(numeroEstancias[1]))+1;
 			    		  mostrarMas(numeroEstancias);
 			    		});
+			    	  
+			    	  
 			  
 		
 	  }
