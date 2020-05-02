@@ -86,7 +86,7 @@ function crearFiltro(){
 	    	$(".selectCiudades").html(htmlCode);	
 	    	$(".selectCiudades").on("change", function(){
 		    	  $(".tiposEstanciasFilter").html("");
-
+		    	  tiposEstancias=[];
 	    		nombreFiltro=$(this).val();
 //	    		alert(nombreFiltro);
 	    		filtroUbicacion(nombreFiltro,datosEstancias,"nada");
