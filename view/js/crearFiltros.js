@@ -3,11 +3,11 @@ var usuario;
 var nombreFiltro;
 var datosEstancias;
 var tiposEstancias=[];
-
+var filtroTipoEstancias;
 
 $(document).ready(function(){
   usuario=localStorage.getItem("usuario");
-
+  filtroTipoEstancias="nada";
 
   crearFiltro();
   generarEstanciasPrincipales();
@@ -27,7 +27,7 @@ function generarEstanciasPrincipales(){
 		    success: function(datos){
 		datosEstancias= jQuery.parseJSON(datos.datosEstancias);
 		nombreFiltro=-1;  
-		filtroUbicacion(nombreFiltro,datosEstancias);
+		filtroUbicacion(nombreFiltro,datosEstancias,"nada");
 	    	  
 		 },
 	    error: function(xhr){
@@ -85,9 +85,11 @@ function crearFiltro(){
 	    	
 	    	$(".selectCiudades").html(htmlCode);	
 	    	$(".selectCiudades").on("change", function(){
+		    	  $(".tiposEstanciasFilter").html("");
+
 	    		nombreFiltro=$(this).val();
 //	    		alert(nombreFiltro);
-	    		filtroUbicacion(nombreFiltro,datosEstancias);
+	    		filtroUbicacion(nombreFiltro,datosEstancias,"nada");
 	    		
 	    		var tamanio=$(".Lotes > .cardEstancias").length;
 		    	  for(var a=0;a<datosEstancias.length;a++){
@@ -115,9 +117,14 @@ function crearFiltro(){
 		    	  $(".tiposEstanciasFilter").html(htmlCode);
 		    	  
 		    	  $(".tiposEstanciasFilter :checkbox").click(function() {
-		    		   $("div").hide();
-		    		   $("#filters :checkbox:checked").each(function() {
-		    		       $("." + $(this).val()).show();
+			    	  $(".tiposEstanciasFilter :checkbox:checked").prop("checked", false);
+			    	  $(this).prop("checked", true);
+		    		   $("#filtrarTipoEstancia :checkbox:checked").each(function() {
+		    			   console.log("esto es un checked de "+ $(this).val());
+		    			   filtroTipoEstancias=$(this).val();
+		    			   console.log(filtroTipoEstancias);
+		    			   filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias);
+
 		    		   });
 		    		});
 	    	});
@@ -129,18 +136,22 @@ function crearFiltro(){
 	  
 }
 
-function filtroUbicacion(nombreFiltro,datosEstancias){
+function filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias){
 	  htmlCode =``;
 	  nombreFiltro=parseInt(nombreFiltro);
 	  $("#filtradasEstancias").html("");
-			    	
+	 
 			    	htmlCode ="";
 			    	htmlCode+=`<div id="contenedorEstancias" >`;
 			    	var i=-1;
 			    	var x=-1;
 			    	var z=0;
 				    	for(var a=0;a<datosEstancias.length;a++){
-							if(parseInt(datosEstancias[a].ubicacion)===nombreFiltro || nombreFiltro==-1){
+				    		
+							if(((parseInt(datosEstancias[a].ubicacion)===nombreFiltro || nombreFiltro==-1)&&filtroTipoEstancias==="nada") ||( (filtroTipoEstancias==datosEstancias[a].objectTipoEstancia.tipo && (parseInt(datosEstancias[a].ubicacion)===nombreFiltro || nombreFiltro==-1)))){
+					    		if(filtroTipoEstancias!="nada"){
+									console.log("Tipo estancia: "+datosEstancias[a].objectTipoEstancia.tipo+ " FiltroTipoEstancia: "+filtroTipoEstancias);
+					    		}
 
 								x++; 
 				    	if(x%5===0 && x != 0){
