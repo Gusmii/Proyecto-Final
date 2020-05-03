@@ -4,8 +4,10 @@ var usuario;
 $(document).ready(function(){
   usuario=localStorage.setItem("usuario","normal");
   usuario=localStorage.getItem("usuario");
+
   mostrarCards();
-  
+  signIn();
+
 });
 
 function signIn() {
@@ -21,8 +23,7 @@ function signIn() {
         console.log("PasswordJS: " + password);
        
 		
-        $.ajax({
-			//verify values (user, password and captcha)      	
+        $.ajax({     	
 			data:{'user':user,'password':password}, //Manda las variables 
 			url: "controller/login/cSignIn.php", 
 			method:"POST",
@@ -30,11 +31,11 @@ function signIn() {
 			success: function(result) {
 				console.log(result);
 				
-				if(result.error == "Not error") {  //Si no hay ningun error manda a la vista
-					window.location.href="view/vEquiposVictorias.html";
-				}else if(result.error == "User or password error") {
+				if(result.error == "No hay errores") {  //Si no hay ningun error manda a la vista
+					window.location.href="index.html";
+				}else if(result.error == "El usuario o la contraseña estan mal") {
 					alert(result.error);
-				}else if(result.error == "User or password error") {
+				}else if(result.error == "No se han rellenado todos los campos") {
 					alert(result.error);
 				}
         	},
@@ -42,8 +43,8 @@ function signIn() {
     			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 				
 				//Si hay algun error vacia los inputs
-    			$("#username").val("");
-    			$("#password").val("");
+    			$("#inUser").val("");
+    			$("#inPass").val("");
         	}      	
         });
     });

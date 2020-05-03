@@ -4,8 +4,6 @@ include_once "connect_data.php";
 include_once 'vuelosClass.php';
 include_once 'ciudadesModel.php';
 
-
-
 class vuelosModel extends vuelosClass{
     
     private $link;
@@ -60,19 +58,19 @@ class vuelosModel extends vuelosClass{
         $result = $this->link->query($sql);
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         {
-            $newVuelo =new vuelosModel();
-            $newVuelo->setId($row['id']);
-            $newVuelo->setPrecio($row['precio']);
-            $newVuelo->setUbicacion($row['ubicacion']);
+            
+            $this->setId($row['id']);
+            $this->setPrecio($row['precio']);
+            $this->setUbicacion($row['ubicacion']);
             
             
             $ciudad= new ciudadesModel();
             $ciudad->setId($row['ubicacion']);
             $ciudad->findCiudadById();
-            $newVuelo->setObjectUbicacion($ciudad);
+            $this->setObjectUbicacion($ciudad);
             
             
-            array_push($this->list, $newEstancia);
+            array_push($this->list, $this);
         }
         mysqli_free_result($result);
         $this->CloseConnect();
