@@ -5,18 +5,54 @@ $(document).ready(function(){
   usuario=localStorage.setItem("usuario","normal");
   usuario=localStorage.getItem("usuario");
 
+  $.ajax({
+		// check if somebody is  logged		
+		url: "controller/login/cLoggedVerify.php",
+		dataType: "json",
+
+		success: function (result) {
+			console.log(result);
+
+			if (result.error == "Logged") {  //Si esta logueado muestra los datos en la consola
+				//	console.log("idUserProve: " + result.idUser);
+        //  console.log("usernameProve: " + result.username);
+        alert("estas logueado");
+
+        var htmlzatia= "";
+
+        htmlzatia+='<a class="nav-link" data-toggle="modal" data-target="#modalLogin">ENTRAR</a>';
+      
+        htmlzatia+='<a  id="cerrarSesion" class="nav-link">CERRAR SESION</a>';
+
+        $("#zonaLogin").html(htmlzatia);
+
+        logOut();
+
+    
+			} else {
+        alert("logueate");
+			
+			}
+		},
+		error: function (xhr) {
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+		}
+	});
+
   mostrarCards();
   signIn();
+  signUp();
 
 });
 
+//Login
 function signIn() {
 	//forms values vars	
     $("#signIn").click(function() {	
 
 		//Recoge las variables
-		var user = $("#inUser").val();	
-    var password = $("#inPass").val();
+		var user = $("#usuario").val();	
+    var password = $("#contrasenia").val();
   
         
         console.log("UserJS: " + user);
@@ -50,7 +86,69 @@ function signIn() {
     });
 }
 
+//Register
+function signUp() {
+	//forms values vars	
+    $("#signUp").click(function() {	
 
+		//Recoge las variables
+    var apodo = $("#apodo").val();
+    var nombre = $("#nombre").val();
+    var apellidos = $("#apellidos").val();
+    var dni = $("#dni").val();
+    var correo = $("#correo").val();	
+    var contra = $("#contra").val();
+  
+      
+       
+		
+        $.ajax({     	
+			data:{'apodo':apodo,'nombre':nombre,'apellidos':apellidos,'dni':dni,'correo':correo,'contra':contra}, //Manda las variables 
+			url: "controller/login/cInsertarUsuario.php", 
+			method:"POST",
+			success: function(result) {
+				console.log(result);
+			
+        	},
+           	error: function(xhr) {
+    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+				
+				//Si hay algun error vacia los inputs
+          $("#apodo").val("");
+          $("#nombre").val("");
+          $("#apellidos").val("");
+          $("#dni").val("");
+          $("#correo").val("");
+    			$("#contra").val("");
+        	}      	
+        });
+    });
+}
+
+//Log out
+function logOut() {
+	//forms values vars	
+    $("#cerrarSesion").click(function() {	
+
+       		
+        $.ajax({     	
+			url: "controller/login/cLogout.php",
+			dataType:"json",
+			success: function(result) {
+
+          alert("Estamos cerrando tu sesion");
+          window.location.reload(true);
+
+        	},
+           	error: function(xhr) {
+    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+        	}      	
+        });
+    });
+}
+
+
+//Show Cards
 function mostrarCards(){
 
 //
