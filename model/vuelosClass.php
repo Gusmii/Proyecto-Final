@@ -1,7 +1,7 @@
 <?php
 
 
-class vueloClass{
+class vuelosClass{
     protected $id;
     protected $precio;
     protected $ubicacion;

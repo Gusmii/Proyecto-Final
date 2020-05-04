@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-04-2020 a las 16:26:26
+-- Tiempo de generación: 03-05-2020 a las 17:23:04
 -- Versión del servidor: 10.4.10-MariaDB
 -- Versión de PHP: 7.1.33
 
@@ -79,6 +79,11 @@ select * from tipo_estancias where tipo_estancias.id=pId$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertarUsuario` (IN `_apodo` VARCHAR(255), IN `_nombre` VARCHAR(255), IN `_apellidos` VARCHAR(255), IN `_dni` VARCHAR(255), IN `_correo` VARCHAR(255), IN `_contrasenia` VARCHAR(255), IN `_tipo` INT(11))  NO SQL
 INSERT INTO `usuarios`(`apodo`, `nombre`, `apellidos`, `dni`, `correo`, `contrasenia`, `tipo`) VALUES (_apodo, _nombre, _apellidos, _dni, _correo, _contrasenia, _tipo)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spLogin` (IN `_apodo` VARCHAR(22), IN `_contrasenia` VARCHAR(22))  NO SQL
+BEGIN
+SELECT * FROM usuarios WHERE usuarios.apodo = _apodo AND usuarios.contrasenia = _contrasenia;
+END$$
 
 DELIMITER ;
 
