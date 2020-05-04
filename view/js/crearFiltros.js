@@ -10,47 +10,23 @@ $(document).ready(function(){
   filtroTipoEstancias="nada";
 
   crearFiltro();
-  generarEstanciasPrincipales();
-  $("#myInput").on("keyup", function() {
-	    var value = $(this).val().toLowerCase();
-	    $("#myDIV *").filter(function() {
-	      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-	    });
-	  });
+
 });
 
-function generarEstanciasPrincipales(){
-	$.ajax({
-		  type:"GET",
-		    dataType:"json",
-		    url:"../controller/estancias/cSelectEstancias.php",
-		    success: function(datos){
-		datosEstancias= jQuery.parseJSON(datos.datosEstancias);
-		nombreFiltro=-1;  
-		filtroUbicacion(nombreFiltro,datosEstancias,"nada");
-	    	  
-		 },
-	    error: function(xhr){
-	        alert("An error occured: "+xhr.status+" "+xhr.statusText);
-	    }
-	});
-//	  
-}
+
 function crearFiltro(){
   var usuario=localStorage.getItem("usuario");
 
   htmlCode= `<div class="container Filtros">`;
-  htmlCode+= `<br> <input class="form-control" id="myInput" type="text" placeholder="Buscar por ciudad">`;
   htmlCode+= `<div class="container selectCities">`;
   
   htmlCode+=`<select class="selectCiudades"> `;
   htmlCode+=`</select> `;
   htmlCode+= `<div class="container tiposEstanciasFilter"></div>`;
 
-
   
   $("#filtroEstancias").html(htmlCode);
-  htmlCode="<option hidden selected>Ciudades</option>";
+  htmlCode="<option hidden id='TituloSelect' selected>Ciudades por paises y continentes</option>";
   
   $.ajax({
 	  type:"GET",
@@ -62,54 +38,56 @@ function crearFiltro(){
 	    	datosPaises= jQuery.parseJSON(datos.datosPaises);
 	    	datosContinentes= jQuery.parseJSON(datos.datosContinentes);
 	    	datosEstancias= jQuery.parseJSON(datos.datosEstancias);
-
+	    	
 	    	for(var a=0;a<datosContinentes.length;a++){
-	    		htmlCode+=`<optgroup  label="`+datosContinentes[a].nombre.toUpperCase()+`" style="font-size:24px; color:skyblue">`;
+	    		htmlCode+=`<optgroup class="filtroContinentes"  label="`+datosContinentes[a].nombre.toUpperCase()+`" >`;
 		    	for(var b=0;b<datosPaises.length;b++){
 
 		    		if(datosContinentes[a].id==datosPaises[b].objectContinente.id){
-	    				htmlCode+=`<option disabled value="`+datosPaises[b].id+`" label="`+datosPaises[b].nombre.toUpperCase()+`" style="font-size:18px; color:red"></option>`;
+	    				htmlCode+=`<option disabled class="filtroPaises" value="`+datosPaises[b].id+`" label="`+datosPaises[b].nombre.toUpperCase()+`" ></option>`;
 
-
-			    	for(var c=0;c<datosCiudades.length;c++){
-			    		if(datosPaises[b].id==datosCiudades[c].objectPais.id){
-			    		
-					    	htmlCode+=`<option value="`+datosCiudades[c].id+`" id="`+datosCiudades[c].id+`" style="font-size:15px; color:gray">`+datosCiudades[c].nombre.toUpperCase()+` </option>`;
-					    
-		    			}
+	
+				    	for(var c=0;c<datosCiudades.length;c++){
+				    		if(datosPaises[b].id==datosCiudades[c].objectPais.id){
+				    		
+						    	htmlCode+=`<option class="filtroCiudades" value="`+datosCiudades[c].id+`" id="`+datosCiudades[c].id+`">`+datosCiudades[c].nombre.toUpperCase()+` </option>`;
+						    
+			    			}
+			    		}
 		    		}
 	    		}
-	    		}htmlCode+=` </optgroup>`;
+		    	htmlCode+=` </optgroup>`;
 	    	
-	    }
+	    	}
 	    	
 	    	$(".selectCiudades").html(htmlCode);	
+			   filtroUbicacion("-1",datosEstancias,filtroTipoEstancias);
+	
+	    	$("#TituloSelect").hide();
+	    	
 	    	$(".selectCiudades").on("change", function(){
-		    	  $(".tiposEstanciasFilter").html("");
-		    	  tiposEstancias=[];
-	    		nombreFiltro=$(this).val();
-//	    		alert(nombreFiltro);
-	    		filtroUbicacion(nombreFiltro,datosEstancias,"nada");
-	    		
-	    		var tamanio=$(".Lotes > .cardEstancias").length;
-		    	  for(var a=0;a<datosEstancias.length;a++){
-//		    		  alert(parseInt(datosEstancias[a].ubicacion)+"<- ubicacion nombreFiltro ->"+nombreFiltro);
-						if((parseInt(datosEstancias[a].ubicacion))==nombreFiltro){
-
-				    			 
-		    			  //alert("tamaño"+tamanio);
-				    			    
-		    				var posicion=  $.inArray(datosEstancias[a].objectTipoEstancia.tipo,tiposEstancias);
-		    					if(posicion==-1){
-		    						tiposEstancias.push(datosEstancias[a].objectTipoEstancia.tipo);
-		    					}
+				$(".tiposEstanciasFilter").html("");
+				tiposEstancias=[];
+				nombreFiltro=$(this).val();
+				
+				filtroUbicacion(nombreFiltro,datosEstancias,"nada");
+				
+				var tamanio=$(".Lotes > .cardEstancias").length;
+				for(var a=0;a<datosEstancias.length;a++){
+					
+					if((parseInt(datosEstancias[a].ubicacion))==nombreFiltro){
+	    
+	    				var posicion=  $.inArray(datosEstancias[a].objectTipoEstancia.tipo,tiposEstancias);
+	    					if(posicion==-1){
+	    						tiposEstancias.push(datosEstancias[a].objectTipoEstancia.tipo);
+	    					}
 				    			  
-						}
-			    	}
-		    	  htmlCode=`<ul id="filtrarTipoEstancia" style="list-style-type: none;">`;
+					}
+			    }
+		    	  htmlCode=`<ul id="filtrarTipoEstancia" >`;
 		    	  for(var a=0;a<tiposEstancias.length;a++){
 
-		    		  htmlCode+=`<li> <div id="valor_`+a+`"> <input style="display: inline-block;text-align: right" type="checkbox" value="`+tiposEstancias[a]+`" id="`+tiposEstancias[a]+`" /><label style="font-size:13px" for="`+tiposEstancias[a]+`">`+tiposEstancias[a]+`</label></div></li>`;
+		    		  htmlCode+=`<li> <div id="valor_`+a+`"> <input type="checkbox" value="`+tiposEstancias[a]+`" id="`+tiposEstancias[a]+`" /><label for="`+tiposEstancias[a]+`">`+tiposEstancias[a]+`</label></div></li>`;
 					console.log("tiposEstancias: "+tiposEstancias);
 		    	  }		 
 		    	  htmlCode+="</ul >";
@@ -119,6 +97,7 @@ function crearFiltro(){
 		    	  $(".tiposEstanciasFilter :checkbox").click(function() {
 			    	  $(".tiposEstanciasFilter :checkbox:checked").prop("checked", false);
 			    	  $(this).prop("checked", true);
+
 		    		   $("#filtrarTipoEstancia :checkbox:checked").each(function() {
 		    			   console.log("esto es un checked de "+ $(this).val());
 		    			   filtroTipoEstancias=$(this).val();
@@ -163,10 +142,10 @@ function filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias){
 					        	htmlCode += `<div id="LoteNumero`+i+`" class="Lotes LoteNumero`+i+`">`;
 					        	 
 				    	 }
-				    	 htmlCode +=`<div id="cardEstancias_`+a+`"  class="card mb-3 cardEstancias  tipoEstancia_`+datosEstancias[a].objectTipoEstancia.id+`" style="max-width: 540px;"> `;
+				    	 htmlCode +=`<div id="cardEstancias_`+a+`"  class="card mb-3 cardEstancias  tipoEstancia_`+datosEstancias[a].objectTipoEstancia.id+`"> `;
 				    		htmlCode +=` <div class="row no-gutters">`;
 				    			htmlCode += `<div class="col-md-4">`;
-				    					htmlCode +=`<img src="`+datosEstancias[a].imagen+`" class="card-img" alt="...">`;
+				    					htmlCode +=`<img src="`+datosEstancias[a].imagen+`" class="card-img">`;
 				    			htmlCode +=`</div>`;
 				    		    htmlCode +=`<div class="col-md-8">`;
 				    		      		htmlCode +=`<div class="card-body">`;
