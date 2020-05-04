@@ -1,9 +1,61 @@
-#filtroEstancias{
-	background-color:grey;
+/* Div con filtro, estancias y publicidad*/
+
+#contenidoEstancias{
+	margin-top:10px!important;
+	box-sizing:border-box;
 }
 
-.card {
-        margin: 0 auto; /* Added */
-        float: none; /* Added */
-        margin-bottom: 10px; /* Added */
+/* Fin Div con filtro, estancias y publicidad*/
+
+
+/* Filtro */
+
+.selectCiudades{
+	margin-top:5px;
+	background-color:lightblue;
+  border: 2px solid #0080ff;
+    border-radius: 5px;
+  
 }
+
+#filtrarTipoEstancia {
+	list-style-type: none;
+}
+
+#filtrarTipoEstancia > li > div > input{
+	display: inline-block;
+	text-align: right;
+	width:18px;
+	height:18px;
+}
+
+#filtrarTipoEstancia > li > div > label{
+	font-size:18px;
+}
+.filtroContinentes{
+	font-size:24px; 
+	color:#006bd7;
+}
+
+.filtroPaises{
+		font-size:18px;
+		color:#0080ff;
+}
+
+.filtroCiudades{
+	font-size:15px; 
+	color:gray;
+}
+
+/*Fin Filtro */
+/*Contenido*/
+
+.card {
+        margin: 0 auto; 
+        float: none;
+        margin-bottom: 10px;
+        max-width: 540px;
+}
+
+/*Fin Contenido*/
+
