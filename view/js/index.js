@@ -107,7 +107,9 @@ function signUp() {
 			url: "controller/login/cInsertarUsuario.php", 
 			method:"POST",
 			success: function(result) {
-				console.log(result);
+        console.log(result);
+        
+        window.location.reload();
 			
         	},
            	error: function(xhr) {

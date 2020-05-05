@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-05-2020 a las 17:23:04
+-- Tiempo de generación: 05-05-2020 a las 12:44:55
 -- Versión del servidor: 10.4.10-MariaDB
 -- Versión de PHP: 7.1.33
 
@@ -638,7 +638,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `apodo`, `nombre`, `apellidos`, `dni`, `correo`, `contrasenia`, `tipo`) VALUES
-(1, 'tukeplayer', 'eukene', 'padilla martin', '34236123D', 'esto@gmail.com', '1234', 1);
+(1, 'tukeplayer', 'eukene', 'padilla martin', '34236123D', 'esto@gmail.com', '1234', 1),
+(2, 'Gusmii', 'Asier', 'Gusmano', '7223339T', 'hola@gmail.com', 'Gusmii', 1),
+(3, 'admin', 'admin', 'admin', '73712313T', 'admin@gmail.com', 'admin', 2);
 
 -- --------------------------------------------------------
 
@@ -808,7 +810,7 @@ ALTER TABLE `tipo_usuarios`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `vuelos`
