@@ -142,17 +142,18 @@ function filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias){
 					        	htmlCode += `<div id="LoteNumero`+i+`" class="Lotes LoteNumero`+i+`">`;
 					        	 
 				    	 }
-				    	 htmlCode +=`<div id="cardEstancias_`+a+`"  class="card mb-3 cardEstancias  tipoEstancia_`+datosEstancias[a].objectTipoEstancia.id+`"> `;
-				    		htmlCode +=` <div class="row no-gutters">`;
-				    			htmlCode += `<div class="col-md-4">`;
+				    	 htmlCode +=`<div id="cardEstancias_`+a+`"  class="card mb-3 cardEstancias idEstancia_`+datosEstancias[a].id+`"> `;
+				    		htmlCode +=` <div class="row no-gutters contenidoImagenTexto">`;
+				    			htmlCode += `<div class="col-md-4 contenidoImagen">`;
 				    					htmlCode +=`<img src="`+datosEstancias[a].imagen+`" class="card-img">`;
 				    			htmlCode +=`</div>`;
-				    		    htmlCode +=`<div class="col-md-8">`;
+				    		    htmlCode +=`<div class="col-md-8 contenidoTexto">`;
 				    		      		htmlCode +=`<div class="card-body">`;
-							    		      htmlCode +=`<h5 class="card-title">`+datosEstancias[a].nombre+` / `+datosEstancias[a].objectUbicacion.nombre.toUpperCase()+`</h5>`;
-							    		      htmlCode +=`<p class="card-text"> Tipo de estancia: `+datosEstancias[a].objectTipoEstancia.tipo+`</p>`;
-							    		      htmlCode +=`<p class="card-text">Precio por noche: `+datosEstancias[a].precio+` </p>`;
-							    		      htmlCode +=`<p class="card-text"><small class="text-muted"> Puntuación: `+datosEstancias[a].puntuacion+`</small></p>`;
+							    		      htmlCode +=`<h5 class="card-title nombreEstancia UbicacionEstancia">`+datosEstancias[a].nombre+` / `+datosEstancias[a].objectUbicacion.nombre.toUpperCase()+`</h5>`;
+							    		      htmlCode +=`<p class="card-text tipoEstancia"> Tipo de estancia: `+datosEstancias[a].objectTipoEstancia.tipo+`</p>`;
+							    		      htmlCode +=`<p class="card-text precioEstancia">Precio por noche: `+datosEstancias[a].precio+` </p>`;
+							    		      htmlCode +=`<p class="card-text puntuacionEstancia"><small class="text-muted"> Puntuación: `+datosEstancias[a].puntuacion+`</small></p>`;
+							    		      htmlCode +=`<div id=" idEstancia_`+datosEstancias[a].id+`" class="text-center reservarNoche"><button type="button" class="btn btn-primary active">Reservar una noche</button></div>`;
 							    		htmlCode +=`</div>`;
 			    		        htmlCode +=`</div>`;
 		    		        htmlCode +=`</div>`;
@@ -173,9 +174,7 @@ function filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias){
 		    		  $( ".Lotes").css({"display":"none!important"});
 		    		  $( ".Lotes > .cardEstancias").addClass("d-none");
 		    		  $( ".Lotes > .verMasEstancias").addClass("d-none");
-				    	
-		    		 
-		    		  
+
 		    		  mostrarMas("0");
 		    		  
 		    		  function mostrarMas(numeroEstancias){
@@ -193,6 +192,29 @@ function filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias){
 			    		  numeroEstancias=	(parseInt(numeroEstancias[1]))+1;
 			    		  mostrarMas(numeroEstancias);
 			    		});
+			    	  
+			    	  $( ".card > .contenidoImagenTexto > .contenidoTexto > div > .reservarNoche").click(function() {
+  			    		  
+			    		  var idEstancia=($( this ).attr("id").split(" "));
+			    		  idEstancia=(idEstancia[1]).split("_");
+			    		  idEstancia=idEstancia[1];
+			    		  
+			    		  var precio=$(".idEstancia_"+idEstancia+" > .contenidoImagenTexto > .contenidoTexto > div > .precioEstancia").text().split(": ");
+			    		  console.log(precio[1]);
+			    		  
+			    		  var estorage=localStorage.getItem("estancia_"+idEstancia);
+			    		  console.log("antes: "+estorage);
+			    		  
+			    		  if(estorage==="null"){
+			    			  localStorage.setItem("estancia_"+idEstancia,1);
+
+			    		  }else{
+			    			 var cantidad = localStorage.getItem("estancia_"+idEstancia);
+			    			 cantidad++;
+			    			  localStorage.setItem("estancia_"+idEstancia,cantidad);
+			    		  }
+			    		  console.log("despues: "+localStorage.getItem("estancia_"+idEstancia));
+			    		 });
 			    	  
 			    	  
 			  
