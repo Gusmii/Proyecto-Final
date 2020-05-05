@@ -7,12 +7,50 @@ var filtroTipoEstancias;
 
 $(document).ready(function(){
   usuario=localStorage.getItem("usuario");
+  
   filtroTipoEstancias="nada";
-
+  
   crearFiltro();
-
+  cambiandoTamanioWindow();
+  
+  $(window).resize( function(){
+	  
+	  cambiandoTamanioWindow();
+	  
+  });
 });
 
+function cambiandoTamanioWindow(){
+	 console.log($(window).width());
+	    if ($(window).width() < 1216) {
+		   console.log ("Pequeña") ;
+
+		   $("#contenidoEstancias").removeClass("row");
+//			 $("#contenidoEstancias").addClass("text-center");
+//			 $("#contenidoEstancias").css("display","inline");
+//			 
+			 $("#publicidadEstancias").addClass("margenes");
+			 $("#filtroEstancias").addClass("margenes");
+		  }else {
+			 if (screen.width < 1280) {
+				 
+				   console.log ("Mediana") ;
+					$("#publicidadEstancias").removeClass("margenes");
+					$("#filtroEstancias").removeClass("margenes");
+					$("#contenidoEstancias").addClass("row");
+//					$("#contenidoEstancias").removeClass("");
+
+			 } else {
+					console.log ("Grande") ; 
+					$("#contenidoEstancias").addClass("row");
+					$("#publicidadEstancias").removeClass("margenes");
+					$("#filtroEstancias").removeClass("margenes");
+//					$("#contenidoEstancias").removeClass("");
+
+				}					
+
+			 }
+}
 
 function crearFiltro(){
   var usuario=localStorage.getItem("usuario");
@@ -142,7 +180,7 @@ function filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias){
 					        	htmlCode += `<div id="LoteNumero`+i+`" class="Lotes LoteNumero`+i+`">`;
 					        	 
 				    	 }
-				    	 htmlCode +=`<div id="cardEstancias_`+a+`"  class="card mb-3 cardEstancias idEstancia_`+datosEstancias[a].id+`"> `;
+				    	 htmlCode +=`<div id="cardEstancias_`+a+`"  class="card mb-3 cardEstancias text-center idEstancia_`+datosEstancias[a].id+`"> `;
 				    		htmlCode +=` <div class="row no-gutters contenidoImagenTexto">`;
 				    			htmlCode += `<div class="col-md-4 contenidoImagen">`;
 				    					htmlCode +=`<img src="`+datosEstancias[a].imagen+`" class="card-img">`;
@@ -216,7 +254,5 @@ function filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias){
 			    		  console.log("despues: "+localStorage.getItem("estancia_"+idEstancia));
 			    		 });
 			    	  
-			    	  
-			  
-		
+			    	 
 	  }
