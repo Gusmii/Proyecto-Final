@@ -1,5 +1,6 @@
 var htmlCode;
 var usuario;
+var username;
 
 $(document).ready(function(){
   usuario=localStorage.setItem("usuario","normal");
