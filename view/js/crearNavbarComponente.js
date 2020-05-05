@@ -73,8 +73,8 @@ $(document).ready(function(){
 });
 function crearNavbar(){
   var usuario=localStorage.getItem("usuario");
-  console.log("pagina actual");
- console.log(paginaActual); 
+  //console.log("pagina actual");
+ //console.log(paginaActual); 
  
 if(paginaActual!="HOME"){
 	//Aqui si está en la pagina principal, no se mostrara en el navbar HOME, 
@@ -116,7 +116,7 @@ htmlCode+=`<ul class="navbar-nav mr-auto">`;
     }
 
     htmlCode+= `</ul>
-    <span class="navbar-text">
+    <span id="zonaLogin" class="navbar-text">
         <a class="nav-link" data-toggle="modal" data-target="#modalLogin">ENTRAR</a>
       
         <a class="nav-link" data-toggle="modal" data-target="#modalRegister">REGISTRARSE</a>
