@@ -25,27 +25,38 @@ function cambiandoTamanioWindow(){
 	    if ($(window).width() < 1216) {
 		   console.log ("Pequeña") ;
 
-		   $("#contenidoEstancias").removeClass("row");
-//			 $("#contenidoEstancias").addClass("text-center");
-//			 $("#contenidoEstancias").css("display","inline");
-//			 
 			 $("#publicidadEstancias").addClass("margenes");
+			 $("#publicidadEstancias").addClass("col-12");
+			 $("#publicidadEstancias").removeClass("col-3");
+			 $("#filtroEstancias").addClass("col-12");
+			 $("#filtroEstancias").removeClass("col-3");
+			 $("#filtradasEstancias").addClass("col-12");
+			 $("#filtradasEstancias").removeClass("col-6");
 			 $("#filtroEstancias").addClass("margenes");
 		  }else {
 			 if (screen.width < 1280) {
 				 
 				   console.log ("Mediana") ;
+					 $("#publicidadEstancias").removeClass("col-12");
+					 $("#publicidadEstancias").addClass("col-3");
+					 $("#filtroEstancias").removeClass("col-12");
+					 $("#filtroEstancias").addClass("col-3");
+					 $("#filtradasEstancias").removeClass("col-12");
+					 $("#filtradasEstancias").addClass("col-6");
 					$("#publicidadEstancias").removeClass("margenes");
 					$("#filtroEstancias").removeClass("margenes");
-					$("#contenidoEstancias").addClass("row");
-//					$("#contenidoEstancias").removeClass("");
 
+					
 			 } else {
 					console.log ("Grande") ; 
-					$("#contenidoEstancias").addClass("row");
+					 $("#publicidadEstancias").removeClass("col-12");
+					 $("#publicidadEstancias").addClass("col-3");
+					 $("#filtroEstancias").removeClass("col-12");
+					 $("#filtroEstancias").addClass("col-3");
+					 $("#filtradasEstancias").removeClass("col-12");
+					 $("#filtradasEstancias").addClass("col-6");
 					$("#publicidadEstancias").removeClass("margenes");
 					$("#filtroEstancias").removeClass("margenes");
-//					$("#contenidoEstancias").removeClass("");
 
 				}					
 
