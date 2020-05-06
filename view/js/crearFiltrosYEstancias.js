@@ -80,7 +80,7 @@ function crearFiltro(){
   $.ajax({
 	  type:"GET",
 	    dataType:"json",
-	    url:"../controller/ciudades/cSelectCiudades.php",
+	    url:"../controller/estancias/cSelectEstanciasYSelectCiudades.php",
 	    success: function(datos){
 
 	    	datosCiudades= jQuery.parseJSON(datos.datosCiudades);

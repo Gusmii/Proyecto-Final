@@ -1,0 +1,84 @@
+/* Div con filtro, Vuelos y publicidad*/
+
+#contenidoVuelos{
+	margin-top:10px!important;
+	box-sizing:border-box;
+}
+
+/* Fin Div con filtro, Vuelos y publicidad*/
+
+
+/* Filtro */
+
+.selectCiudades{
+	margin-top:5px;
+	background-color:lightblue;
+  border: 2px solid #0080ff;
+    border-radius: 5px;
+  
+}
+
+#filtrarTipoVuelo {
+	list-style-type: none;
+}
+
+#filtrarTipoVuelo > li > div > input{
+	display: inline-block;
+	text-align: right;
+	width:18px;
+	height:18px;
+}
+
+#filtrarTipoVuelo > li > div > label{
+	font-size:18px;
+}
+.filtroContinentes{
+	font-size:24px; 
+	color:#006bd7;
+}
+
+.filtroPaises{
+		font-size:18px;
+		color:#0080ff;
+}
+
+.filtroCiudades{
+	font-size:15px; 
+	color:gray;
+}
+
+/*Fin Filtro */
+/*Contenido*/
+
+.card {
+        margin: 0 auto; 
+        float: none;
+        margin-bottom: 10px;
+        max-width: 540px;
+}
+
+.cantidadReservarNoche{
+	margin:5px;
+}
+
+.borrarUnaReserva{
+	margin:5px;
+	
+}
+
+/*Fin Contenido*/
+
+/*Publicidad*/
+
+
+#publicidadVuelos> img{ 
+	width:100%;
+}
+
+/*Fin Publicidad*/
+
+.margenes{
+	margin:20px!important;
+}
+
+
