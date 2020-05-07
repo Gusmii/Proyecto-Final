@@ -25,27 +25,38 @@ function cambiandoTamanioWindow(){
 	    if ($(window).width() < 1216) {
 		   console.log ("Pequeña") ;
 
-		   $("#contenidoEstancias").removeClass("row");
-//			 $("#contenidoEstancias").addClass("text-center");
-//			 $("#contenidoEstancias").css("display","inline");
-//			 
 			 $("#publicidadEstancias").addClass("margenes");
+			 $("#publicidadEstancias").addClass("col-12");
+			 $("#publicidadEstancias").removeClass("col-3");
+			 $("#filtroEstancias").addClass("col-12");
+			 $("#filtroEstancias").removeClass("col-3");
+			 $("#filtradasEstancias").addClass("col-12");
+			 $("#filtradasEstancias").removeClass("col-6");
 			 $("#filtroEstancias").addClass("margenes");
 		  }else {
 			 if (screen.width < 1280) {
 				 
 				   console.log ("Mediana") ;
+					 $("#publicidadEstancias").removeClass("col-12");
+					 $("#publicidadEstancias").addClass("col-3");
+					 $("#filtroEstancias").removeClass("col-12");
+					 $("#filtroEstancias").addClass("col-3");
+					 $("#filtradasEstancias").removeClass("col-12");
+					 $("#filtradasEstancias").addClass("col-6");
 					$("#publicidadEstancias").removeClass("margenes");
 					$("#filtroEstancias").removeClass("margenes");
-					$("#contenidoEstancias").addClass("row");
-//					$("#contenidoEstancias").removeClass("");
 
+					
 			 } else {
 					console.log ("Grande") ; 
-					$("#contenidoEstancias").addClass("row");
+					 $("#publicidadEstancias").removeClass("col-12");
+					 $("#publicidadEstancias").addClass("col-3");
+					 $("#filtroEstancias").removeClass("col-12");
+					 $("#filtroEstancias").addClass("col-3");
+					 $("#filtradasEstancias").removeClass("col-12");
+					 $("#filtradasEstancias").addClass("col-6");
 					$("#publicidadEstancias").removeClass("margenes");
 					$("#filtroEstancias").removeClass("margenes");
-//					$("#contenidoEstancias").removeClass("");
 
 				}					
 
@@ -69,7 +80,7 @@ function crearFiltro(){
   $.ajax({
 	  type:"GET",
 	    dataType:"json",
-	    url:"../controller/ciudades/cSelectCiudades.php",
+	    url:"../controller/estancias/cSelectEstanciasYSelectCiudades.php",
 	    success: function(datos){
 
 	    	datosCiudades= jQuery.parseJSON(datos.datosCiudades);
@@ -191,7 +202,21 @@ function filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias){
 							    		      htmlCode +=`<p class="card-text tipoEstancia"> Tipo de estancia: `+datosEstancias[a].objectTipoEstancia.tipo+`</p>`;
 							    		      htmlCode +=`<p class="card-text precioEstancia">Precio por noche: `+datosEstancias[a].precio+` </p>`;
 							    		      htmlCode +=`<p class="card-text puntuacionEstancia"><small class="text-muted"> Puntuación: `+datosEstancias[a].puntuacion+`</small></p>`;
+							    		      var estanciaReservada=localStorage.getItem("estancia_"+datosEstancias[a].id);
+								    		  console.log("antes: "+estanciaReservada);
+								    		  
+								    		  if(estanciaReservada==="null" || estanciaReservada ==null){
+								    			  
+								    		      htmlCode +=`<p id="idEstanciaCantidadReserva_`+datosEstancias[a].id+`" class="card-text cantidadReservarNoche"></p>`;
+								    		      htmlCode +=`<div id="borrarUnaReservaIdEstancia_`+datosEstancias[a].id+`" class="text-center borrarUnaReserva"></div>`;
+
+								    		  }else{
+								    		      htmlCode +=`<p id="idEstanciaCantidadReserva_`+datosEstancias[a].id+`" class="card-text cantidadReservarNoche">Noches reservadas: `+estanciaReservada+`</p>`;
+								    		      htmlCode +=`<div id="borrarUnaReservaIdEstancia_`+datosEstancias[a].id+`" class="text-center borrarUnaReserva"><button type="button" class="btn btn-danger active">Cancelar una noche</button></div>`;
+
+								    		  }
 							    		      htmlCode +=`<div id=" idEstancia_`+datosEstancias[a].id+`" class="text-center reservarNoche"><button type="button" class="btn btn-primary active">Reservar una noche</button></div>`;
+
 							    		htmlCode +=`</div>`;
 			    		        htmlCode +=`</div>`;
 		    		        htmlCode +=`</div>`;
@@ -237,21 +262,51 @@ function filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias){
 			    		  idEstancia=(idEstancia[1]).split("_");
 			    		  idEstancia=idEstancia[1];
 			    		  
-			    		  var precio=$(".idEstancia_"+idEstancia+" > .contenidoImagenTexto > .contenidoTexto > div > .precioEstancia").text().split(": ");
-			    		  console.log(precio[1]);
+//			    		  var precio=$(".idEstancia_"+idEstancia+" > .contenidoImagenTexto > .contenidoTexto > div > .precioEstancia").text().split(": ");
+//			    		  console.log(precio[1]);
 			    		  
-			    		  var estorage=localStorage.getItem("estancia_"+idEstancia);
-			    		  console.log("antes: "+estorage);
+			    		  var estanciaReservada=localStorage.getItem("estancia_"+idEstancia);
+			    		  console.log("antes: "+estanciaReservada);
 			    		  
-			    		  if(estorage==="null"){
+			    		  if(estanciaReservada==="null"  || estanciaReservada ==null){
 			    			  localStorage.setItem("estancia_"+idEstancia,1);
 
 			    		  }else{
-			    			 var cantidad = localStorage.getItem("estancia_"+idEstancia);
-			    			 cantidad++;
-			    			  localStorage.setItem("estancia_"+idEstancia,cantidad);
+			    			  estanciaReservada++;
+			    			  localStorage.setItem("estancia_"+idEstancia,estanciaReservada);
 			    		  }
-			    		  console.log("despues: "+localStorage.getItem("estancia_"+idEstancia));
+			    		  var estanciaReservada=localStorage.getItem("estancia_"+idEstancia);
+  
+			    		  $("#idEstanciaCantidadReserva_"+idEstancia).html("Noches reservadas: "+estanciaReservada);
+			    		  $("#borrarUnaReservaIdEstancia_"+idEstancia).html(`<button type="button" class="btn btn-danger active">Cancelar una noche</button>`);
+			    		 });
+
+			    	  $( ".card > .contenidoImagenTexto > .contenidoTexto > div > .borrarUnaReserva").click(function() {
+  			    		  
+			    		  var idEstancia=($( this ).attr("id").split("_"));
+			    		  idEstancia=idEstancia[1];
+			    		  
+			    		  var estanciaReservada=localStorage.getItem("estancia_"+idEstancia);
+			    		  console.log("antes: "+estanciaReservada);
+			    		  
+			    		  if((estanciaReservada!="null"  || estanciaReservada != null )&& estanciaReservada !=1){
+
+			    			 estanciaReservada--;
+			    			 
+			    			 localStorage.setItem("estancia_"+idEstancia,estanciaReservada);
+			    			  
+			    			 $("#idEstanciaCantidadReserva_"+idEstancia).html("Noches reservadas: "+estanciaReservada);
+			    			  
+			    		  }else if(estanciaReservada==1 ){
+			    			  
+			    			 localStorage.removeItem("estancia_"+idEstancia);
+			    			 $("#idEstanciaCantidadReserva_"+idEstancia).html("");
+			    			 $("#borrarUnaReservaIdEstancia_"+idEstancia).html("");
+			    		  }
+			    		
+			    		  
+			    		  
+			    		  
 			    		 });
 			    	  
 			    	 
