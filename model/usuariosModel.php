@@ -49,7 +49,8 @@ class usuariosModel extends usuariosClass{
             
          //   if(password_verify($this->getContrasenia(), $passwordEncripted)) { //Si la contraseña encriptada es igual que la introduciad en el imput
 
-                    $this->setId($row['id']); //Setea el idUser de este usuario para tener la id con la que identificarlo
+                    $this->setId($row['id']);
+                    $this->setTipo($row['tipo']); //Setea el idUser de este usuario para tener la id con la que identificarlo
                     $userExists=true; //Si esta todo bien devuelve true
 
                   

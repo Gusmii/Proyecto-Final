@@ -20,11 +20,11 @@ if(($username != null) && ($password != null)) {  //Mira a ver si estan vacios
         
         $_SESSION['idUser']=$user->getId();
         $_SESSION['username']=$username;
-        $_SESSION['type']=$user->getTipo();
+        $_SESSION['tipo']=$user->getTipo();
         
         $response['idUser']=$_SESSION['idUser'];
         $response['username']=$_SESSION['username'];
-        $response['type']=$_SESSION['type'];
+        $response['tipo']=$_SESSION['tipo'];
         $response['error']="No hay errores";            
     }else {        
         //usuario o contraseña incorrecto

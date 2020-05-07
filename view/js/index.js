@@ -10,7 +10,6 @@ $(document).ready(function(){
 		// check if somebody is  logged		
 		url: "controller/login/cLoggedVerify.php",
 		dataType: "json",
-
 		success: function (result) {
 			console.log(result);
 
@@ -21,7 +20,7 @@ $(document).ready(function(){
 
         var htmlzatia= "";
 
-        htmlzatia+='<a class="nav-link" data-toggle="modal" data-target="#modalLogin">ENTRAR</a>';
+       // htmlzatia+='<a class="nav-link" data-toggle="modal" data-target="#modalLogin">ENTRAR</a>';
       
         htmlzatia+='<a  id="cerrarSesion" class="nav-link">CERRAR SESION</a>';
 
