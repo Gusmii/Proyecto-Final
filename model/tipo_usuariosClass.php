@@ -1,7 +1,7 @@
 <?php
 
 
-class tipo_estanciasClass{
+class tipo_usuariosClass{
     protected $id;
     protected $tipo;
 

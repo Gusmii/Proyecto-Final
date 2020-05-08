@@ -2,6 +2,7 @@
 
 include_once "connect_data.php";
 include_once 'usuariosClass.php';
+include_once 'tipo_usuariosModel.php';
 
 
 class usuariosModel extends usuariosClass{
@@ -9,6 +10,25 @@ class usuariosModel extends usuariosClass{
     private $link;
     private $list=array();
     
+    private $objectTipoUsuario;
+    
+    
+    
+    /**
+     * @param mixed $objectTipoUsuario
+     */
+    public function setObjectTipoUsuario($objectTipoUsuario)
+    {
+        $this->objectTipoUsuario = $objectTipoUsuario;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getObjectTipoUsuario()
+    {
+        return $this->objectTipoUsuario;
+    }
 
     
     public function OpenConnect()
@@ -86,6 +106,81 @@ class usuariosModel extends usuariosClass{
         }
         mysqli_free_result($result);
         $this->CloseConnect();
+    }
+    
+    function setListUsuarios()  // fill country : $this->list
+    {
+        $this->OpenConnect();
+        $sql="call spAllUsuarios()";
+        
+        $result = $this->link->query($sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {
+            $newUsuario=new UsuariosModel();
+            $newUsuario->setId($row['id']);
+            $newUsuario->setApodo($row['apodo']);
+            $newUsuario->setNombre($row['nombre']);
+            $newUsuario->setApellidos($row['apellidos']);
+            $newUsuario->setDni($row['dni']);
+            $newUsuario->setCorreo($row['correo']);
+            $newUsuario->setContrasenia($row['contrasenia']);
+            $newUsuario->setTipo($row['tipo']);
+            
+            $tipoUsuario= new tipo_usuariosModel();
+            $tipoUsuario->setId($row['tipo']);
+            $tipoUsuario->findTipoUsuarioById();
+            $newUsuario->setObjectTipoUsuario($tipoUsuario);
+            
+            
+            array_push($this->list, $newUsuario);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
+    
+    public function findUsuarioById() {
+        $this->OpenConnect();
+        $id=$this->id;
+        $sql = "CALL spFindUsuarioById($id)";
+        $result= $this->link->query($sql);
+        
+        if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {
+            $this->setId($row['id']);
+            $this->setApodo($row['apodo']);
+            $this->setNombre($row['nombre']);
+            $this->setApellidos($row['apellidos']);
+            $this->setDni($row['dni']);
+            $this->setCorreo($row['correo']);
+            $this->setContrasenia($row['contrasenia']);
+            $this->setTipo($row['tipo']);
+            
+            $tipoUsuario= new tipo_usuariosModel();
+            $tipoUsuario->setId($row['tipo']);
+            $tipoUsuario->findTipoUsuarioById();
+            $this->setObjectTipoUsuario($tipoUsuario);
+            
+            
+            array_push($this->list, $this);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
+    function getListUsuariosJson() {
+        // returns the list of objects in a srting with JSON format
+        $arr=array();
+        
+        foreach ($this->list as $object) {
+            $vars = $object->getObjectVars();
+            
+            $objTipoUsuario=$object->getObjectTipoUsuario()->getObjectVars();
+            $vars['objectTipoUsuario']=$objTipoUsuario;
+            
+            array_push($arr, $vars);
+        }
+        return json_encode($arr);
     }
 
 }

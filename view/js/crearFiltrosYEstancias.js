@@ -87,7 +87,7 @@ function crearFiltro(){
 	    	datosPaises= jQuery.parseJSON(datos.datosPaises);
 	    	datosContinentes= jQuery.parseJSON(datos.datosContinentes);
 	    	datosEstancias= jQuery.parseJSON(datos.datosEstancias);
-	    	
+
 	    	for(var a=0;a<datosContinentes.length;a++){
 	    		htmlCode+=`<optgroup class="filtroContinentes"  label="`+datosContinentes[a].nombre.toUpperCase()+`" >`;
 		    	for(var b=0;b<datosPaises.length;b++){

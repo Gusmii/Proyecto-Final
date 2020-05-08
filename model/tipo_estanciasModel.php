@@ -8,41 +8,8 @@ class tipo_estanciasModel extends tipo_estanciasClass{
     
     private $link;
     private $list=array();
-    
-    private $objectPais;
-    private $objectContinente;
-    
-    /**
-     * @return mixed
-     */
-    public function getObjectPais()
-    {
-        return $this->objectPais;
-    }
-    
-    /**
-     * @return mixed
-     */
-    public function getObjectContinente()
-    {
-        return $this->objectContinente;
-    }
-    
-    /**
-     * @param mixed $objectPais
-     */
-    public function setObjectPais($objectPais)
-    {
-        $this->objectPais = $objectPais;
-    }
-    
-    /**
-     * @param mixed $objectContinente
-     */
-    public function setObjectContinente($objectContinente)
-    {
-        $this->objectContinente = $objectContinente;
-    }
+ 
+   
     public function getList()
     {
         return $this->list;

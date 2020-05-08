@@ -142,6 +142,37 @@ class estanciasModel extends estanciasClass{
         $this->CloseConnect();
     }
     
+    public function findEstanciaById() {
+        $this->OpenConnect();
+        $id=$this->id;
+        $sql = "CALL spFindEstanciaById($id)";
+        $result= $this->link->query($sql);
+        
+        if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {
+            $newEstancia=new estanciasModel();
+            $newEstancia->setId($row['id']);
+            $newEstancia->setNombre($row['nombre']);
+            $newEstancia->setPrecio($row['precio']);
+            $newEstancia->setPuntuacion($row['puntuacion']);
+            $newEstancia->setImagen($row['imagen']);
+            $newEstancia->setUbicacion($row['ubicacion']);
+            $newEstancia->setTipo($row['tipo']);
+            
+            
+            $ciudad= new ciudadesModel();
+            $ciudad->setId($row['ubicacion']);
+            $ciudad->findCiudadById();
+            $newEstancia->setObjectUbicacion($ciudad);
+            
+            $tipo= new tipo_estanciasModel();
+            $tipo->setId($row['tipo']);
+            $tipo->findTipoById();
+            $newEstancia->setObjectTipoEstancia($tipo);
+            
+            array_push($this->list, $newEstancia);
+        }
+    }
     function getListEstanciasJson() {
         // returns the list of objects in a srting with JSON format
         $arr=array();
