@@ -17,11 +17,13 @@ $(document).ready(function(){
 				//	console.log("idUserProve: " + result.idUser);
         //  console.log("usernameProve: " + result.username);
         alert("estas logueado");
+        username = result.username;
 
         var htmlzatia= "";
 
        // htmlzatia+='<a class="nav-link" data-toggle="modal" data-target="#modalLogin">ENTRAR</a>';
       
+        htmlzatia+='<a>'+username+'</a>';
         htmlzatia+='<a  id="cerrarSesion" class="nav-link">CERRAR SESION</a>';
 
         $("#zonaLogin").html(htmlzatia);
