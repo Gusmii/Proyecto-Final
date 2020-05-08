@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-05-2020 a las 12:44:55
--- Versión del servidor: 10.4.10-MariaDB
--- Versión de PHP: 7.1.33
+-- Tiempo de generación: 08-05-2020 a las 12:07:55
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -71,11 +71,26 @@ select * from ciudades where ciudades.id=pId$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindContinenteById` (IN `pId` INT)  NO SQL
 select * from continentes where continentes.id=pId$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindEstanciaById` (IN `pId` INT)  NO SQL
+select * from estancias where estancias.id=pId$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindPaisById` (IN `pId` INT)  NO SQL
 select * from paises where paises.id=pId$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindReservaById` (IN `pId` INT)  NO SQL
+select * from reservas where reservas.id=pId$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindTipoById` (IN `pId` INT)  NO SQL
 select * from tipo_estancias where tipo_estancias.id=pId$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindTipoUsuarioById` (IN `pId` INT)  NO SQL
+select * from tipo_usuarios where tipo_usuarios.id=pId$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindUsuarioById` (IN `pId` INT)  NO SQL
+select * from usuarios where usuarios.id=pId$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindVueloById` (IN `pId` INT)  NO SQL
+select * from vuelos where vuelos.id=pId$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertarUsuario` (IN `_apodo` VARCHAR(255), IN `_nombre` VARCHAR(255), IN `_apellidos` VARCHAR(255), IN `_dni` VARCHAR(255), IN `_correo` VARCHAR(255), IN `_contrasenia` VARCHAR(255), IN `_tipo` INT(11))  NO SQL
 INSERT INTO `usuarios`(`apodo`, `nombre`, `apellidos`, `dni`, `correo`, `contrasenia`, `tipo`) VALUES (_apodo, _nombre, _apellidos, _dni, _correo, _contrasenia, _tipo)$$
@@ -810,7 +825,7 @@ ALTER TABLE `tipo_usuarios`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `vuelos`
@@ -867,12 +882,6 @@ ALTER TABLE `reservas_viajes`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`tipo`) REFERENCES `tipo_usuarios` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `vuelos`
---
-ALTER TABLE `vuelos`
-  ADD CONSTRAINT `vuelos_ibfk_1` FOREIGN KEY (`ubicacion`) REFERENCES `ciudades` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
