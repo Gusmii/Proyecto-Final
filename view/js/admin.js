@@ -1,6 +1,6 @@
 $(document).ready(function(){
    
-  
+
 showSelected();
   
   });
@@ -48,6 +48,8 @@ showSelected();
   	    			  var val=value.replace("object","");
   	  	    		  htmlCodeCabeceraObject+=`<th scope="col">`+val+``;
 
+  	    		  }else if (value==="tipo"||value==="ubicacion" || value==="id_usuario" || value.startsWith("codigo")){
+  	    			  
   	    		  }else{
   	    			htmlCodeCabecera+=`<th scope="col">`+value+`</th>`;
   	    		  }
@@ -105,7 +107,9 @@ showSelected();
     	      	    		});
     	      	    	}
 	    	      	  	
-    	    		  }else{
+    	    		  }else if (value==="tipo" || value==="ubicacion" || value==="id_usuario" || value.startsWith("codigo")){
+      	    			  
+      	    		  }else{
     	    			  //si el atributo al que accede no tiene mas atributos dentro vendra a este else
     	    			  if(data.startsWith("http")){
 		    	    			 htmlCodeCuerpo+=`<td scope="col"><img class="imagenesTablaAdmin" src="`+data+`"></td>`;
