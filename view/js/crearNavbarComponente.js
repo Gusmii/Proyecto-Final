@@ -114,7 +114,7 @@ htmlCode+=`<ul class="navbar-nav mr-auto">`;
       }        
       htmlCode+=`</li>`;
     }
-
+    
     htmlCode+= `</ul>
     <span id="zonaLogin" class="navbar-text">
         <a class="nav-link" data-toggle="modal" data-target="#modalLogin">ENTRAR</a>

@@ -85,18 +85,18 @@ class reservasModel extends reservasClass{
         
         if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         {
-            $newReserva=new reservasModel();
-            $newReserva->setId($row['id']);
-            $newReserva->setFecha_inicio($row['fecha_inicio']);
-            $newReserva->setFecha_fin($row['fecha_fin']);
-            $newReserva->setId_usuario($row['id_usuario']);
+            
+            $this->setId($row['id']);
+            $this->setFecha_inicio($row['fecha_inicio']);
+            $this->setFecha_fin($row['fecha_fin']);
+            $this->setId_usuario($row['id_usuario']);
             
             $usuario= new usuariosModel();
             $usuario->setId($row['id_usuario']);
             $usuario->findUsuarioById();
-            $newReserva->setObjectUsuario($usuario);
+            $this->setObjectUsuario($usuario);
             
-            array_push($this->list, $newReserva);
+            array_push($this->list, $this);
         }
         mysqli_free_result($result);
         $this->CloseConnect();

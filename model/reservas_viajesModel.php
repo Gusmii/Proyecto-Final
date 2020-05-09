@@ -70,10 +70,10 @@ class reservas_viajesModel extends reservas_viajesClass{
         {
             $newVuelo=new reservas_viajesModel();
             $newVuelo->setId_reserva($row['id_reserva']);
-            $newVuelo->setId_vuelo($row['id_vuelo']);
+            $newVuelo->setId_viaje($row['id_viaje']);
             
             $vuelo= new vuelosModel();
-            $vuelo->setId($row['id_vuelo']);
+            $vuelo->setId($row['id_viaje']);
             $vuelo->findVueloById();
             $newVuelo->setObjectVuelo($vuelo);
             

@@ -70,6 +70,9 @@ function signIn() {
 				console.log(result);
 				
 				if(result.error == "No hay errores") {  //Si no hay ningun error manda a la vista
+					localStorage.setItem("apodo",result.username);
+					localStorage.setItem("apodo",result.username);
+					localStorage.setItem("apodo",result.username);
 					window.location.href="index.html";
 				}else if(result.error == "El usuario o la contraseña estan mal") {
 					alert(result.error);

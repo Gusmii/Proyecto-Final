@@ -2,9 +2,7 @@
 
 include_once '../../model/reservas_estanciasModel.php';
 include_once '../../model/reservas_viajesModel.php';
-include_once '../../model/usuariosModel.php';
 include_once '../../model/reservasModel.php';
-include_once '../../model/usuariosModel.php';
 
 
 $cVuelos=new reservas_viajesModel();
@@ -20,12 +18,6 @@ $cReservas->setListReservas();
 $listReservasJson=$cReservas->getListReservasJson();
 
 
-$cUsuarios=new usuariosModel();
-
-$cUsuarios->setListUsuarios();
-
-$listUsuariosJson=$cUsuarios->getListUsuariosJson();
-
 
 $cEstancias=new reservas_estanciasModel();
 
@@ -34,6 +26,6 @@ $cEstancias->setListReservas_estancias();
 $listReservas_estanciasJson=$cEstancias->getListReservas_estanciasJson();
 
 
-$resultados=array("datosSeleccionados"=>$listReservasJson,"datosUsuarios"=>$listUsuariosJson,"datosReservas_estancias" => $listReservas_estanciasJson,"datosReservas_viajes" => $listReservas_viajesJson);
+$resultados=array("datosSeleccionados"=>$listReservasJson,"datosReservas_estancias" => $listReservas_estanciasJson,"datosReservas_viajes" => $listReservas_viajesJson);
 echo json_encode($resultados);
 

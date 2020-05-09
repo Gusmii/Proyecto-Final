@@ -84,19 +84,18 @@ class vuelosModel extends vuelosClass{
         
         if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         {
-            $newVuelo=new vuelosModel();
-            $newVuelo->setId($row['id']);
-            $newVuelo->setPrecio($row['precio']);
-            $newVuelo->setUbicacion($row['ubicacion']);
+            $this->setId($row['id']);
+            $this->setPrecio($row['precio']);
+            $this->setUbicacion($row['ubicacion']);
             
             
             $ciudad= new ciudadesModel();
             $ciudad->setId($row['ubicacion']);
             $ciudad->findCiudadById();
-            $newVuelo->setObjectUbicacion($ciudad);
+            $this->setObjectUbicacion($ciudad);
             
             
-            array_push($this->list, $newVuelo);
+            array_push($this->list, $this);
         }
         mysqli_free_result($result);
         $this->CloseConnect();

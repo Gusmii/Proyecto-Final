@@ -1,7 +1,12 @@
 #tablasVistaAdmin{
 	margin-top:20px!important;
  } 
-
+#tablasVistaAdmin>table>tbody>tr>td>button{
+	margin:4px!important;
+}
+.button-box{
+ text-align:center;
+ }
 #contenidoAdmin{
 	box-sizing:border-box;
 }
