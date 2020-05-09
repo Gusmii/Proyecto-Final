@@ -12,6 +12,7 @@ $(document).ready(function(){
   usuario=localStorage.setItem("usuario","normal");
   usuario=localStorage.getItem("usuario");
 
+  
   titulo=window.location.pathname.split("/");
   
   paginas=["HOME","VIAJES","ESTANCIAS","ADMIN","QUIENESSOMOS"];
@@ -69,6 +70,9 @@ $(document).ready(function(){
     });
   }
    crearNavbar();
+   logOut();
+   logOutVistas();
+
   
 });
 function crearNavbar(){
@@ -114,13 +118,99 @@ htmlCode+=`<ul class="navbar-nav mr-auto">`;
       }        
       htmlCode+=`</li>`;
     }
-    
+    if(localStorage.getItem("apodo") == null && tituloPaginaActual != "vViajes.html" && tituloPaginaActual != "vQuienesSomos.html" && tituloPaginaActual != "vEstancias.html" && tituloPaginaActual != "vAdmin.html"){
+      
     htmlCode+= `</ul>
     <span id="zonaLogin" class="navbar-text">
         <a class="nav-link" data-toggle="modal" data-target="#modalLogin">ENTRAR</a>
       
         <a class="nav-link" data-toggle="modal" data-target="#modalRegister">REGISTRARSE</a>
     </span>`;
+  }
+
+  if(localStorage.getItem("apodo") != null && tituloPaginaActual == "index.html"){
+      
+    htmlCode+= `</ul>
+    <span id="zonaLogin" class="navbar-text">
+        <a class="nav-link">`+localStorage.getItem("apodo")+`</a>
+
+        <a class="nav-link" id="reservasIndex" href="index.html"> Reservas</a>
+      
+        <a class="nav-link" id="cerrarSesion">CERRAR SESION</a>
+    </span>`;
+  }
+
+  if(localStorage.getItem("apodo") != null && tituloPaginaActual != "index.html"){
+      
+    htmlCode+= `</ul>
+    <span id="zonaLogin" class="navbar-text">
+        <a class="nav-link">`+localStorage.getItem("apodo")+`</a>
+
+        <a class="nav-link" id="reservasIndex" href="../index.html"> Reservas</a>
+      
+        <a class="nav-link" id="cerrarSesion">CERRAR SESION</a>
+    </span>`;
+  }
   $("#NavbarComponente").html(htmlCode);
   
+}
+
+//Log out index
+function logOut() {
+	//forms values vars	
+    $("#cerrarSesion").click(function() {	
+
+       		
+        $.ajax({     	
+			url: "controller/login/cLogout.php",
+			dataType:"json",
+			success: function(result) {
+        
+          alert("Estamos cerrando tu sesion");
+          localStorage.removeItem("idUser");
+          localStorage.removeItem("apodo");
+          localStorage.removeItem("tipo");
+          window.location.reload(true);
+
+        	},
+           	error: function(xhr) {
+    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+        	}      	
+        });
+    });
+}
+
+//Log out vistas
+function logOutVistas() {
+	//forms values vars	
+    $("#cerrarSesion").click(function() {	
+
+       		
+        $.ajax({     	
+			url: "../controller/login/cLogout.php",
+			dataType:"json",
+			success: function(result) {
+        
+          alert("Estamos cerrando tu sesion");
+          localStorage.removeItem("idUser");
+          localStorage.removeItem("apodo");
+          localStorage.removeItem("tipo");
+          window.location.reload(true);
+
+        	},
+           	error: function(xhr) {
+    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+        	}      	
+        });
+    });
+}
+
+//Show Reservas
+function ShowReservas() {
+
+    $("#reservasIndex").click(function() {	
+
+      $("#ContenidoIndex").html();
+      
+    });
 }

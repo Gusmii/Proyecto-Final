@@ -1,6 +1,5 @@
 var htmlCode;
 var usuario;
-var username;
 
 $(document).ready(function(){
   usuario=localStorage.setItem("usuario","normal");
@@ -13,27 +12,14 @@ $(document).ready(function(){
 		success: function (result) {
 			console.log(result);
 
-			if (result.error == "Logged") {  //Si esta logueado muestra los datos en la consola
-				//	console.log("idUserProve: " + result.idUser);
-        //  console.log("usernameProve: " + result.username);
+      if (result.error == "Logged") {  //Si esta logueado muestra los datos en la consola
+        
         alert("estas logueado");
-        username = result.username;
-
-        var htmlzatia= "";
-
-       // htmlzatia+='<a class="nav-link" data-toggle="modal" data-target="#modalLogin">ENTRAR</a>';
       
-        htmlzatia+='<a>'+username+'</a>';
-        htmlzatia+='<a  id="cerrarSesion" class="nav-link">CERRAR SESION</a>';
+        
 
-        $("#zonaLogin").html(htmlzatia);
-
-        logOut();
-
-    
 			} else {
-        alert("logueate");
-			
+        alert("logueate");		
 			}
 		},
 		error: function (xhr) {
@@ -70,9 +56,9 @@ function signIn() {
 				console.log(result);
 				
 				if(result.error == "No hay errores") {  //Si no hay ningun error manda a la vista
+					localStorage.setItem("idUser",result.idUser);
 					localStorage.setItem("apodo",result.username);
-					localStorage.setItem("apodo",result.username);
-					localStorage.setItem("apodo",result.username);
+					localStorage.setItem("tipo",result.tipo);
 					window.location.href="index.html";
 				}else if(result.error == "El usuario o la contraseña estan mal") {
 					alert(result.error);
@@ -132,27 +118,6 @@ function signUp() {
     });
 }
 
-//Log out
-function logOut() {
-	//forms values vars	
-    $("#cerrarSesion").click(function() {	
-
-       		
-        $.ajax({     	
-			url: "controller/login/cLogout.php",
-			dataType:"json",
-			success: function(result) {
-
-          alert("Estamos cerrando tu sesion");
-          window.location.reload(true);
-
-        	},
-           	error: function(xhr) {
-    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
-        	}      	
-        });
-    });
-}
 
 
 //Show Cards
