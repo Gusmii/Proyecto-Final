@@ -1,8 +1,5 @@
 <?php
 
-include_once '../../model/ciudadesModel.php';
-include_once '../../model/paisesModel.php';
-include_once '../../model/continentesModel.php';
 include_once '../../model/estanciasModel.php';
 
 

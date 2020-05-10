@@ -150,27 +150,27 @@ class estanciasModel extends estanciasClass{
         
         if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         {
-            $newEstancia=new estanciasModel();
-            $newEstancia->setId($row['id']);
-            $newEstancia->setNombre($row['nombre']);
-            $newEstancia->setPrecio($row['precio']);
-            $newEstancia->setPuntuacion($row['puntuacion']);
-            $newEstancia->setImagen($row['imagen']);
-            $newEstancia->setUbicacion($row['ubicacion']);
-            $newEstancia->setTipo($row['tipo']);
+            
+            $this->setId($row['id']);
+            $this->setNombre($row['nombre']);
+            $this->setPrecio($row['precio']);
+            $this->setPuntuacion($row['puntuacion']);
+            $this->setImagen($row['imagen']);
+            $this->setUbicacion($row['ubicacion']);
+            $this->setTipo($row['tipo']);
             
             
             $ciudad= new ciudadesModel();
             $ciudad->setId($row['ubicacion']);
             $ciudad->findCiudadById();
-            $newEstancia->setObjectUbicacion($ciudad);
+            $this->setObjectUbicacion($ciudad);
             
             $tipo= new tipo_estanciasModel();
             $tipo->setId($row['tipo']);
             $tipo->findTipoById();
-            $newEstancia->setObjectTipoEstancia($tipo);
+            $this->setObjectTipoEstancia($tipo);
             
-            array_push($this->list, $newEstancia);
+            array_push($this->list, $this);
         }
     }
     function getListEstanciasJson() {
