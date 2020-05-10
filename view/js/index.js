@@ -27,11 +27,49 @@ $(document).ready(function(){
 		}
 	});
 
-  mostrarCards();
+  var verReservas = localStorage.getItem("verReservas");
+
+  console.log(verReservas);
+
+  if(verReservas === "true"){
+
+     ShowReservas();
+
+  }else{
+    mostrarCards();
+  }
+  
   signIn();
+  
   signUp();
 
 });
+
+//Show Reservas
+function ShowReservas() {
+
+  $("#reservasIndex").click(function() {	
+
+    alert("hola");
+    
+    localStorage.setItem("verReservas",true);  
+  });
+
+  var htmlzatia="";
+
+  htmlzatia+= '<a id="volverIndex">Volver al inicio</a>';
+
+
+
+  $("#ContenidoIndex").html(htmlzatia);
+
+  $("#volverIndex").click(function(){
+
+    localStorage.setItem("verReservas",false);  
+    window.location.href="index.html";
+  });
+
+}
 
 //Login
 function signIn() {
@@ -58,7 +96,8 @@ function signIn() {
 				if(result.error == "No hay errores") {  //Si no hay ningun error manda a la vista
 					localStorage.setItem("idUser",result.idUser);
 					localStorage.setItem("apodo",result.username);
-					localStorage.setItem("tipo",result.tipo);
+          localStorage.setItem("tipo",result.tipo);
+          localStorage.setItem("verReservas",false);
 					window.location.href="index.html";
 				}else if(result.error == "El usuario o la contraseña estan mal") {
 					alert(result.error);
