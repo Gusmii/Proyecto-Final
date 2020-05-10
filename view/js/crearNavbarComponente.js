@@ -72,6 +72,7 @@ $(document).ready(function(){
    crearNavbar();
    logOut();
    logOutVistas();
+   ShowReservas();
 
   
 });
@@ -167,6 +168,7 @@ function logOut() {
 			success: function(result) {
         
           alert("Estamos cerrando tu sesion");
+          localStorage.setItem("verReservas",false);
           localStorage.removeItem("idUser");
           localStorage.removeItem("apodo");
           localStorage.removeItem("tipo");
@@ -205,12 +207,3 @@ function logOutVistas() {
     });
 }
 
-//Show Reservas
-function ShowReservas() {
-
-    $("#reservasIndex").click(function() {	
-
-      $("#ContenidoIndex").html();
-      
-    });
-}
