@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-05-2020 a las 12:07:55
--- Versión del servidor: 10.1.36-MariaDB
--- Versión de PHP: 7.2.11
+-- Tiempo de generación: 10-05-2020 a las 13:52:59
+-- Versión del servidor: 10.4.10-MariaDB
+-- Versión de PHP: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -215,7 +215,7 @@ INSERT INTO `estancias` (`id`, `nombre`, `tipo`, `precio`, `ubicacion`, `puntuac
 (4, 'Hotel Adriatico', 1, 63, 1, 8.4, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/32227079.webp?k=d613d50e4c258bd395a556f58bd814b720e4255281d005f0b2b0eba37c15eec7&o='),
 (5, 'YOUTH VENICE PALACE', 3, 39, 1, 7.9, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/37915733.jpg?k=f5ac75afff0fc5f888d974ef3cbad84f48341d5a462c3e8032d6c379fe045242&o='),
 (6, 'Combo Venezia', 3, 37, 1, 9, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/203596117.jpg?k=e6273e823de27cd8aa1b0f1a5ff15ee84bd3e27a1b2443eed299816cbf8899ae&o='),
-(7, 'Residenza Universitaria Gesuiti', 3, 43, 1, 7.5, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/51584810.jpg?k=5e18a3daede36565fc66dbfdf1e8e876f1edb60bf311e3ea3a8c9055aafc71ce&o='),
+(7, 'Residenza Universitaria Gesuiti', 3, 43, 1, 7.5, 'https://q-cf.bstatic.com/images/hotel/max1024x768/249/249672276.jpg'),
 (8, 'B&B Bloom Settimo Cielo ', 2, 139, 1, 9.2, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/82011244.jpg?k=af0ef43af50475def23ab6506b2fbca6bcbc9a24a22455aa3c47d8bb6a674adc&o='),
 (9, 'Hotel Messner', 2, 35, 1, 6.9, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/134331174.jpg?k=fc5b2a21a635745c3bf6ed5cf63d4ece7ea0ec31410d43e9b3f3f93917e297d7&o='),
 (10, 'Antico Panada', 2, 68, 1, 7.8, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/23869016.jpg?k=839397ffe3df0ec333aa45bcdb0bea8c823e6dd2cf1556e1ed78b55e478804bc&o='),
@@ -293,7 +293,7 @@ INSERT INTO `estancias` (`id`, `nombre`, `tipo`, `precio`, `ubicacion`, `puntuac
 (82, 'WeBase Hiroshima', 3, 16, 10, 9.2, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/221399065.webp?k=665573dbf997f7d339b4c84ab098bccc61e87783bc6e28f0bab5b7640319f9a0&o='),
 (83, 'Hiroshima Hana Hostel', 3, 14, 10, 8.1, 'https://q-cf.bstatic.com/images/hotel/max1024x768/980/98011877.jpg'),
 (84, 'Kawate-ya Hostel', 3, 15, 10, 8.9, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/189068069.webp?k=7a887b387678c338695124664c840b4399626f8a79b8334e63b357734abe6b89&o='),
-(85, 'Holiday Inn Express Beijing Dongzhimen', 1, 72, 11, 8.8, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/250424112.webp?k=83fbdc99d0b1193bd03d0092106341111066dee9a5c4d3a3fa04b00ce4dbfc38&o='),
+(85, 'Holiday Inn Express Beijing Dongzhimen', 1, 72, 11, 8.8, 'https://q-cf.bstatic.com/images/hotel/max1024x768/242/242170815.jpg'),
 (86, 'Days Hotel Beijing Guomen', 1, 49, 11, 6.1, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/179596706.webp?k=0c51a997e2a725ac727a2beed1d1cbfb86e501bedab451f44bddaec485b0798c&o='),
 (87, 'CitiGO Hotel Beijing Tian\'anmen Square', 1, 51, 11, 7.9, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/182486069.webp?k=d686fabcb7107239c96d82c14d36f520fbc1c5ace82a5f03fa7fe8f3efa4fcbc&o='),
 (88, 'Holiday Inn Temple Of Heaven Beijing', 2, 88, 11, 7.9, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/246606670.webp?k=1f789d8075f68126d0158a94f00e26d555ce4f5ddcc4e9a77299ea1059b05390&o='),
@@ -375,11 +375,11 @@ INSERT INTO `estancias` (`id`, `nombre`, `tipo`, `precio`, `ubicacion`, `puntuac
 (164, 'Mercure Wellington Abel Tasman Hotel', 2, 119, 23, 8, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/234743634.webp?k=420062cb5bc970adb0e7f15fd4ec0f3f99b2848be8338446735df01aae4ebd95&o='),
 (165, 'YHA Wellington', 3, 57, 23, 8.8, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/117970813.jpg?k=fdf10b558ec1c292f8eab6efbca8ac4988f9e66cc58fb748e927f5d80d9b18da&o='),
 (166, 'Lodge in the City', 3, 32, 23, 6.1, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/22276413.webp?k=ca1f7dcd3944d1e7c69c3db2c943591b943b1f0383a981b6617e5f2e23945988&o='),
-(167, 'Forrest Hotel & Apartments ', 1, 51, 24, 8.1, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/41224268.webp?k=d5dc6b8d0f716699ef62fde2d70cebf3919c072d6bb9e4fa4e38eab32855ccd7&o='),
+(167, 'Forrest Hotel & Apartments ', 1, 51, 24, 8.1, 'https://q-cf.bstatic.com/images/hotel/max1024x768/252/252219487.jpg'),
 (168, 'Quality Hotel Dickson', 1, 105, 24, 8.6, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/243137035.webp?k=e77bc88d7a81a3035978dbd5acc9041acefe84c6e033ed425047846908e95809&o='),
 (169, 'Canberra Rex Hotel', 2, 80, 24, 8.7, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/66945053.webp?k=f5f6ab1b6ca3c3ef2e26414c50e9bf91edee9202baf0c71d98e74c68136d9778&o='),
 (170, 'Mantra MacArthur Hotel', 2, 88, 24, 8.7, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/179092188.jpg?k=f8f031bda8d49377f842da2c566ec46b0582e74016646ef2907188856bdc8789&o='),
-(171, 'Canberra City YHA', 3, 69, 24, 8.1, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/135003441.jpg?k=796c219df121ae5f3b769c16c991159f11a2115cef171e3c46370a01ea6c3139&o='),
+(171, 'Canberra City YHA', 3, 69, 24, 8.1, 'https://q-cf.bstatic.com/images/hotel/max1024x768/135/135003460.jpg'),
 (172, 'Unilodge @ UC Short Stays', 3, 65, 24, 7.5, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/24992096.webp?k=de16a58d41dc77f1fd5ea333cb9e24b8769b19a9557a82dbbd957c7185f5b313&o='),
 (173, 'Hotel Nelson', 1, 124, 25, 9, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/209350316.webp?k=6af91710229d412f5965923e4a40a701326f8b5b06223c8e6ba6d185f152cb91&o='),
 (174, 'Marina Resort', 1, 80, 25, 8.4, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/222034109.webp?k=4e6b505c0537df1235228cc6ae1c8d3d3fc016d4fb95c0a4a48e9f5b4ede4fe2&o='),
@@ -390,7 +390,7 @@ INSERT INTO `estancias` (`id`, `nombre`, `tipo`, `precio`, `ubicacion`, `puntuac
 (179, 'Executive Apartment', 1, 61, 26, 9.6, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/236674347.jpg?k=19fe0adf337654b92c63dec838e453d0b04d8fd25561af510ef4f7059e0bb87b&o='),
 (180, 'Tanoa Plaza Hotel', 1, 91, 26, 8.1, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/40907713.jpg?k=9708cbd4194ee1c619d7878d3cd887aa5a2652ca83c634cfac784bb042f0ae72&o='),
 (181, 'Grand Pacific Hotel', 1, 154, 26, 8.8, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/214356069.jpg?k=f6d3be8ec4558f75bc01122029b2125501f07d071950e7f5321e7a785fcd1701&o='),
-(182, 'Holiday Inn Suva', 2, 186, 26, 8.8, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/245803670.jpg?k=ee11a1c7f67983d0dd03daca1fafa379dbef68a73c1db7e68f44068b4f4ab358&o='),
+(182, 'Holiday Inn Suva', 2, 186, 26, 8.8, 'https://q-cf.bstatic.com/images/hotel/max1024x768/230/230420108.jpg'),
 (183, 'Novotel Suva Lami Bay', 2, 67, 26, 7.8, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/139983411.jpg?k=0312d2689012ea3e77e822f3b696e39664d22d423784333573c12200fced3a73&o='),
 (184, 'Southern Cross Hotel', 2, 71, 26, 6.3, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/22748138.jpg?k=eb9027869a347d946e0746daa32b84a37e0564759cb1999273568e945bdc7efd&o='),
 (185, 'We Hotel Aeropuerto', 1, 74, 27, 8.5, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/87558514.jpg?k=e323f40350b08ae650987336f5a1eebeef13ac96c0741573400b736a864d0d03&o='),
@@ -421,8 +421,8 @@ INSERT INTO `estancias` (`id`, `nombre`, `tipo`, `precio`, `ubicacion`, `puntuac
 (210, 'Generator Hotel Washington DC', 1, 60, 31, 8, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/237772996.jpg?k=0257b35971c972da33a78326f60586e1e94067885bb3e27ac688ba7747c7891b&o='),
 (211, 'Super 8 by Wyndham Manassas', 1, 60, 31, 6.9, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/132448093.jpg?k=0f7e7d135f3d4afe16fa803343e807734132c6c03a81813ea2e40a08c4a090d5&o='),
 (212, 'Extended Stay America - Washington, D.C. - Chantilly', 2, 61, 31, 6.7, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/94911530.jpg?k=90567628feffd23711126ffb605c70721cf270762cc8880861b6cd644adde514&o='),
-(213, 'Days Inn by Wyndham Manassas Battlefield', 2, 61, 31, 6.3, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/137564983.jpg?k=286e8ab5ad3407ba0ce8e9eca865dbb878766624dbc71c4246348750bd86f6f4&o='),
-(214, 'Days Inn Wyndham Alexandria South', 2, 63, 31, 7.3, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/157868630.jpg?k=a77be6e9bc1fee87ae3b4eec8502d6b6ef59fd4ed0ed5f6c9c3231011bf79adf&o='),
+(213, 'Days Inn by Wyndham Manassas Battlefield', 2, 61, 31, 6.3, 'https://q-cf.bstatic.com/images/hotel/max1024x768/137/137564983.jpg'),
+(214, 'Days Inn Wyndham Alexandria South', 2, 63, 31, 7.3, 'https://r-cf.bstatic.com/images/hotel/max1024x768/199/199560986.jpg'),
 (215, 'Bay Hotel', 1, 49, 32, 6.2, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/205933272.jpg?k=6148f547d8f7efb939483a5b5f14ad9143b22b660bfcad0597f87c010ed8a1ce&o='),
 (216, 'Marina Inn', 1, 52, 32, 6, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/53167038.jpg?k=550ffe94b22ed8a9c8279a85992ffe813d6e4214a936df742f9d1de3aaa872b7&o='),
 (217, 'Warfield Hotel', 1, 54, 32, 6, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/92360367.jpg?k=71bbb7ed9447d382095aa538f9bb516ac3df79fe1212711063830a74284b7c83&o='),
@@ -475,11 +475,11 @@ INSERT INTO `estancias` (`id`, `nombre`, `tipo`, `precio`, `ubicacion`, `puntuac
 (264, 'North Palace Hotel', 1, 15, 40, 7, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/53563679.jpg?k=8869ba1ed094190dba4f140b5ee48bb1bef9e6b51a972584a1fbd3c0634a8799&o='),
 (265, 'Nobile Downtown São Paulo', 1, 42, 40, 8.2, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/225601566.webp?k=23d3a5c57f43a3029c71a6ea085b974c1af8043d72e8f0f5e00a63394809d10d&o='),
 (266, 'Estanplaza Ibirapuera', 2, 49, 40, 8.5, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/219863269.jpg?k=d867a870fb953a825462e7ed4ce7c3b8953343e83dfb6f243c7416f70c293b48&o='),
-(267, 'Astron Saint Charbel Sui­tes & Life', 2, 78, 40, 8.3, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/8671042.webp?k=7b4838986c2e42f9518603009b4317163dbf30a00cea81dbac8c3ee567509443&o=');
-INSERT INTO `estancias` (`id`, `nombre`, `tipo`, `precio`, `ubicacion`, `puntuacion`, `imagen`) VALUES
+(267, 'Astron Saint Charbel Sui­tes & Life', 2, 78, 40, 8.3, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/8671042.webp?k=7b4838986c2e42f9518603009b4317163dbf30a00cea81dbac8c3ee567509443&o='),
 (268, 'EDi’s House', 3, 22, 40, 9, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/181461506.jpg?k=e06c81ce8438d93c72ff871553a911bc549a19ff5a5452242b37d40c15272a3c&o='),
 (269, 'Jardins Village Hostel - Unidade Pinheiros', 3, 25, 40, 8.3, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/109878655.webp?k=5729848e6b0f92507d3fa677640f1cd92391eb4dc0bf8734b0a548135b73dec5&o='),
-(270, 'Ayenda 1045 Boutique Aeropuerto', 1, 18, 41, 8, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/217531573.jpg?k=af6296317631587b10518b53c8d76591927b732b8334e56fb4bbd0a390626071&o='),
+(270, 'Ayenda 1045 Boutique Aeropuerto', 1, 18, 41, 8, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/217531573.jpg?k=af6296317631587b10518b53c8d76591927b732b8334e56fb4bbd0a390626071&o=');
+INSERT INTO `estancias` (`id`, `nombre`, `tipo`, `precio`, `ubicacion`, `puntuacion`, `imagen`) VALUES
 (271, 'Hotel Regina', 1, 29, 41, 8.5, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/179554599.webp?k=d8f08666555915b2b54b5558a3c68c6d93f6af685db01f73cb3e2ed394453c46&o='),
 (272, 'Hotel Embajada Real', 2, 18, 41, 7.7, 'https://r-cf.bstatic.com/xdata/images/hotel/square200/26090140.jpg?k=22af25307f6a94a740f3138e0c9da09494887fa6d1b0c1095d1604266ba73c22&o='),
 (273, 'Hotel Habitel Select', 2, 50, 41, 8.8, 'https://q-cf.bstatic.com/xdata/images/hotel/square200/163314221.webp?k=3760df0f0dbdd743c5ff9903826b11fa197776610bad90fd09a289afb1eb5ae0&o='),
