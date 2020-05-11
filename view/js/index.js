@@ -2,8 +2,6 @@ var htmlCode;
 var usuario;
 
 $(document).ready(function(){
-  usuario=localStorage.setItem("usuario","normal");
-  usuario=localStorage.getItem("usuario");
 
   $.ajax({
 		// check if somebody is  logged		
@@ -31,7 +29,7 @@ $(document).ready(function(){
 
   console.log(verReservas);
 
-  if(verReservas === "true"){
+  if(verReservas === "true" ){
 
      ShowReservas();
 

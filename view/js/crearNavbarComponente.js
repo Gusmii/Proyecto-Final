@@ -9,8 +9,7 @@ var tituloPaginaActual;
 var usuario;
 
 $(document).ready(function(){
-  usuario=localStorage.setItem("usuario","normal");
-  usuario=localStorage.getItem("usuario");
+  usuario=localStorage.getItem("tipo");
 
   
   titulo=window.location.pathname.split("/");
@@ -60,7 +59,7 @@ $(document).ready(function(){
   
   //si el usuario es normal, no se monstrara en el navbar el boton de admin, ya que borraremos
   //de los arrays el nombre de la pagina y la pagina
-  if(usuario=="normal"){
+  if(usuario==="1" || usuario === null || usuario === undefined){
 	  
     paginas = $.grep(paginas, function(value) {
       return value != adminPagina;
@@ -72,7 +71,6 @@ $(document).ready(function(){
    crearNavbar();
    logOut();
    logOutVistas();
-   ShowReservas();
 
   
 });
