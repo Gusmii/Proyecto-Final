@@ -4,6 +4,19 @@
 	height:50px;
 }
 
+#botonPagar,#botonIndex{
+	padding:15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: auto;
+}
+.FormularioPagar{
+	padding:15px;
+	border:10px solid #8d8d8d;
+	background-color:#9a9a9a;
+	border-radius:50px; 
+}
 
 
 /* Footer Style*/
