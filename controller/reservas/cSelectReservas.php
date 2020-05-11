@@ -14,14 +14,11 @@ $cEstancias->setListEstancias();
 
 $listEstanciasJson=$cEstancias->getListEstanciasJson();
 
-
 $cVuelos=new vuelosModel();
 
 $cVuelos->setListVuelos();
 
 $listVuelosJson=$cVuelos->getListVuelosJson();
-
-
 
 $cVuelos=new reservas_viajesModel();
 
@@ -34,8 +31,6 @@ $cReservas=new reservasModel();
 $cReservas->setListReservas();
 
 $listReservasJson=$cReservas->getListReservasJson();
-
-
 
 $cEstancias=new reservas_estanciasModel();
 
