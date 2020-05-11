@@ -28,7 +28,12 @@ $(document).ready(function(){
   var verReservas = localStorage.getItem("verReservas");
 
   console.log(verReservas);
-
+  
+  $("#reservasIndex").click(function() {	
+	    
+	    localStorage.setItem("verReservas",true);  
+  });
+  
   if(verReservas === "true" ){
 
      ShowReservas();
@@ -46,13 +51,17 @@ $(document).ready(function(){
 //Show Reservas
 function ShowReservas() {
 
-  $("#reservasIndex").click(function() {	
-    
-    localStorage.setItem("verReservas",true);  
-  });
-	
   var htmlCode="";
+  $("#botonIndex").html(`<button type="button" class="btn btn-danger">Volver al index</button>`);
+  $("#botonIndex").on("click",function(){
+	    localStorage.setItem("verReservas",false);  
+	    $("#contenidoIndex").html("");
+	    mostrarCards();
+	    $("#botonIndex").html(``);
+		$("#botonPagar").html(``);
 
+  });
+  
   htmlCode+= '<a id="volverIndex">Volver al inicio</a>';
   $.ajax({
 	  type:"GET",
@@ -241,7 +250,7 @@ function ShowReservas() {
     			console.log(fechaEstanciasCheck);
     			
     			if(fechaEstanciasCheck && fechaEstanciasCheck){
-    				alert("fechas ingresadas correctamente");
+    				$("#botonPagar").html(`<button type="button" class="btn btn-info">Pagar</button>`);
     			}
     		
 	    	}

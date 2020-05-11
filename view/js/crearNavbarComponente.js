@@ -159,7 +159,8 @@ function logOut() {
 	//forms values vars	
     $("#cerrarSesion").click(function() {	
 
-       		
+    	localStorage.clear();
+
         $.ajax({     	
 			url: "controller/login/cLogout.php",
 			dataType:"json",
@@ -185,7 +186,8 @@ function logOutVistas() {
 	//forms values vars	
     $("#cerrarSesion").click(function() {	
 
-       		
+    	localStorage.clear();
+
         $.ajax({     	
 			url: "../controller/login/cLogout.php",
 			dataType:"json",
