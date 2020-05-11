@@ -47,19 +47,216 @@ $(document).ready(function(){
 function ShowReservas() {
 
   $("#reservasIndex").click(function() {	
-
-    alert("hola");
     
     localStorage.setItem("verReservas",true);  
   });
+	
+  var htmlCode="";
 
-  var htmlzatia="";
+  htmlCode+= '<a id="volverIndex">Volver al inicio</a>';
+  $.ajax({
+	  type:"GET",
+	    dataType:"json",
+	    url:"controller/reservas/cSelectEstanciasYVuelos.php",
+	    success: function(datos){
 
-  htmlzatia+= '<a id="volverIndex">Volver al inicio</a>';
+			var arrayIdCantidadEstanciasActuales=[];	
+			var arrayIdCantidadVuelosActuales=[];	
+			
 
 
+	    	let estanciasActuales = Object.keys(localStorage).filter(v => v.startsWith("estancia"));
+	    	
+	    	$.each(estanciasActuales, function(index, valor) {
 
-  $("#ContenidoIndex").html(htmlzatia);
+	    		var idEstancia=eval(valor.split("_")[1]);
+	    		arrayIdCantidadEstanciasActuales.push(
+	    				{
+	    					[idEstancia]:(localStorage.getItem(valor))
+	    				});
+	    	});
+	    	
+	    	let vuelosActuales = Object.keys(localStorage).filter(v => v.startsWith("Vuelo"));
+	    	
+	    	$.each(vuelosActuales, function(index, valor) {
+
+	    		var idVuelo=eval(valor.split("_")[1]);
+	    		arrayIdCantidadVuelosActuales.push(
+	    				{
+	    					[idVuelo]:(localStorage.getItem(valor))
+	    				});
+	    	});
+//	    	console.log("estancias: ");
+//	    	console.log(arrayIdCantidadEstanciasActuales);
+//	    	console.log("vuelos: ");
+//	    	console.log(arrayIdCantidadVuelosActuales);
+ 	
+	    	datosVuelos= jQuery.parseJSON(datos.datosVuelos);
+	    	
+	    	htmlCodeCabVuelos=`<div class="container"><table id="tablaVuelosReservaActual" class="table"> <thead> <tr><th>Precio</th><th>Ubicacion</th><th>CantidadVuelos</th><th>Dia de salida</th><th>Dia restantes para la salida</th></tr></thead><tbody>`;
+	    	htmlCodeCuerVuelos="";
+
+	    	for(var c=0;c<arrayIdCantidadVuelosActuales.length;c++){
+	    		
+	    		var idVuelo=Object.getOwnPropertyNames(arrayIdCantidadVuelosActuales[c]);
+//	    		console.log(arrayIdCantidadVuelosActuales);
+	    		var itemName=$.parseHTML("Vuelo_"+idVuelo);
+	    		
+		    		for(var e=0;e<datosVuelos.length;e++){
+		    			if((datosVuelos[e].id==idVuelo)){
+		    				htmlCodeCuerVuelos+=`<tr id="`+itemName[0].data+`">`;
+		    				htmlCodeCuerVuelos+=`<td scope="col">`+datosVuelos[e].precio+`</td>`;
+	      	    			 htmlCodeCuerVuelos+=`<td scope="col">`+datosVuelos[e].objectUbicacion.nombre+`</td>`;
+	      	    			 htmlCodeCuerVuelos+=`<td scope="col" class="cantidadVuelos">`+localStorage.getItem(itemName[0].data)+`</td>`;
+	      	    			 htmlCodeCuerVuelos+=`<td scope="col"><input type="date"  class="fechasVuelos" id="fechaSalida_`+(itemName[0].data)+`"><br><br></td>`;
+	      	    			 htmlCodeCuerVuelos+=`<td scope="col" class="diasSalidaVuelos"></td>`;
+	      	    			 htmlCodeCuerVuelos+=`</tr>`;
+		    			}
+
+		    		}
+	
+	    	}
+
+	    	htmlCodeCuerVuelos+=`</tbody>`;
+	    	htmlCodeVuelos=htmlCodeCabVuelos+``+htmlCodeCuerVuelos+``+`</tbody></html>`;
+	    	
+	    	datosEstancias= jQuery.parseJSON(datos.datosEstancias);
+	    	
+	    	htmlCodeCabEstancias=`<table id="tablaEstanciasReservaActual" class="table"> <thead> <tr><th>Imagen</th><th>Nombre Estancia</th><th>Precio</th><th>Ubicacion</th><th>Cantidad Noches Estancias</th><th>Dia de entrada</th><th>Dia restantes para la entrada</th></tr></thead><tbody>`;
+	    	htmlCodeCuerEstancias="";
+
+	    	for(var c=0;c<arrayIdCantidadEstanciasActuales.length;c++){
+	    		
+	    		var idEstancia=Object.getOwnPropertyNames(arrayIdCantidadEstanciasActuales[c]);
+//	    		console.log(arrayIdCantidadVuelosActuales);
+	    		var itemName=$.parseHTML("estancia_"+idEstancia);
+	    		
+		    		for(var e=0;e<datosEstancias.length;e++){
+		    			if((datosEstancias[e].id==idEstancia)){
+		    				htmlCodeCuerEstancias+=`<tr id="`+itemName[0].data+`">`;
+		    				htmlCodeCuerEstancias+=`<td scope="col"><img class="imagenesTablaIndex" src="`+datosEstancias[e].imagen+`"></td>`;
+		    				htmlCodeCuerEstancias+=`<td scope="col">`+datosEstancias[e].nombre+`</td>`;
+		    				htmlCodeCuerEstancias+=`<td scope="col">`+datosEstancias[e].precio+`</td>`;
+	      	    			 htmlCodeCuerEstancias+=`<td scope="col">`+datosEstancias[e].objectUbicacion.nombre+`</td>`;
+	      	    			 htmlCodeCuerEstancias+=`<td scope="col" class="cantidadEstancias">`+localStorage.getItem(itemName[0].data)+`</td>`;
+	      	    			 htmlCodeCuerEstancias+=`<td scope="col"><input type="date" class="fechasEstancias" id="fechaEntrada_`+(itemName[0].data)+`"><br><br></td>`;
+	      	    			 htmlCodeCuerEstancias+=`<td scope="col" class="diasEntradaEstancias"></td>`;
+	      	    			 htmlCodeCuerEstancias+=`</tr>`;
+		    			}
+
+		    		}
+	
+	    	}
+
+	    	htmlCodeCuerEstancias+=`</tbody>`;
+	    	htmlCodeEstancias=htmlCodeCabEstancias+``+htmlCodeCuerEstancias+``+`</tbody></div>`;
+	    	htmlCode=htmlCodeVuelos+"<br>"+htmlCodeEstancias;
+	    	$("#ContenidoIndex").html(htmlCode);
+	    	
+
+
+	    	var fechaActual = new Date($.now());
+
+	    	$(".fechasVuelos").on("change",function(){
+	    		var fecha =new Date($(this).val());
+	    		
+	    		if(fecha > fechaActual){
+	    			var diferenciaDias=((fecha-fechaActual)/(1000 * 3600 * 24)).toFixed(0);
+	    			$(this).parent().siblings(".diasSalidaVuelos").text("el vuelo saldrá dentro de: "+diferenciaDias+" dias");
+
+	    		}else if(fecha == fechaActual){
+	    			alert("Debe seleccionar un dia a partir de mañana, por favor introduzca una fecha valida");
+	    			$(this).val("");
+	    		}else{
+	    			alert("Debe seleccionar un dia a partir de mañana, por favor introduzca una fecha valida");
+	    			$(this).val("");
+	    		}
+	    		
+	    		comprobarFechas();
+
+	    	});
+	    	
+	    	$(".fechasEstancias").on("change",function(){
+	    		var fecha =new Date($(this).val());
+	    		
+	    		if(fecha > fechaActual){
+	    			var diferenciaDias=((fecha-fechaActual)/(1000 * 3600 * 24)).toFixed(0);
+	    			$(this).parent().siblings(".diasEntradaEstancias").text("La estancia estará disponible dentro de: "+diferenciaDias+" dias");
+	    			
+	    		}else if(fecha == fechaActual){
+	    			alert("Debe seleccionar un dia a partir de mañana, por favor introduzca una fecha valida");
+	    			$(this).val("");
+	    		}else{
+	    			alert("Debe seleccionar un dia a partir de mañana, por favor introduzca una fecha valida");
+	    			$(this).val("");
+	    		}
+	    		
+	    		comprobarFechas();
+	    		
+	    	});
+
+	    	function comprobarFechas(){
+	    		var fechaVuelosCheck=false;
+	    		var arrayVuelos=[];
+
+	    		$('.fechasVuelos').each(function() {
+	        		fechaVuelosCheck=false;
+	        		var idVuelo= $(this).attr('id').split("_")[2];
+//	        		console.log("idVuelo: "+idVuelo);
+	        		var fecha=$(this).val();
+//	    			console.log(fecha);
+	    			var cantidadVuelo=$(this).parent().siblings(".cantidadVuelos").text();
+//	    			console.log(cantidadVuelo);
+	    			if(fecha===""){
+	    				return false; 
+	    			}else{
+	    			    fechaVuelosCheck=true;
+	    			    arrayVuelos.push({"idVuelo": idVuelo, "fecha":fecha, "cantidadVuelo": cantidadVuelo});
+	    			}
+	    		});
+	    		console.log(arrayVuelos);
+	    		console.log("checkeados: ");
+    			console.log(fechaVuelosCheck);
+
+    			var fechaEstanciasCheck=false;
+	    		var arrayEstancias=[];
+
+	    		$('.fechasEstancias').each(function() {
+	        		fechaEstanciasCheck=false;
+	        		var idEstancia= $(this).attr('id').split("_")[2];
+//	        		console.log("idEstancia: "+idEstancia);
+	        		var fecha=$(this).val();
+//	    			console.log(fecha);
+	    			var cantidadEstancia=$(this).parent().siblings(".cantidadEstancias").text();
+//	    			console.log(cantidadEstancia);
+	    			if(fecha===""){
+	    				return false; 
+	    			}else{
+	    			    fechaEstanciasCheck=true;
+	    			    arrayEstancias.push({"idEstancia": idEstancia, "fecha":fecha, "cantidadEstancia": cantidadEstancia});
+	    			}
+	    		});
+	    		console.log(arrayEstancias);
+	    		console.log("checkeados: ");
+    			console.log(fechaEstanciasCheck);
+    			
+    			if(fechaEstanciasCheck && fechaEstanciasCheck){
+    				alert("fechas ingresadas correctamente");
+    			}
+    		
+	    	}
+	    	
+
+	    	
+	    	
+	 },
+	    error: function(xhr){
+	        alert("An error occured: "+xhr.status+" "+xhr.statusText);
+	    }
+	});
+
+
+//  $("#ContenidoIndex").html(htmlCode);
 
   $("#volverIndex").click(function(){
 
@@ -159,29 +356,6 @@ function signUp() {
 
 //Show Cards
 function mostrarCards(){
-
-//
-//  $.ajax({
-//    type:"JSON",
-//    url:"../controller/equipos/cSeleccionarEquipos.php",
-//    success: function(datosEquipos){
-//
-//      miDatosEquipos=JSON.parse(datosEquipos);
-//      ContenidoTablas=`<tr><th>IDEQUIPO</th><th>NOMBRE</th><th>LOGO</th><th>CATEGORIA</th><th>ACCION</th></tr>`;
-//      NombreTabla="equipos";
-//      $.each(miDatosEquipos,function(i,datosEquipo){
-//        ContenidoTablas+=`<tr><td>`+datosEquipo.idEquipo+`</td><td>`+datosEquipo.nombre+`</td><td><img src="`+datosEquipo.logo+`" style="width:100px; height:auto;"></td><td>`+datosEquipo.objectCategoria.nombre+`</td><td><div onclick="editarElemento(`+datosEquipo.idEquipo+`,'`+NombreTabla+`')" style="display:inline-block" class="editar" id="`+datosEquipo.idEquipo+`"><i class="fas fa-edit"></i></div><div onclick="borrarElemento(`+datosEquipo.idEquipo+`,'`+NombreTabla+`')" style="display:inline-block" class="borrar" id="`+datosEquipo.idEquipo+`"><i class="fas fa-trash-alt" ></i></div></td></tr>`;
-//   
-//      });//FIN DE GENERAR LA TABLA DE EQUIPOS
-//      $(".panelEq .divTablaAdmin table").html(ContenidoTablas);	
-// },
-//    error: function(xhr){
-//        alert("An error occured: "+xhr.status+" "+xhr.statusText);
-//    }
-//});//FIN DEL AJAX DE GENERAR LA TABLA EQUIPOS
-
-
-
 
   htmlCode=`<div class="container "> `;
 

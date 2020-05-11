@@ -77,6 +77,34 @@ class reservasModel extends reservasClass{
     }
     
     
+    
+     public function findReservasByIdUser() {
+            $this->OpenConnect();
+            $idUser=$this->id_usuario;
+            $sql = "CALL spFindReservaByIdUser($idUser)";
+            
+            $result = $this->link->query($sql);
+            while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+            {
+                $newReserva=new reservasModel();
+                $newReserva->setId($row['id']);
+                $newReserva->setFecha_inicio($row['fecha_inicio']);
+                $newReserva->setFecha_fin($row['fecha_fin']);
+                $newReserva->setId_usuario($row['id_usuario']);
+                
+                $usuario= new usuariosModel();
+                $usuario->setId($row['id_usuario']);
+                $usuario->findUsuarioById();
+                $newReserva->setObjectUsuario($usuario);
+                
+                array_push($this->list, $newReserva);
+            }
+            mysqli_free_result($result);
+            $this->CloseConnect();
+        }
+    
+    
+    
     public function findReservaById() {
         $this->OpenConnect();
         $id=$this->id;
