@@ -1,7 +1,11 @@
 $(document).ready(function(){
-   
+	if(localStorage.getItem("tipo")!= "2"){
 
-showSelected();
+		window.location.href="../index.html";
+	  
+	  }
+
+	showSelected();
   
   });
 
