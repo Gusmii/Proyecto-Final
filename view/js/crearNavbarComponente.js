@@ -91,7 +91,6 @@ if(paginaActual!="HOME"){
 }
 htmlCode+=` </a>`;
 
-
 htmlCode+=`<ul class="navbar-nav mr-auto">`;
     for(var i=0;i<paginas.length;i++){
       htmlCode+=`<li class="nav-item">`;
@@ -133,7 +132,7 @@ htmlCode+=`<ul class="navbar-nav mr-auto">`;
     <span id="zonaLogin" class="navbar-text">
         <a class="nav-link">`+localStorage.getItem("apodo")+`</a>
 
-        <a class="nav-link" id="reservasIndex" href="index.html"> Reservas</a>
+        <a class="nav-link" id="reservasIndex" href="index.html">Reservas</a>
       
         <a class="nav-link" id="cerrarSesion">CERRAR SESION</a>
     </span>`;
@@ -166,10 +165,11 @@ function logOut() {
 			success: function(result) {
         
           alert("Estamos cerrando tu sesion");
-          localStorage.setItem("verReservas",false);
-          localStorage.removeItem("idUser");
-          localStorage.removeItem("apodo");
-          localStorage.removeItem("tipo");
+          // localStorage.setItem("verReservas",false);
+          // localStorage.removeItem("idUser");
+          // localStorage.removeItem("apodo");
+          // localStorage.removeItem("tipo");
+          localStorage.clear();
           window.location.reload(true);
 
         	},
@@ -192,9 +192,10 @@ function logOutVistas() {
 			success: function(result) {
         
           alert("Estamos cerrando tu sesion");
-          localStorage.removeItem("idUser");
-          localStorage.removeItem("apodo");
-          localStorage.removeItem("tipo");
+          // localStorage.removeItem("idUser");
+          // localStorage.removeItem("apodo");
+          // localStorage.removeItem("tipo");
+          localStorage.clear();
           window.location.reload(true);
 
         	},

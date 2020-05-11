@@ -92,6 +92,21 @@ a:hover{
     text-decoration: none;
 }
 
+input{
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    margin: 2%;
+}
+
+.btn{
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border: solid black 1px;
+    border-radius: 50px;
+
+}
+
 @media only screen and (max-width: 600px) {
     
     #FooterComponente{
