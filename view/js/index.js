@@ -12,7 +12,7 @@ $(document).ready(function(){
 
       if (result.error == "Logged") {  //Si esta logueado muestra los datos en la consola
         
-        alert("estas logueado");
+//        alert("estas logueado");
       
         
 
@@ -98,64 +98,70 @@ function ShowReservas() {
 	    					[idVuelo]:(localStorage.getItem(valor))
 	    				});
 	    	});
- 	
-	    	datosVuelos= jQuery.parseJSON(datos.datosVuelos);
-	    	
-	    	htmlCodeCabVuelos=`<div class="container"><table id="tablaVuelosReservaActual" class="table"> <thead> <tr><th>Precio (euros)</th><th>Ubicacion</th><th>CantidadVuelos</th><th>Dia de salida</th><th>Dia restantes para la salida</th></tr></thead><tbody>`;
-	    	htmlCodeCuerVuelos="";
-
-	    	for(var c=0;c<arrayIdCantidadVuelosActuales.length;c++){
+	    	htmlCodeVuelos="";
+	    	if(arrayIdCantidadVuelosActuales.length>0){
 	    		
-	    		var idVuelo=Object.getOwnPropertyNames(arrayIdCantidadVuelosActuales[c]);
-//	    		console.log(arrayIdCantidadVuelosActuales);
-	    		var itemName=$.parseHTML("Vuelo_"+idVuelo);
-	    		
-		    		for(var e=0;e<datosVuelos.length;e++){
-		    			if((datosVuelos[e].id==idVuelo)){
-		    				htmlCodeCuerVuelos+=`<tr id="`+itemName[0].data+`">`;
-		    				htmlCodeCuerVuelos+=`<td scope="col" class="precio">`+datosVuelos[e].precio+`</td>`;
-	      	    			 htmlCodeCuerVuelos+=`<td scope="col">`+datosVuelos[e].objectUbicacion.nombre+`</td>`;
-	      	    			 htmlCodeCuerVuelos+=`<td scope="col" class="cantidadVuelos">`+localStorage.getItem(itemName[0].data)+`</td>`;
-	      	    			 htmlCodeCuerVuelos+=`<td scope="col"><input type="date"  class="fechasVuelos" id="fechaSalida_`+(itemName[0].data)+`"><br><br></td>`;
-	      	    			 htmlCodeCuerVuelos+=`<td scope="col" class="diasSalidaVuelos"></td>`;
-	      	    			 htmlCodeCuerVuelos+=`</tr>`;
-		    			}
+		    	datosVuelos= jQuery.parseJSON(datos.datosVuelos);
 
-		    		}
+		    	htmlCodeCabVuelos=`<div class="container"><table id="tablaVuelosReservaActual" class="table"> <thead> <tr><th>Precio (euros)</th><th>Ubicacion</th><th>CantidadVuelos</th><th>Dia de salida</th><th>Dia restantes para la salida</th></tr></thead><tbody>`;
+		    	htmlCodeCuerVuelos="";
 	
-	    	}
-
-	    	htmlCodeCuerVuelos+=`</tbody>`;
-	    	htmlCodeVuelos=htmlCodeCabVuelos+``+htmlCodeCuerVuelos+``+`</tbody></html>`;
-	    	
-	    	datosEstancias= jQuery.parseJSON(datos.datosEstancias);
-	    	
-	    	htmlCodeCabEstancias=`<table id="tablaEstanciasReservaActual" class="table"> <thead> <tr><th>Imagen</th><th>Nombre Estancia</th><th>Precio (euros)</th><th>Ubicacion</th><th>Cantidad Noches Estancias</th><th>Dia de entrada</th><th>Dia restantes para la entrada</th></tr></thead><tbody>`;
-	    	htmlCodeCuerEstancias="";
-
-	    	for(var c=0;c<arrayIdCantidadEstanciasActuales.length;c++){
-	    		
-	    		var idEstancia=Object.getOwnPropertyNames(arrayIdCantidadEstanciasActuales[c]);
-//	    		console.log(arrayIdCantidadVuelosActuales);
-	    		var itemName=$.parseHTML("estancia_"+idEstancia);
-	    		
-		    		for(var e=0;e<datosEstancias.length;e++){
-		    			if((datosEstancias[e].id==idEstancia)){
-		    				htmlCodeCuerEstancias+=`<tr id="`+itemName[0].data+`">`;
-		    				htmlCodeCuerEstancias+=`<td scope="col"><img class="imagenesTablaIndex" src="`+datosEstancias[e].imagen+`"></td>`;
-		    				htmlCodeCuerEstancias+=`<td scope="col">`+datosEstancias[e].nombre+`</td>`;
-		    				htmlCodeCuerEstancias+=`<td scope="col" class="precio">`+datosEstancias[e].precio+`</td>`;
-	      	    			 htmlCodeCuerEstancias+=`<td scope="col">`+datosEstancias[e].objectUbicacion.nombre+`</td>`;
-	      	    			 htmlCodeCuerEstancias+=`<td scope="col" class="cantidadEstancias">`+localStorage.getItem(itemName[0].data)+`</td>`;
-	      	    			 htmlCodeCuerEstancias+=`<td scope="col"><input type="date" class="fechasEstancias" id="fechaEntrada_`+(itemName[0].data)+`"><br><br></td>`;
-	      	    			 htmlCodeCuerEstancias+=`<td scope="col" class="diasEntradaEstancias"></td>`;
-	      	    			 htmlCodeCuerEstancias+=`</tr>`;
-		    			}
-
-		    		}
+		    	for(var c=0;c<arrayIdCantidadVuelosActuales.length;c++){
+		    		
+		    		var idVuelo=Object.getOwnPropertyNames(arrayIdCantidadVuelosActuales[c]);
+	//	    		console.log(arrayIdCantidadVuelosActuales);
+		    		var itemName=$.parseHTML("Vuelo_"+idVuelo);
+		    		
+			    		for(var e=0;e<datosVuelos.length;e++){
+			    			if((datosVuelos[e].id==idVuelo)){
+			    				htmlCodeCuerVuelos+=`<tr id="`+itemName[0].data+`">`;
+			    				htmlCodeCuerVuelos+=`<td scope="col" class="precio">`+datosVuelos[e].precio+`</td>`;
+		      	    			 htmlCodeCuerVuelos+=`<td scope="col">`+datosVuelos[e].objectUbicacion.nombre+`</td>`;
+		      	    			 htmlCodeCuerVuelos+=`<td scope="col" class="cantidadVuelos">`+localStorage.getItem(itemName[0].data)+`</td>`;
+		      	    			 htmlCodeCuerVuelos+=`<td scope="col"><input type="date"  class="fechasVuelos" id="fechaSalida_`+(itemName[0].data)+`"><br><br></td>`;
+		      	    			 htmlCodeCuerVuelos+=`<td scope="col" class="diasSalidaVuelos"></td>`;
+		      	    			 htmlCodeCuerVuelos+=`</tr>`;
+			    			}
 	
+			    		}
+		
+		    	}
+	
+		    	htmlCodeCuerVuelos+=`</tbody>`;
+		    	htmlCodeVuelos=htmlCodeCabVuelos+``+htmlCodeCuerVuelos+``+`</tbody></html>`;
 	    	}
+	    	
+	    	htmlCodeEstancias="";
+	    	if(arrayIdCantidadEstanciasActuales.length>0){
+	    	
+		    	datosEstancias= jQuery.parseJSON(datos.datosEstancias);
+		    	
+		    	htmlCodeCabEstancias=`<table id="tablaEstanciasReservaActual" class="table"> <thead> <tr><th>Imagen</th><th>Nombre Estancia</th><th>Precio (euros)</th><th>Ubicacion</th><th>Cantidad Noches Estancias</th><th>Dia de entrada</th><th>Dia restantes para la entrada</th></tr></thead><tbody>`;
+		    	htmlCodeCuerEstancias="";
 
+		    	for(var c=0;c<arrayIdCantidadEstanciasActuales.length;c++){
+		    		
+		    		var idEstancia=Object.getOwnPropertyNames(arrayIdCantidadEstanciasActuales[c]);
+	//	    		console.log(arrayIdCantidadVuelosActuales);
+		    		var itemName=$.parseHTML("estancia_"+idEstancia);
+		    		
+			    		for(var e=0;e<datosEstancias.length;e++){
+			    			if((datosEstancias[e].id==idEstancia)){
+			    				htmlCodeCuerEstancias+=`<tr id="`+itemName[0].data+`">`;
+			    				htmlCodeCuerEstancias+=`<td scope="col"><img class="imagenesTablaIndex" src="`+datosEstancias[e].imagen+`"></td>`;
+			    				htmlCodeCuerEstancias+=`<td scope="col">`+datosEstancias[e].nombre+`</td>`;
+			    				htmlCodeCuerEstancias+=`<td scope="col" class="precio">`+datosEstancias[e].precio+`</td>`;
+		      	    			 htmlCodeCuerEstancias+=`<td scope="col">`+datosEstancias[e].objectUbicacion.nombre+`</td>`;
+		      	    			 htmlCodeCuerEstancias+=`<td scope="col" class="cantidadEstancias">`+localStorage.getItem(itemName[0].data)+`</td>`;
+		      	    			 htmlCodeCuerEstancias+=`<td scope="col"><input type="date" class="fechasEstancias" id="fechaEntrada_`+(itemName[0].data)+`"><br><br></td>`;
+		      	    			 htmlCodeCuerEstancias+=`<td scope="col" class="diasEntradaEstancias"></td>`;
+		      	    			 htmlCodeCuerEstancias+=`</tr>`;
+			    			}
+	
+			    		}
+		
+		    	}
+	    	}
 	    	htmlCodeCuerEstancias+=`</tbody>`;
 	    	htmlCodeEstancias=htmlCodeCabEstancias+``+htmlCodeCuerEstancias+``+`</tbody></div>`;
 	    	htmlCode=htmlCodeVuelos+"<br>"+htmlCodeEstancias;
@@ -250,7 +256,7 @@ function ShowReservas() {
 	    		console.log("checkeados: ");
     			console.log(fechaEstanciasCheck);
     			
-    			if(fechaEstanciasCheck && fechaVuelosCheck){
+    			if((fechaEstanciasCheck && fechaVuelosCheck)||(fechaVuelosCheck && arrayEstancias.length==0)||(fechaEstanciasCheck && arrayVuelos.length==0)){
     				$("#botonPagar").html(`<button type="button" class="btn btn-info">Pagar</button>`);
     				$("#botonPagar").on("click",function(){
         				pagar(arrayEstancias, arrayVuelos);
@@ -295,12 +301,73 @@ function ShowReservas() {
 				  <div class="form-group">
 				  	<label >Suma total a pagar: `+sumaTotal+` €</label>
 				  </div>
-				  <button type="button" class="btn btn-primary">TERMINAR PAGO</button>
+				  <button type="button" id="botonTerminarPago" class="btn btn-primary">TERMINAR PAGO</button>
 				</div></div>`;
 	    	
 	    	
 	    	$("#ContenidoIndex").html(htmlCode);
+	    	
+	    	datosReservas= jQuery.parseJSON(datos.datosReservas);
+	    	var ultimaReservaId;
+	    	for(var i=0;i<datosReservas.length;i++){
+	    		ultimaReservaId=datosReservas[i].id;
+	    	}
+	    	
+	    	$("#botonTerminarPago").on("click",function(){
+	    		
+	    		var idUsuario=localStorage.getItem("idUser");
+	    		var maxDateIdEstancia=0;
+	    		var fechaSalidaEstancia;
+	    		var fechaSalidaEstanciaMax= new Date($.now());
+	    		var fecha1= new Date();
+	    		var fecha2= new Date();
+	    		
+	    		for(var i=0;i<arrayEstancias.length;i++){
 
+	    			fechaId= new Date(arrayEstancias[i].fecha);
+	    			fechaMaxima=new Date(arrayEstancias[maxDateIdEstancia].fecha);
+	    			
+	    			fecha1.setDate(fechaId.getDate()+parseInt(arrayEstancias[i].cantidadEstancia));
+	    			
+	    			fecha2.setDate(fechaMaxima.getDate()+parseInt(arrayEstancias[maxDateIdEstancia].cantidadEstancia));
+
+		    		if(fecha1 > fecha2){
+		    			maxDateIdEstancia=i;
+		    		}
+//	    			console.log(i+"<-Id // fecha Salida Estancia: "+ fecha1.getUTCDate()+"-"+ fecha1.getUTCMonth()+"-"+fecha1.getUTCFullYear());
+//	    			console.log(maxDateIdEstancia+"<-Id // fecha Salida Estancia Max: "+ + fecha2.getUTCDate()+"-"+ fecha2.getUTCMonth()+"-"+fecha2.getUTCFullYear());
+
+		    	}
+//	    		var maxDateIdVuelo=0;
+//	    		var minDateIdVuelo=0;
+//	    		for(var i=0;i<arrayVuelos.length;i++){
+//		    		if(arrayVuelos[i].fecha > arrayVuelos[maxDateIdVuelo].fecha){
+//		    			maxDateIdVuelo=i;
+//		    		}
+//		    		
+//		    	}
+//	    		
+	    		
+//		    	$("#ContenidoIndex").html("");
+//	    		mostrarCards();
+//	    		nuevaReserva=ultimaReservaId++;
+//	    		console.log("ultima reserva id: " +nuevaReserva);
+
+/*	    		$.ajax({     	
+	    			data:{'idUser':idUsuario,'nuevaReserva':nuevaReserva,'arrayEstancias':arrayEstancias,'arrayVuelos':arrayVuelos}, 
+	    			url: "controller/reservas/cNuevaReserva.php", 
+	    			method:"POST",
+	    			dataType:"json",
+	    			success: function(result) {
+	    				console.log(result);
+	    				
+	            	},
+	               	error: function(xhr) {
+	        			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	            	}      	
+	            });*/
+
+	    	});
 	    }
 	    	
 	 },
@@ -401,7 +468,7 @@ function signUp() {
 
 //Show Cards
 function mostrarCards(){
-
+	$("#botonIndex").html("");
   htmlCode=`<div class="container "> `;
 
   for(var i=0;i<2;i++){
