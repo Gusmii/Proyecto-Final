@@ -348,8 +348,8 @@ function ShowReservas() {
 		    		}
 		    	}
 		 		
-//		    	$("#ContenidoIndex").html("");
-//	    		mostrarCards();
+		    	$("#ContenidoIndex").html("");
+	    		mostrarCards();
 	    		nuevaReserva=ultimaReservaId++;
 //	    		console.log("ultima reserva id: " +nuevaReserva);
 	    		var fechaMaxima=arrayEstancias[maxDateIdEstancia].fecha;
@@ -364,6 +364,10 @@ function ShowReservas() {
 	    				
 	            	},
 	               	error: function(xhr) {
+	               		if(xhr.status==200){
+	               			localStorage.clear();
+	               			window.reload();
+	               		}
 	        			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 	            	}      	
 	            });
