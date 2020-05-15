@@ -195,6 +195,9 @@ function ShowReservas() {
 	    		
 	    		if(fecha > fechaActual){
 	    			var diferenciaDias=((fecha-fechaActual)/(1000 * 3600 * 24)).toFixed(0);
+	    			if(diferenciaDias==0){
+	    				diferenciaDias=1;
+	    			}
 	    			$(this).parent().siblings(".diasEntradaEstancias").text("La estancia estará disponible dentro de: "+diferenciaDias+" dias");
 	    			
 	    		}else if(fecha == fechaActual){
@@ -229,9 +232,9 @@ function ShowReservas() {
 	    			    arrayVuelos.push({"idVuelo": idVuelo, "fecha":fecha, "cantidadVuelo": cantidadVuelo, "precio": precio});
 	    			}
 	    		});
-	    		console.log(arrayVuelos);
-	    		console.log("checkeados: ");
-    			console.log(fechaVuelosCheck);
+//	    		console.log(arrayVuelos);
+//	    		console.log("checkeados: ");
+//    			console.log(fechaVuelosCheck);
 
     			var fechaEstanciasCheck=false;
 	    		var arrayEstancias=[];
@@ -252,11 +255,11 @@ function ShowReservas() {
 	    			    arrayEstancias.push({"idEstancia": idEstancia, "fecha":fecha, "cantidadEstancia": cantidadEstancia, "precio": precio});
 	    			}
 	    		});
-	    		console.log(arrayEstancias);
-	    		console.log("checkeados: ");
-    			console.log(fechaEstanciasCheck);
-    			
-    			if((fechaEstanciasCheck && fechaVuelosCheck)||(fechaVuelosCheck && arrayEstancias.length==0)||(fechaEstanciasCheck && arrayVuelos.length==0)){
+//	    		console.log(arrayEstancias);
+//	    		console.log("checkeados: ");
+//    			console.log(fechaEstanciasCheck);
+//    			
+    			if((fechaEstanciasCheck && fechaVuelosCheck)||(fechaVuelosCheck && datosEstancias.length==0)||(fechaEstanciasCheck && datosVuelos.length==0)){
     				$("#botonPagar").html(`<button type="button" class="btn btn-info">Pagar</button>`);
     				$("#botonPagar").on("click",function(){
         				pagar(arrayEstancias, arrayVuelos);
@@ -317,44 +320,42 @@ function ShowReservas() {
 	    		
 	    		var idUsuario=localStorage.getItem("idUser");
 	    		var maxDateIdEstancia=0;
-	    		var fechaSalidaEstancia;
-	    		var fechaSalidaEstanciaMax= new Date($.now());
-	    		var fecha1= new Date();
-	    		var fecha2= new Date();
+	    		var minDateIdEstancia=0;
+	    		var fechaSalidaEstancia= new Date();
+	    		var fechaEntradaEstancia= new Date();
+	    		var fechaSalidaEstanciaMax= new Date();
+	    		var fechaEntradaEstanciaMin= new Date();
 	    		
 	    		for(var i=0;i<arrayEstancias.length;i++){
 
 	    			fechaId= new Date(arrayEstancias[i].fecha);
 	    			fechaMaxima=new Date(arrayEstancias[maxDateIdEstancia].fecha);
+	    			fechaMinima=new Date(arrayEstancias[minDateIdEstancia].fecha);
 	    			
-	    			fecha1.setDate(fechaId.getDate()+parseInt(arrayEstancias[i].cantidadEstancia));
+	    			fechaSalidaEstancia.setDate(fechaId.getDate()+parseInt(arrayEstancias[i].cantidadEstancia));
 	    			
-	    			fecha2.setDate(fechaMaxima.getDate()+parseInt(arrayEstancias[maxDateIdEstancia].cantidadEstancia));
+	    			fechaSalidaEstanciaMax.setDate(fechaMaxima.getDate()+parseInt(arrayEstancias[maxDateIdEstancia].cantidadEstancia));
+	    			
+	    			fechaEntradaEstancia.setDate(fechaId.getDate());
 
-		    		if(fecha1 > fecha2){
+	    			fechaEntradaEstanciaMin.setDate(fechaMinima.getDate());
+
+		    		if(fechaSalidaEstancia > fechaSalidaEstanciaMax){
 		    			maxDateIdEstancia=i;
 		    		}
-//	    			console.log(i+"<-Id // fecha Salida Estancia: "+ fecha1.getUTCDate()+"-"+ fecha1.getUTCMonth()+"-"+fecha1.getUTCFullYear());
-//	    			console.log(maxDateIdEstancia+"<-Id // fecha Salida Estancia Max: "+ + fecha2.getUTCDate()+"-"+ fecha2.getUTCMonth()+"-"+fecha2.getUTCFullYear());
-
+		    		if(fechaEntradaEstancia < fechaEntradaEstanciaMin){
+		    			minDateIdEstancia=i;
+		    		}
 		    	}
-//	    		var maxDateIdVuelo=0;
-//	    		var minDateIdVuelo=0;
-//	    		for(var i=0;i<arrayVuelos.length;i++){
-//		    		if(arrayVuelos[i].fecha > arrayVuelos[maxDateIdVuelo].fecha){
-//		    			maxDateIdVuelo=i;
-//		    		}
-//		    		
-//		    	}
-//	    		
-	    		
+		 		
 //		    	$("#ContenidoIndex").html("");
 //	    		mostrarCards();
-//	    		nuevaReserva=ultimaReservaId++;
+	    		nuevaReserva=ultimaReservaId++;
 //	    		console.log("ultima reserva id: " +nuevaReserva);
-
-/*	    		$.ajax({     	
-	    			data:{'idUser':idUsuario,'nuevaReserva':nuevaReserva,'arrayEstancias':arrayEstancias,'arrayVuelos':arrayVuelos}, 
+	    		var fechaMaxima=arrayEstancias[maxDateIdEstancia].fecha;
+	    		var fechaMinima=arrayEstancias[minDateIdEstancia].fecha;
+	    		$.ajax({     	
+	    			data:{'idUser':idUsuario,'nuevaReserva':nuevaReserva,'fechaMaxima':fechaMaxima,'fechaMinima':fechaMinima,'arrayEstancias':arrayEstancias,'arrayVuelos':arrayVuelos}, 
 	    			url: "controller/reservas/cNuevaReserva.php", 
 	    			method:"POST",
 	    			dataType:"json",
@@ -365,7 +366,7 @@ function ShowReservas() {
 	               	error: function(xhr) {
 	        			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 	            	}      	
-	            });*/
+	            });
 
 	    	});
 	    }

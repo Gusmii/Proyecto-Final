@@ -60,6 +60,22 @@ class reservas_viajesModel extends reservas_viajesClass{
         
     }
     
+    
+    
+    function setNuevoViajeReserva()  // fill country : $this->list
+    {
+        $this->OpenConnect();
+        $idViaje=$this->id_viaje;
+        $idReserva=$this->id_reserva;
+        
+        $sql="call spNuevaReservas_viajes($idReserva,$idViaje)";
+        
+        $result = $this->link->query($sql);
+
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
     function setListReservas_viajes()  // fill country : $this->list
     {
         $this->OpenConnect();
