@@ -107,6 +107,40 @@ class estanciasModel extends estanciasClass{
         mysqli_free_result($result);
         $this->CloseConnect();
     }
+
+    function setList2Estancias()  // llamo a solo 2 estancias
+    {
+        $this->OpenConnect();
+        $sql="call spSelect2Estancias()";
+        
+        $result = $this->link->query($sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {
+            $newEstancia=new estanciasModel();
+            $newEstancia->setId($row['id']);
+            $newEstancia->setNombre($row['nombre']);
+            $newEstancia->setPrecio($row['precio']);
+            $newEstancia->setPuntuacion($row['puntuacion']);
+            $newEstancia->setImagen($row['imagen']);
+            $newEstancia->setUbicacion($row['ubicacion']);
+            $newEstancia->setTipo($row['tipo']);
+            
+            
+            $ciudad= new ciudadesModel();
+            $ciudad->setId($row['ubicacion']);
+            $ciudad->findCiudadById();
+            $newEstancia->setObjectUbicacion($ciudad);
+            
+            $tipo= new tipo_estanciasModel();
+            $tipo->setId($row['tipo']);
+            $tipo->findTipoById();
+            $newEstancia->setObjectTipoEstancia($tipo);
+            
+            array_push($this->list, $newEstancia);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
     
     function filtrarEstancias($nombreFiltro)  // fill country : $this->list
     {

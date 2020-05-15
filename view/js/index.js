@@ -366,6 +366,21 @@ function signUp() {
 //Show Cards
 function mostrarCards(){
 
+	$.ajax({
+		// check if somebody is  logged		
+		url: "controller/login/cSelect2Vuelos.php",
+		dataType: "json",
+		success: function (result) {
+			
+
+		},
+		error: function (xhr) {
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+		}
+	});
+
+
+
   htmlCode=`<div class="container "> `;
 
   for(var i=0;i<2;i++){
