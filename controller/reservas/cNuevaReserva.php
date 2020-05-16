@@ -17,8 +17,8 @@ $cReservas->setId_usuario($idUser);
 $cReservas->setFecha_inicio($fechaMinima);
 $cReservas->setFecha_fin($fechaMaxima);
 $cReservas->crearNuevaReserva();
-
-for ($x = 0; $x <= count( $arrayEstancias); $x++) {
+$idNuevaReserva++;
+for ($x = 0; $x < count( $arrayEstancias); $x++) {
 
 $cEstancias=new reservas_estanciasModel();
 
@@ -28,7 +28,7 @@ $cEstancias->setFecha_inicio($arrayEstancias[$x]["fecha"]);
 $cEstancias->setNuevaEstanciaReserva();
 
 }
-for ($x = 0; $x <= count($arrayVuelos); $x++) {
+for ($x = 0; $x < count($arrayVuelos); $x++) {
     
     $cVuelos=new reservas_viajesModel();
     
