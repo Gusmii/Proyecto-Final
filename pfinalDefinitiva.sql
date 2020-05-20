@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-05-2020 a las 17:20:52
+-- Tiempo de generación: 20-05-2020 a las 16:31:30
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -588,20 +588,18 @@ INSERT INTO `reservas` (`id`, `id_usuario`, `fecha_inicio`, `fecha_fin`) VALUES
 CREATE TABLE `reservas_estancias` (
   `id_reserva` int(11) NOT NULL,
   `id_estancia` int(11) NOT NULL,
-  `fecha_inicio` date NOT NULL
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `reservas_estancias`
 --
 
-INSERT INTO `reservas_estancias` (`id_reserva`, `id_estancia`, `fecha_inicio`) VALUES
-(1, 3, '2020-05-11'),
-(2, 4, '2020-05-12'),
-(3, 4, '2020-05-14'),
-(3, 2, '0000-00-00'),
-(3, 227, '0000-00-00'),
-(3, 33, '0000-00-00');
+INSERT INTO `reservas_estancias` (`id_reserva`, `id_estancia`, `fecha_inicio`, `fecha_fin`) VALUES
+(1, 3, '2020-05-11', '2020-05-20'),
+(2, 4, '2020-05-12', '2020-05-13'),
+(3, 4, '2020-05-14', '2020-05-17');
 
 -- --------------------------------------------------------
 
@@ -621,9 +619,7 @@ CREATE TABLE `reservas_viajes` (
 INSERT INTO `reservas_viajes` (`id_reserva`, `id_viaje`) VALUES
 (1, 5),
 (2, 6),
-(3, 5),
-(3, 1),
-(3, 27);
+(3, 5);
 
 -- --------------------------------------------------------
 
@@ -846,7 +842,7 @@ ALTER TABLE `estancias`
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_usuarios`
