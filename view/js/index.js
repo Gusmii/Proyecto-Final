@@ -99,9 +99,10 @@ function ShowReservas() {
 	    				});
 	    	});
 	    	htmlCodeVuelos="";
+	    	datosVuelos= jQuery.parseJSON(datos.datosVuelos);
+
 	    	if(arrayIdCantidadVuelosActuales.length>0){
 	    		
-		    	datosVuelos= jQuery.parseJSON(datos.datosVuelos);
 
 		    	htmlCodeCabVuelos=`<div class="container"><table id="tablaVuelosReservaActual" class="table"> <thead> <tr><th>Precio (euros)</th><th>Ubicacion</th><th>CantidadVuelos</th><th>Dia de salida</th><th>Dia restantes para la salida</th></tr></thead><tbody>`;
 		    	htmlCodeCuerVuelos="";
@@ -132,9 +133,10 @@ function ShowReservas() {
 	    	}
 	    	
 	    	htmlCodeEstancias="";
+	    	datosEstancias= jQuery.parseJSON(datos.datosEstancias);
+
 	    	if(arrayIdCantidadEstanciasActuales.length>0){
 	    	
-		    	datosEstancias= jQuery.parseJSON(datos.datosEstancias);
 		    	
 		    	htmlCodeCabEstancias=`<table id="tablaEstanciasReservaActual" class="table"> <thead> <tr><th>Imagen</th><th>Nombre Estancia</th><th>Precio (euros)</th><th>Ubicacion</th><th>Cantidad Noches Estancias</th><th>Dia de entrada</th><th>Dia restantes para la entrada</th></tr></thead><tbody>`;
 		    	htmlCodeCuerEstancias="";
@@ -259,7 +261,7 @@ function ShowReservas() {
 //	    		console.log("checkeados: ");
 //    			console.log(fechaEstanciasCheck);
 //    			
-    			if((fechaEstanciasCheck && fechaVuelosCheck)||(fechaVuelosCheck && datosEstancias.length==0)||(fechaEstanciasCheck && datosVuelos.length==0)){
+    			if((fechaEstanciasCheck && fechaVuelosCheck)||(fechaVuelosCheck && arrayIdCantidadEstanciasActuales.length==0)||(fechaEstanciasCheck && arrayIdCantidadVuelosActuales.length==0)){
     				$("#botonPagar").html(`<button type="button" class="btn btn-info">Pagar</button>`);
     				$("#botonPagar").on("click",function(){
         				pagar(arrayEstancias, arrayVuelos);
@@ -339,11 +341,14 @@ function ShowReservas() {
 	    			fechaEntradaEstancia.setDate(fechaId.getDate());
 
 	    			fechaEntradaEstanciaMin.setDate(fechaMinima.getDate());
-
-		    		if(fechaSalidaEstancia > fechaSalidaEstanciaMax){
+	    			console.log("fechaSalidaEstancia.getTime()");
+	    			console.log(fechaSalidaEstancia.getTime());
+	    			console.log("fechaSalidaEstanciaMax.getTime()");	
+	    			console.log(fechaSalidaEstanciaMax.getTime());
+		    		if(fechaSalidaEstancia.getTime() < fechaSalidaEstanciaMax.getTime()){
 		    			maxDateIdEstancia=i;
 		    		}
-		    		if(fechaEntradaEstancia < fechaEntradaEstanciaMin){
+		    		if(fechaEntradaEstancia.getTime() > fechaEntradaEstanciaMin.getTime()){
 		    			minDateIdEstancia=i;
 		    		}
 		    	}
@@ -366,12 +371,11 @@ function ShowReservas() {
 	               	error: function(xhr) {
 	               		if(xhr.status==200){
 	               			localStorage.clear();
-	               			window.reload();
 	               		}
-	        			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+//	        			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 	            	}      	
 	            });
-
+//
 	    	});
 	    }
 	    	
