@@ -67,7 +67,7 @@ class reservas_estanciasModel extends reservas_estanciasClass{
         $idReserva=$this->id_reserva;
         $fechaInicio=$this->fecha_inicio;
         
-        $sql="call spNuevaReservas_estancias($idReserva,$idEstancia,$fechaInicio)";
+        $sql="call spNuevaReservas_estancias($idReserva,$idEstancia,'$fechaInicio')";
         
         $result = $this->link->query($sql);
 

@@ -17,6 +17,7 @@ $cReservas->setId_usuario($idUser);
 $cReservas->setFecha_inicio($fechaMinima);
 $cReservas->setFecha_fin($fechaMaxima);
 $cReservas->crearNuevaReserva();
+
 $idNuevaReserva++;
 for ($x = 0; $x < count( $arrayEstancias); $x++) {
 
