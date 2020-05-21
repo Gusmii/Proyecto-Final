@@ -14,6 +14,7 @@ $(document).ready(function(){
   
   titulo=window.location.pathname.split("/");
   
+  //Se crean dos Arrays distintos
   paginas=["HOME","VIAJES","ESTANCIAS","ADMIN","QUIENESSOMOS"];
   nombrePaginas=["index.html","vViajes.html","vEstancias.html","vAdmin.html","vQuienesSomos.html"];
  
@@ -116,6 +117,7 @@ htmlCode+=`<ul class="navbar-nav mr-auto">`;
       }        
       htmlCode+=`</li>`;
     }
+    //Se muestran dos botones a la derecha de la barra de navegacion
     if(localStorage.getItem("apodo") == null && tituloPaginaActual != "vViajes.html" && tituloPaginaActual != "vQuienesSomos.html" && tituloPaginaActual != "vEstancias.html" && tituloPaginaActual != "vAdmin.html"){
       
     htmlCode+= `</ul>
@@ -126,6 +128,7 @@ htmlCode+=`<ul class="navbar-nav mr-auto">`;
     </span>`;
   }
 
+  //Se muestran dos botones y el apodo del usuario a la derecha de la barra de navegacion
   if(localStorage.getItem("apodo") != null && tituloPaginaActual == "index.html"){
       
     htmlCode+= `</ul>
@@ -138,7 +141,8 @@ htmlCode+=`<ul class="navbar-nav mr-auto">`;
     </span>`;
   }
 
-  if(localStorage.getItem("apodo") != null && tituloPaginaActual != "index.html"){
+  //Se muestran dos botones y el apodo del usuario a la derecha de la barra de navegacion
+  if(localStorage.getItem("apodo") != null && tituloPaginaActual != "index.html"){ 
       
     htmlCode+= `</ul>
     <span id="zonaLogin" class="navbar-text">
@@ -153,7 +157,7 @@ htmlCode+=`<ul class="navbar-nav mr-auto">`;
   
 }
 
-//Log out index
+//Cerrar sesion del index
 function logOut() {
 	//forms values vars	
     $("#cerrarSesion").click(function() {	
@@ -166,11 +170,7 @@ function logOut() {
 			success: function(result) {
         
           alert("Estamos cerrando tu sesion");
-          // localStorage.setItem("verReservas",false);
-          // localStorage.removeItem("idUser");
-          // localStorage.removeItem("apodo");
-          // localStorage.removeItem("tipo");
-          localStorage.clear();
+          //localStorage.clear();
           window.location.reload(true);
 
         	},
@@ -181,12 +181,13 @@ function logOut() {
     });
 }
 
-//Log out vistas
+//Cerrar sesion en las demas vistas
 function logOutVistas() {
-	//forms values vars	
+	
     $("#cerrarSesion").click(function() {	
 
-    	localStorage.clear();
+      //Aqui se borra todo el contenido de la sesion local
+    	localStorage.clear(); 
 
         $.ajax({     	
 			url: "../controller/login/cLogout.php",
@@ -194,10 +195,7 @@ function logOutVistas() {
 			success: function(result) {
         
           alert("Estamos cerrando tu sesion");
-          // localStorage.removeItem("idUser");
-          // localStorage.removeItem("apodo");
-          // localStorage.removeItem("tipo");
-          localStorage.clear();
+          //localStorage.clear();
           window.location.reload(true);
 
         	},

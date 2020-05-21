@@ -8,16 +8,16 @@ $(document).ready(function(){
 		url: "controller/login/cLoggedVerify.php",
 		dataType: "json",
 		success: function (result) {
-			console.log(result);
+			//console.log(result);
 
       if (result.error == "Logged") {  //Si esta logueado muestra los datos en la consola
         
-//        alert("estas logueado");
+        //alert("estas logueado");
       
         
 
 			} else {
-        alert("logueate");		
+        //alert("logueate");		
 			}
 		},
 		error: function (xhr) {
@@ -27,7 +27,7 @@ $(document).ready(function(){
 
   var verReservas = localStorage.getItem("verReservas");
 
-  console.log(verReservas);
+  //console.log(verReservas);
   
   $("#reservasIndex").click(function() {	
 	    
@@ -322,7 +322,7 @@ function ShowReservas() {
 				  </div>
 				    <div class="form-group">
 				    <label >CODIGO DE SEGURIDAD DE LA TARJETA</label>
-				    <input type="text" class="form-control" id="codigoSeguridad" placeholder="Escriba el codigo de seguridad de la tarjeta">
+				    <input type="number" class="form-control" id="codigoSeguridad" placeholder="Escriba el codigo de seguridad de la tarjeta">
 				  </div>
 				  <div class="form-group">
 				  	<label >Suma total a pagar: `+sumaTotal+` €</label>
@@ -387,8 +387,8 @@ function ShowReservas() {
 	    			method:"POST",
 	    			dataType:"json",
 	    			success: function(result) {
-	    				console.log(result);
-	    				
+	    				//console.log(result);
+	    				alert("Tu reserva se ha realizado con exito");
 	            	},
 	               	error: function(xhr) {
 	               		if(xhr.status==200){
@@ -409,37 +409,37 @@ function ShowReservas() {
 
 }
 
-//Login
+//Iniciar sesion
 function signIn() {
-	//forms values vars	
+	
     $("#signIn").click(function() {	
 
 		//Recoge las variables
 		var user = $("#usuario").val();	
-    var password = $("#contrasenia").val();
+    	var password = $("#contrasenia").val();
   
         
-        console.log("UserJS: " + user);
-        console.log("PasswordJS: " + password);
+        //console.log("UserJS: " + user);
+        //console.log("PasswordJS: " + password);
        
-		
+		//Manda los datos introducidos del usuario para que se compruebe si estan bien o mal
         $.ajax({     	
 			data:{'user':user,'password':password}, //Manda las variables 
 			url: "controller/login/cSignIn.php", 
 			method:"POST",
 			dataType:"json",
 			success: function(result) {
-				console.log(result);
+				//console.log(result);
 				
-				if(result.error == "No hay errores") {  //Si no hay ningun error manda a la vista
+				if(result.error == "No hay errores") {  //Si no hay ningun error manda a la vista y guarda en la sesion local los datos del usuario, despues recarga la pestaña
 					localStorage.setItem("idUser",result.idUser);
 					localStorage.setItem("apodo",result.username);
-          localStorage.setItem("tipo",result.tipo);
-          localStorage.setItem("verReservas",false);
+          			localStorage.setItem("tipo",result.tipo);
+         	 		localStorage.setItem("verReservas",false);
 					window.location.href="index.html";
-				}else if(result.error == "El usuario o la contraseña estan mal") {
+				}else if(result.error == "El usuario o la contraseña estan mal") { //Saldra este error si el usuario o la contraseña estan mal
 					alert(result.error);
-				}else if(result.error == "No se han rellenado todos los campos") {
+				}else if(result.error == "No se han rellenado todos los campos") { //Saldra este error si algun campo esta vacio
 					alert(result.error);
 				}
         	},
@@ -454,7 +454,7 @@ function signIn() {
     });
 }
 
-//Register
+//Registrarse
 function signUp() {
 	//forms values vars	
     $("#signUp").click(function() {	
@@ -469,19 +469,19 @@ function signUp() {
   
       
        
-		
+		//Aqui manda los datos del registro al controller para que se puedan insertar los datos en la bbdd
         $.ajax({     	
 			data:{'apodo':apodo,'nombre':nombre,'apellidos':apellidos,'dni':dni,'correo':correo,'contra':contra}, //Manda las variables 
 			url: "controller/login/cInsertarUsuario.php", 
 			method:"POST",
 			success: function(result) {
-        console.log(result);
-        
+        //console.log(result);
+        alert("Te has registrado con exito");
         window.location.reload();
 			
         	},
            	error: function(xhr) {
-    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+    			alert("No te has podido registrar, error: " + xhr.status + " " + xhr.statusText);
 				
 				//Si hay algun error vacia los inputs
           $("#apodo").val("");
@@ -489,7 +489,7 @@ function signUp() {
           $("#apellidos").val("");
           $("#dni").val("");
           $("#correo").val("");
-    			$("#contra").val("");
+    	  $("#contra").val("");
         	}      	
         });
     });
@@ -497,8 +497,8 @@ function signUp() {
 
 
 
-//Show Cards
-function mostrarCards(){
+//Aqui se mostraran dos cards de vuelos y estancias aleatorios
+function mostrarCards(){ 
 
 	$("#botonIndex").html("");
 
@@ -517,6 +517,7 @@ function mostrarCards(){
 
 	$("#ContenidoIndex").html(htmlCode);
 
+	//Aqui se llama al controller para que reciva los datos
 	$.ajax({
 		// call 	
 		url: "controller/vuelos/cSelect2Vuelos.php",
@@ -525,7 +526,7 @@ function mostrarCards(){
 			
 			htmlCode="";
 
-			console.log(result.datosSeleccionados);
+			//console.log(result.datosSeleccionados);
 			datosVuelos= jQuery.parseJSON(result.datosSeleccionados);
 
 			for (let i = 0; i < datosVuelos.length; i++) {
@@ -552,6 +553,7 @@ function mostrarCards(){
 		}
 	});
 
+	//Aqui se llama al controller para que reciva los datos
 	$.ajax({
 		// call 	
 		url: "controller/estancias/cSelect2Estancias.php",
@@ -560,7 +562,7 @@ function mostrarCards(){
 			
 			htmlCode="";
 
-			console.log(result.datosSeleccionados);
+			//console.log(result.datosSeleccionados);
 			datosEstancias= jQuery.parseJSON(result.datosSeleccionados);
 
 			for (let i = 0; i < datosEstancias.length; i++) {
@@ -576,7 +578,7 @@ function mostrarCards(){
 					  <p class="card-text mb-auto">Precio por noche:`+datosEstancias[i].precio+`€ </p>
 					  <p class="card-text mb-auto"><small class="text-muted">Puntuacion:`+datosEstancias[i].puntuacion+`</small></p>
 					</div>
-					<img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" src="`+datosEstancias[i].imagen+`" alt="Card image cap">
+					<img class="ImagenesIndex card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" src="`+datosEstancias[i].imagen+`" alt="Card image cap">
 				  </div>
 				</div> `;
 				
