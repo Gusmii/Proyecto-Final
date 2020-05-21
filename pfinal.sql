@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-05-2020 a las 16:31:30
+-- Tiempo de generación: 21-05-2020 a las 19:21:16
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -108,6 +108,16 @@ INSERT INTO `reservas_estancias`(`id_reserva`, `id_estancia`, `fecha_inicio`) VA
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spNuevaReservas_viajes` (IN `pIdReserva` INT, IN `pIdViaje` INT)  NO SQL
 INSERT INTO `reservas_viajes`(`id_reserva`, `id_viaje`) VALUES (pIdReserva,pIdViaje)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spSelect2Estancias` ()  NO SQL
+SELECT * FROM estancias 
+ORDER BY RAND()
+LIMIT 2$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spSelect2Vuelos` ()  NO SQL
+SELECT * FROM vuelos
+ORDER BY RAND()
+LIMIT 2$$
 
 DELIMITER ;
 
@@ -588,18 +598,17 @@ INSERT INTO `reservas` (`id`, `id_usuario`, `fecha_inicio`, `fecha_fin`) VALUES
 CREATE TABLE `reservas_estancias` (
   `id_reserva` int(11) NOT NULL,
   `id_estancia` int(11) NOT NULL,
-  `fecha_inicio` date NOT NULL,
-  `fecha_fin` date NOT NULL
+  `fecha_inicio` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `reservas_estancias`
 --
 
-INSERT INTO `reservas_estancias` (`id_reserva`, `id_estancia`, `fecha_inicio`, `fecha_fin`) VALUES
-(1, 3, '2020-05-11', '2020-05-20'),
-(2, 4, '2020-05-12', '2020-05-13'),
-(3, 4, '2020-05-14', '2020-05-17');
+INSERT INTO `reservas_estancias` (`id_reserva`, `id_estancia`, `fecha_inicio`) VALUES
+(1, 3, '2020-05-11'),
+(2, 4, '2020-05-12'),
+(3, 4, '2020-05-14');
 
 -- --------------------------------------------------------
 
