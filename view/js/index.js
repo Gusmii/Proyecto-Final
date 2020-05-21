@@ -60,7 +60,7 @@ function ShowReservas() {
 	    url:"controller/reservas/cSelectEstanciasYVuelos.php",
 	    success: function(datos){
 	    	var htmlCode="";
-	    	  $("#botonIndex").html(`<button type="button" class="btn btn-danger">Volver al index</button>`);
+	    	  $("#botonIndex").html(`<button type="button" class="btn btn-danger">Volver al inicio</button>`);
 	    	  $("#botonIndex").on("click",function(){
 	    		    localStorage.setItem("verReservas",false);  
 	    		    $("#contenidoIndex").html("");
@@ -76,12 +76,19 @@ function ShowReservas() {
 			var arrayIdCantidadVuelosActuales=[];	
 			
 
-
+			//recogemos del localsotrage todos los items que empiecen por estancia
+			
 	    	let estanciasActuales = Object.keys(localStorage).filter(v => v.startsWith("estancia"));
+	    	
+	    	//recorremos el array que se ha creado arriba con los item que empiezan por estancia
 	    	
 	    	$.each(estanciasActuales, function(index, valor) {
 
 	    		var idEstancia=eval(valor.split("_")[1]);
+	    		// cada item empieza por estancia_ y luego va seguido el numero,
+	    		//nosotros recogemos el numero solamente separando el nombre con la barra baja del numero
+	    		//despues introducimos la id de la estancia y su valor, que seria la cantidad de veces
+	    		//que se han clickado en el boton de reservar una noche
 	    		arrayIdCantidadEstanciasActuales.push(
 	    				{
 	    					[idEstancia]:(localStorage.getItem(valor))
@@ -99,21 +106,28 @@ function ShowReservas() {
 	    				});
 	    	});
 	    	htmlCodeVuelos="";
+	    	datosVuelos= jQuery.parseJSON(datos.datosVuelos);
+
 	    	if(arrayIdCantidadVuelosActuales.length>0){
-	    		
-		    	datosVuelos= jQuery.parseJSON(datos.datosVuelos);
+	    		//si hay al menos un vuelo entrara en este if que se utiliza para crear la tabla con los
+	    		//vuelos que se desean reservar
 
 		    	htmlCodeCabVuelos=`<div class="container"><table id="tablaVuelosReservaActual" class="table"> <thead> <tr><th>Precio (euros)</th><th>Ubicacion</th><th>CantidadVuelos</th><th>Dia de salida</th><th>Dia restantes para la salida</th></tr></thead><tbody>`;
 		    	htmlCodeCuerVuelos="";
 	
 		    	for(var c=0;c<arrayIdCantidadVuelosActuales.length;c++){
-		    		
+		    		//recogemos la key del conjunto de la posicion C para los vuelos actuales,
+		    		//ya que eso es la id del vuelo
 		    		var idVuelo=Object.getOwnPropertyNames(arrayIdCantidadVuelosActuales[c]);
-	//	    		console.log(arrayIdCantidadVuelosActuales);
+
+		    		//añadimos una nueva variable en la que se quedara guardado el nombre como 
+		    		//Vuelo_ y el numero de la id del vuelo que esta en el array
 		    		var itemName=$.parseHTML("Vuelo_"+idVuelo);
 		    		
 			    		for(var e=0;e<datosVuelos.length;e++){
 			    			if((datosVuelos[e].id==idVuelo)){
+			    				//si coincide el id del vuelo reservado o que se quiere reservar y los datos de la 
+			    				//base de datos, se generara una linea en la tabla de vuelos reservados
 			    				htmlCodeCuerVuelos+=`<tr id="`+itemName[0].data+`">`;
 			    				htmlCodeCuerVuelos+=`<td scope="col" class="precio">`+datosVuelos[e].precio+`</td>`;
 		      	    			 htmlCodeCuerVuelos+=`<td scope="col">`+datosVuelos[e].objectUbicacion.nombre+`</td>`;
@@ -132,9 +146,10 @@ function ShowReservas() {
 	    	}
 	    	
 	    	htmlCodeEstancias="";
+	    	datosEstancias= jQuery.parseJSON(datos.datosEstancias);
+
 	    	if(arrayIdCantidadEstanciasActuales.length>0){
 	    	
-		    	datosEstancias= jQuery.parseJSON(datos.datosEstancias);
 		    	
 		    	htmlCodeCabEstancias=`<table id="tablaEstanciasReservaActual" class="table"> <thead> <tr><th>Imagen</th><th>Nombre Estancia</th><th>Precio (euros)</th><th>Ubicacion</th><th>Cantidad Noches Estancias</th><th>Dia de entrada</th><th>Dia restantes para la entrada</th></tr></thead><tbody>`;
 		    	htmlCodeCuerEstancias="";
@@ -172,10 +187,18 @@ function ShowReservas() {
 	    	var fechaActual = new Date($.now());
 
 	    	$(".fechasVuelos").on("change",function(){
+	    		//cuando cambia cualquier campo de la tabla de los vuelos, se recogera la fecha actual
+	    		//y se comparara con la fecha que se quiere marcar, en caso de que falte mas de un dia,
+	    		//dejará esa fecha como seleccionada y saldrá a su derecha cuantos dias quedarán para
+	    		// que coja el vuelo. En caso de que falte menos de un día, se vaciará la fecha que ha seleccionado
+	    		//y le saldrá un mensaje parar indicarle como debe seleccionar la fecha
 	    		var fecha =new Date($(this).val());
 	    		
 	    		if(fecha > fechaActual){
 	    			var diferenciaDias=((fecha-fechaActual)/(1000 * 3600 * 24)).toFixed(0);
+	    			if(diferenciaDias==0){
+	    				diferenciaDias=1;
+	    			}
 	    			$(this).parent().siblings(".diasSalidaVuelos").text("el vuelo saldrá dentro de: "+diferenciaDias+" dias");
 
 	    		}else if(fecha == fechaActual){
@@ -215,26 +238,26 @@ function ShowReservas() {
 	    	function comprobarFechas(){
 	    		var fechaVuelosCheck=false;
 	    		var arrayVuelos=[];
-
+	    		//Aqui lo que hacemos es crear un array con los datos relevantes de los vuelos
+	    		//y de las estancias junto con la fecha de entrada en las estancias o de salidas 
+	    		//de los vuelos, pero solo en caso de que haya seleccionado correctamente una fecha
 	    		$('.fechasVuelos').each(function() {
 	        		fechaVuelosCheck=false;
 	        		var idVuelo= $(this).attr('id').split("_")[2];
 	        		var precio= $(this).parent().siblings(".precio").text();
-//	        		console.log("idVuelo: "+idVuelo);
+
 	        		var fecha=$(this).val();
-//	    			console.log(fecha);
-	    			var cantidadVuelo=$(this).parent().siblings(".cantidadVuelos").text();
-//	    			console.log(cantidadVuelo);
-	    			if(fecha===""){
+
+	        		var cantidadVuelo=$(this).parent().siblings(".cantidadVuelos").text();
+
+	        		if(fecha===""){
 	    				return false; 
 	    			}else{
 	    			    fechaVuelosCheck=true;
 	    			    arrayVuelos.push({"idVuelo": idVuelo, "fecha":fecha, "cantidadVuelo": cantidadVuelo, "precio": precio});
 	    			}
 	    		});
-//	    		console.log(arrayVuelos);
-//	    		console.log("checkeados: ");
-//    			console.log(fechaVuelosCheck);
+
 
     			var fechaEstanciasCheck=false;
 	    		var arrayEstancias=[];
@@ -243,23 +266,23 @@ function ShowReservas() {
 	        		fechaEstanciasCheck=false;
 	        		var idEstancia= $(this).attr('id').split("_")[2];
 	        		var precio= $(this).parent().siblings(".precio").text();
-//	        		console.log("idEstancia: "+idEstancia);
+
 	        		var fecha=$(this).val();
-//	    			console.log(fecha);
-	    			var cantidadEstancia=$(this).parent().siblings(".cantidadEstancias").text();
-//	    			console.log(cantidadEstancia);
-	    			if(fecha===""){
+
+	        		var cantidadEstancia=$(this).parent().siblings(".cantidadEstancias").text();
+
+	        		if(fecha===""){
 	    				return false; 
 	    			}else{
 	    			    fechaEstanciasCheck=true;
 	    			    arrayEstancias.push({"idEstancia": idEstancia, "fecha":fecha, "cantidadEstancia": cantidadEstancia, "precio": precio});
 	    			}
 	    		});
-//	    		console.log(arrayEstancias);
-//	    		console.log("checkeados: ");
-//    			console.log(fechaEstanciasCheck);
-//    			
-    			if((fechaEstanciasCheck && fechaVuelosCheck)||(fechaVuelosCheck && datosEstancias.length==0)||(fechaEstanciasCheck && datosVuelos.length==0)){
+
+	    		//en caso de que se haya completado la seleccion de fechas y/o no haya vuelos o estancias,
+	    		//se mostrará un boton de pagar en el cual a clickar te mostrará un formulario para realizar el pago
+	    		//en el cual te saldrá el precio total de la reserva 
+    			if((fechaEstanciasCheck && fechaVuelosCheck)||(fechaVuelosCheck && arrayIdCantidadEstanciasActuales.length==0)||(fechaEstanciasCheck && arrayIdCantidadVuelosActuales.length==0)){
     				$("#botonPagar").html(`<button type="button" class="btn btn-info">Pagar</button>`);
     				$("#botonPagar").on("click",function(){
         				pagar(arrayEstancias, arrayVuelos);
@@ -315,10 +338,14 @@ function ShowReservas() {
 	    	for(var i=0;i<datosReservas.length;i++){
 	    		ultimaReservaId=datosReservas[i].id;
 	    	}
-	    	
+    		nuevaReserva=ultimaReservaId++;
+
+	    	//la ultima reserva + 1 será el id de reserva que habria que poner en las tablas enlazadas
+	    	//ya que en la tabla reservas todavia no se ha insertado esta misma
 	    	$("#botonTerminarPago").on("click",function(){
 	    		
 	    		var idUsuario=localStorage.getItem("idUser");
+	//////////////////////FECHA MAXIMA Y MINIMA///////////////////////    		
 	    		var maxDateIdEstancia=0;
 	    		var minDateIdEstancia=0;
 	    		var fechaSalidaEstancia= new Date();
@@ -340,18 +367,18 @@ function ShowReservas() {
 
 	    			fechaEntradaEstanciaMin.setDate(fechaMinima.getDate());
 
-		    		if(fechaSalidaEstancia > fechaSalidaEstanciaMax){
+		    		if(fechaSalidaEstancia.getTime() < fechaSalidaEstanciaMax.getTime()){
 		    			maxDateIdEstancia=i;
 		    		}
-		    		if(fechaEntradaEstancia < fechaEntradaEstanciaMin){
+		    		if(fechaEntradaEstancia.getTime() > fechaEntradaEstanciaMin.getTime()){
 		    			minDateIdEstancia=i;
 		    		}
 		    	}
-		 		
+	    		//////////////////////FECHA MAXIMA Y MINIMA///////////////////////    		
+
 		    	$("#ContenidoIndex").html("");
 	    		mostrarCards();
-	    		nuevaReserva=ultimaReservaId++;
-//	    		console.log("ultima reserva id: " +nuevaReserva);
+
 	    		var fechaMaxima=arrayEstancias[maxDateIdEstancia].fecha;
 	    		var fechaMinima=arrayEstancias[minDateIdEstancia].fecha;
 	    		$.ajax({     	
@@ -366,12 +393,11 @@ function ShowReservas() {
 	               	error: function(xhr) {
 	               		if(xhr.status==200){
 	               			localStorage.clear();
-	               			window.reload();
 	               		}
-	        			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+//	        			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 	            	}      	
 	            });
-
+//
 	    	});
 	    }
 	    	

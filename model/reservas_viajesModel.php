@@ -72,7 +72,7 @@ class reservas_viajesModel extends reservas_viajesClass{
         
         $result = $this->link->query($sql);
 
-        mysqli_free_result($result);
+//         mysqli_free_result($result);
         $this->CloseConnect();
     }
     
