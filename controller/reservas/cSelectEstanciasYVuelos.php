@@ -2,6 +2,13 @@
 
 include_once '../../model/vuelosModel.php';
 include_once '../../model/estanciasModel.php';
+include_once '../../model/reservasModel.php';
+
+$cReservas=new reservasModel();
+
+$cReservas->setListReservas();
+
+$listReservasJson=$cReservas->getListReservasJson();
 
 $cEstancias=new estanciasModel();
 
@@ -15,6 +22,6 @@ $cVuelos->setListVuelos();
 
 $listVuelosJson=$cVuelos->getListVuelosJson();
 
-$resultados=array("datosEstancias"=>$listEstanciasJson,"datosVuelos"=>$listVuelosJson);
+$resultados=array("datosReservas"=>$listReservasJson,"datosEstancias"=>$listEstanciasJson,"datosVuelos"=>$listVuelosJson);
 echo json_encode($resultados);
 

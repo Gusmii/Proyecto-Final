@@ -5,7 +5,7 @@ include_once '../../model/estanciasModel.php';
 
 $cEstancias=new estanciasModel();
 
-$cEstancias->setListEstancias();
+$cEstancias->setList2Estancias();
 
 $listEstanciasJson=$cEstancias->getListEstanciasJson();
 

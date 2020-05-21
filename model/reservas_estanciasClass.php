@@ -5,7 +5,6 @@ class reservas_estanciasClass{
     protected $id_reserva;
     protected $id_estancia;
     protected $fecha_inicio;
-    protected $fecha_fin;
 
     /**
      * @return mixed
@@ -31,18 +30,7 @@ class reservas_estanciasClass{
         return $this->fecha_inicio;
     }
 
-       /**
-     * @return mixed
-     */
-    public function getFecha_fin()
-    {
-        return $this->fecha_fin;
-    }
 
-
-    /**
-     * @param mixed 
-     */
     public function setId_reserva($id_reserva)
     {
         $this->id_reserva = $id_reserva;
@@ -64,14 +52,7 @@ class reservas_estanciasClass{
         $this->fecha_inicio = $fecha_inicio;
     }
 
-    /**
-     * @param mixed 
-     */
-    public function setFecha_fin($fecha_fin)
-    {
-        $this->fecha_fin = $fecha_fin;
-    }
-
+   
   
     function getObjectVars()
     {

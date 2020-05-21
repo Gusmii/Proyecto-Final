@@ -77,6 +77,18 @@ class reservasModel extends reservasClass{
     }
     
     
+    public function crearNuevaReserva() {
+        $this->OpenConnect();
+        $idUser=$this->id_usuario;
+        $fechaFin=$this->fecha_fin;
+        $fechaInicio=$this->fecha_inicio;
+        $sql = "CALL spNuevaReserva($idUser,".$fechaInicio.",".$fechaFin.")";
+        
+        $result = $this->link->query($sql);
+
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
     
      public function findReservasByIdUser() {
             $this->OpenConnect();

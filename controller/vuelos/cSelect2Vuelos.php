@@ -8,31 +8,11 @@ include_once '../../model/vuelosModel.php';
 
 $cVuelos=new vuelosModel();
 
-$cVuelos->setListVuelos();
+$cVuelos->setList2Vuelos();
 
 $listVuelosJson=$cVuelos->getListVuelosJson();
 
 
-$cCiudades=new ciudadesModel();
-
-$cCiudades->setListCiudades();
-
-$listCiudadesJson=$cCiudades->getListCiudadesJson();
-
-
-$cPaises=new paisesModel();
-
-$cPaises->setListPaises();
-
-$listPaisesJson=$cPaises->getListPaisesJson();
-
-
-$cContinentes=new continentesModel();
-
-$cContinentes->setListContinentes();
-
-$listContinentesJson=$cContinentes->getListContinentesJson();
-
-$resultados=array("datosSeleccionados"=>$listVuelosJson,"datosCiudades"=>$listCiudadesJson, "datosPaises" => $listPaisesJson, "datosContinentes" => $listContinentesJson);
+$resultados=array("datosSeleccionados"=>$listVuelosJson);
 echo json_encode($resultados);
 

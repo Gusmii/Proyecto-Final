@@ -59,6 +59,22 @@ class reservas_estanciasModel extends reservas_estanciasClass{
         
     }
     
+    
+    function setNuevaEstanciaReserva()  // fill country : $this->list
+    {
+        $this->OpenConnect();
+        $idEstancia=$this->id_estancia;
+        $idReserva=$this->id_reserva;
+        $fechaInicio=$this->fecha_inicio;
+        
+        $sql="call spNuevaReservas_estancias($idReserva,$idEstancia,$fechaInicio)";
+        
+        $result = $this->link->query($sql);
+
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
     function setListReservas_estancias()  // fill country : $this->list
     {
         $this->OpenConnect();
