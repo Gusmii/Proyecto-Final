@@ -114,7 +114,7 @@ $(document).ready(function(){
     	      	    	}
 	    	      	  	if(selectedText==="Reservas"){
 
-    	      	    			htmlCodeCuerpo+=`<td class="button-box" scope="col"><button type="button" id="vuelosReservados_`+data.id+`" class="vuelosReservados btn btn-primary btn-sm">Vuelos</button><br> <button type="button" id="estanciasReservadas_`+data.id+`" class="estanciasReservadas btn btn-secondary btn-sm">Estancias</button></td>`;
+    	      	    			htmlCodeCuerpo+=`<td class="button-box" scope="col"><button type="button" id="vuelosReservados_`+datosSeleccionados[a].id+`" class="vuelosReservados btn btn-primary btn-sm">Vuelos</button><br> <button type="button" id="estanciasReservadas_`+datosSeleccionados[a].id+`" class="estanciasReservadas btn btn-secondary btn-sm">Estancias</button></td>`;
     	      	    		}
 	    	      	  	
     	    		  }else if (value==="tipo" || value==="ubicacion" || value==="id_usuario" || value.startsWith("codigo")){//este if va con el de startwithobjecto
