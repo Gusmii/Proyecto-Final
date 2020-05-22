@@ -30,8 +30,8 @@ $(document).ready(function(){
       	    success: function(datos){
       	    	      	    	
       	    	datosSeleccionados= jQuery.parseJSON(datos.datosSeleccionados);
-      	    	console.log("datos seleccionados: ");
-    	    	console.log(datosSeleccionados);
+      	    	//console.log("datos seleccionados: ");
+    	    	//console.log(datosSeleccionados);
     	    	var keys=Object.getOwnPropertyNames(datosSeleccionados[0]);
     	    	//aqui recogemos las claves de el json de la posicion 0, ya que todos tienen las mismas claves
     	    	
@@ -162,10 +162,10 @@ $(document).ready(function(){
     	        	
     	    		datosReservas_viajes= jQuery.parseJSON(datos.datosReservas_viajes);
     	    		datosVuelos= jQuery.parseJSON(datos.datosVuelos);
-          	    	console.log("datos Reservas viajes: ");
-        	    	console.log(datosReservas_viajes);
-          	    	console.log("datos  viajes: ");
-        	    	console.log(datosVuelos);
+          	    	//console.log("datos Reservas viajes: ");
+        	    	//console.log(datosReservas_viajes);
+          	    	//console.log("datos  viajes: ");
+        	    	//console.log(datosVuelos);
         	    	htmlCodeCabecera=`<table class="table"> <thead> <tr><th>Precio</th><th>Ubicacion</th></tr></thead><tbody>`;
         	    	htmlCodeCuerpo="";
         	    	for(var i=0;i<datosReservas_viajes.length;i++){
@@ -198,10 +198,10 @@ $(document).ready(function(){
     	        	
     	    		datosReservas_estancias= jQuery.parseJSON(datos.datosReservas_estancias);
     	    		datosEstancias= jQuery.parseJSON(datos.datosEstancias);
-          	    	console.log("datos Reservas estancias: ");
-        	    	console.log(datosReservas_estancias);
-          	    	console.log("datos  estancias: ");
-        	    	console.log(datosEstancias);
+          	    	//console.log("datos Reservas estancias: ");
+        	    	//console.log(datosReservas_estancias);
+          	    	//console.log("datos  estancias: ");
+        	    	//console.log(datosEstancias);
         	    	htmlCodeCabecera=`<table class="table"> <thead> <tr><th>Imagen</th><th>Nombre Estancia</th><th>Precio</th><th>Ubicacion</th></tr></thead><tbody>`;
         	    	htmlCodeCuerpo="";
         	    	for(var i=0;i<datosReservas_estancias.length;i++){

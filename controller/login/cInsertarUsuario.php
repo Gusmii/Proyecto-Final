@@ -35,10 +35,10 @@ if (isset($correo)){
     $newUser->setCorreo($correo);
 }
 
-$contrasenia=filter_input(INPUT_POST, 'contrasenia', FILTER_SANITIZE_SPECIAL_CHARS);
+$contrasenia=filter_input(INPUT_POST, 'contra', FILTER_SANITIZE_SPECIAL_CHARS);
 
-if (isset($apodo)){
-    $newUser->setContrasenia($apodo);
+if (isset($contrasenia)){
+    $newUser->setContrasenia($contrasenia);
 }
 
 $tipo=1;

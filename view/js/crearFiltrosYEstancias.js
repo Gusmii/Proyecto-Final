@@ -21,9 +21,9 @@ $(document).ready(function(){
 });
 
 function cambiandoTamanioWindow(){
-	 console.log($(window).width());
+	 //console.log($(window).width());
 	    if ($(window).width() < 1216) {
-		   console.log ("Pequeña") ;
+		   //console.log ("Pequeña") ;
 
 			 $("#publicidadEstancias").addClass("margenes");
 			 $("#publicidadEstancias").addClass("col-12");
@@ -36,7 +36,7 @@ function cambiandoTamanioWindow(){
 		  }else {
 			 if (screen.width < 1280) {
 				 
-				   console.log ("Mediana") ;
+				   //console.log ("Mediana") ;
 					 $("#publicidadEstancias").removeClass("col-12");
 					 $("#publicidadEstancias").addClass("col-3");
 					 $("#filtroEstancias").removeClass("col-12");
@@ -48,7 +48,7 @@ function cambiandoTamanioWindow(){
 
 					
 			 } else {
-					console.log ("Grande") ; 
+					//console.log ("Grande") ; 
 					 $("#publicidadEstancias").removeClass("col-12");
 					 $("#publicidadEstancias").addClass("col-3");
 					 $("#filtroEstancias").removeClass("col-12");
@@ -137,7 +137,7 @@ function crearFiltro(){
 		    	  for(var a=0;a<tiposEstancias.length;a++){
 
 		    		  htmlCode+=`<li> <div id="valor_`+a+`"> <input type="checkbox" value="`+tiposEstancias[a]+`" id="`+tiposEstancias[a]+`" /><label for="`+tiposEstancias[a]+`">`+tiposEstancias[a]+`</label></div></li>`;
-					console.log("tiposEstancias: "+tiposEstancias);
+					//console.log("tiposEstancias: "+tiposEstancias);
 		    	  }		 
 		    	  htmlCode+="</ul >";
 
@@ -148,9 +148,9 @@ function crearFiltro(){
 			    	  $(this).prop("checked", true);
 
 		    		   $("#filtrarTipoEstancia :checkbox:checked").each(function() {
-		    			   console.log("esto es un checked de "+ $(this).val());
+		    			   //console.log("esto es un checked de "+ $(this).val());
 		    			   filtroTipoEstancias=$(this).val();
-		    			   console.log(filtroTipoEstancias);
+		    			   //console.log(filtroTipoEstancias);
 		    			   filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias);
 
 		    		   });
@@ -178,7 +178,7 @@ function filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias){
 				    		
 							if(((parseInt(datosEstancias[a].ubicacion)===nombreFiltro || nombreFiltro==-1)&&filtroTipoEstancias==="nada") ||( (filtroTipoEstancias==datosEstancias[a].objectTipoEstancia.tipo && (parseInt(datosEstancias[a].ubicacion)===nombreFiltro || nombreFiltro==-1)))){
 					    		if(filtroTipoEstancias!="nada"){
-									console.log("Tipo estancia: "+datosEstancias[a].objectTipoEstancia.tipo+ " FiltroTipoEstancia: "+filtroTipoEstancias);
+									//console.log("Tipo estancia: "+datosEstancias[a].objectTipoEstancia.tipo+ " FiltroTipoEstancia: "+filtroTipoEstancias);
 					    		}
 
 								x++; 
@@ -203,7 +203,7 @@ function filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias){
 							    		      htmlCode +=`<p class="card-text precioEstancia">Precio por noche: `+datosEstancias[a].precio+` </p>`;
 							    		      htmlCode +=`<p class="card-text puntuacionEstancia"><small class="text-muted"> Puntuación: `+datosEstancias[a].puntuacion+`</small></p>`;
 							    		      var estanciaReservada=localStorage.getItem("estancia_"+datosEstancias[a].id);
-								    		  console.log("antes: "+estanciaReservada);
+								    		  //console.log("antes: "+estanciaReservada);
 								    		  
 								    		  if(estanciaReservada==="null" || estanciaReservada ==null){
 								    			  
@@ -240,7 +240,7 @@ function filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias){
 
 		    		  mostrarMas("0");
 		    		  
-		    		  function mostrarMas(numeroEstancias){
+		    		  function mostrarMas(numeroEstancias){ //Con esto al hacer click desaparece lo que estaba y aparecen 5 siguientes
 			    		  $( ".Lotes > .verMasEstancias").removeClass("d-block");
 			    		  $( ".Lotes > .cardEstancias").removeClass("d-block");
 
@@ -256,7 +256,7 @@ function filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias){
 			    		  mostrarMas(numeroEstancias);
 			    		});
 			    	  
-			    	  $( ".card > .contenidoImagenTexto > .contenidoTexto > div > .reservarNoche").click(function() {
+			    	  $( ".card > .contenidoImagenTexto > .contenidoTexto > div > .reservarNoche").click(function() {//Aqui guardamos la estancia y su id en la sesion local
   			    		  
 			    		  var idEstancia=($( this ).attr("id").split(" "));
 			    		  idEstancia=(idEstancia[1]).split("_");
@@ -266,7 +266,7 @@ function filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias){
 //			    		  console.log(precio[1]);
 			    		  
 			    		  var estanciaReservada=localStorage.getItem("estancia_"+idEstancia);
-			    		  console.log("antes: "+estanciaReservada);
+			    		  //console.log("antes: "+estanciaReservada);
 			    		  
 			    		  if(estanciaReservada==="null"  || estanciaReservada ==null){
 			    			  localStorage.setItem("estancia_"+idEstancia,1);
@@ -281,13 +281,13 @@ function filtroUbicacion(nombreFiltro,datosEstancias,filtroTipoEstancias){
 			    		  $("#borrarUnaReservaIdEstancia_"+idEstancia).html(`<button type="button" class="btn btn-danger active">Cancelar una noche</button>`);
 			    		 });
 
-			    	  $( ".card > .contenidoImagenTexto > .contenidoTexto > div > .borrarUnaReserva").click(function() {
+			    	  $( ".card > .contenidoImagenTexto > .contenidoTexto > div > .borrarUnaReserva").click(function() {//Aqui quitamos una noche reservada de la sesion local
   			    		  
 			    		  var idEstancia=($( this ).attr("id").split("_"));
 			    		  idEstancia=idEstancia[1];
 			    		  
 			    		  var estanciaReservada=localStorage.getItem("estancia_"+idEstancia);
-			    		  console.log("antes: "+estanciaReservada);
+			    		  //console.log("antes: "+estanciaReservada);
 			    		  
 			    		  if((estanciaReservada!="null"  || estanciaReservada != null )&& estanciaReservada !=1){
 

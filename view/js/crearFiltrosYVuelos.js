@@ -11,6 +11,7 @@ $(document).ready(function(){
   crearFiltro();
   cambiandoTamanioWindow();
   
+  //Cuando cambia el tamaño del navegador esta funcion se activa
   $(window).resize( function(){
 	  
 	  cambiandoTamanioWindow();
@@ -18,10 +19,11 @@ $(document).ready(function(){
   });
 });
 
+//En esta funcion ajustamos la estructura de la vista para que se adapte
 function cambiandoTamanioWindow(){
-	 console.log($(window).width());
+	 //console.log($(window).width());
 	    if ($(window).width() < 1216) {
-		   console.log ("Pequeña") ;
+		  // console.log ("Pequeña") ;
 
 			 $("#publicidadVuelos").addClass("margenes");
 			 $("#publicidadVuelos").addClass("col-12");
@@ -34,7 +36,7 @@ function cambiandoTamanioWindow(){
 		  }else {
 			 if (screen.width < 1280) {
 				 
-				   console.log ("Mediana") ;
+				   //console.log ("Mediana") ;
 					 $("#publicidadVuelos").removeClass("col-12");
 					 $("#publicidadVuelos").addClass("col-3");
 					 $("#filtroVuelos").removeClass("col-12");
@@ -46,7 +48,7 @@ function cambiandoTamanioWindow(){
 
 					
 			 } else {
-					console.log ("Grande") ; 
+					//console.log ("Grande") ; 
 					 $("#publicidadVuelos").removeClass("col-12");
 					 $("#publicidadVuelos").addClass("col-3");
 					 $("#filtroVuelos").removeClass("col-12");
@@ -64,6 +66,7 @@ function cambiandoTamanioWindow(){
 function crearFiltro(){
   var usuario=localStorage.getItem("usuario");
 
+  //aqui se crea la base donde iran las cosas que se cargaran mediante llamadas
   htmlCode= `<div class="container Filtros">`;
   htmlCode+= `<div class="container selectCities">`;
   
@@ -75,6 +78,7 @@ function crearFiltro(){
   $("#filtroVuelos").html(htmlCode);
   htmlCode="<option hidden id='TituloSelect' selected>Ciudades por paises y continentes</option>";
   
+  //Aqui se crea el filtro de ciudades por paises y continentes
   $.ajax({
 	  type:"GET",
 	    dataType:"json",
@@ -107,12 +111,12 @@ function crearFiltro(){
 	    	
 	    	}
 	    	
-	    	$(".selectCiudades").html(htmlCode);	
-			   filtroUbicacion("-1",datosVuelos);
+	    	$(".selectCiudades").html(htmlCode);	//Aqui aplicamos todos los datos recibidos y filtrados al select
+			   filtroUbicacion("-1",datosVuelos);	//Si acaba de ingresar en la vista esto hara que todavia no se filtre la busqueda, por que en el option sale una frase por defecto
 	
 	    	$("#TituloSelect").hide();
 	    	
-	    	$(".selectCiudades").on("change", function(){
+	    	$(".selectCiudades").on("change", function(){ //En esta funcion se prepara el select para que al minimo cambio se vuelva a filtrar
 				$(".tiposVuelosFilter").html("");
 				tiposVuelos=[];
 				nombreFiltro=$(this).val();
@@ -164,7 +168,7 @@ function filtroUbicacion(nombreFiltro,datosVuelos){
 							    		      htmlCode +=`<h5 class="card-title nombreVuelo UbicacionVuelo">`+datosVuelos[a].objectUbicacion.nombre.toUpperCase()+`</h5>`;
 							    		      htmlCode +=`<p class="card-text precioVuelo">Precio: `+datosVuelos[a].precio+` </p>`;
 							    		      var VueloReservada=localStorage.getItem("Vuelo_"+datosVuelos[a].id);
-								    		  console.log("antes: "+VueloReservada);
+								    		  //console.log("antes: "+VueloReservada);
 								    		  
 								    		  if(VueloReservada==="null" || VueloReservada ==null){
 								    			  
@@ -194,14 +198,15 @@ function filtroUbicacion(nombreFiltro,datosVuelos){
 			    	htmlCode+=`</div>`;
 
 			    	  $("#filtradasVuelos").html(htmlCode);
-			    	  
+					  
+					  //Aqui hacemos que no aparezcan los lotes
 		    		  $( ".Lotes").css({"display":"none!important"});
 		    		  $( ".Lotes > .cardVuelos").addClass("d-none");
 		    		  $( ".Lotes > .verMasVuelos").addClass("d-none");
 
 		    		  mostrarMas("0");
 		    		  
-		    		  function mostrarMas(numeroVuelos){
+		    		  function mostrarMas(numeroVuelos){ //Con esto al hacer click desaparece lo que estaba y aparecen 5 siguientes
 			    		  $( ".Lotes > .verMasVuelos").removeClass("d-block");
 			    		  $( ".Lotes > .cardVuelos").removeClass("d-block");
 
@@ -210,24 +215,24 @@ function filtroUbicacion(nombreFiltro,datosVuelos){
 			    		  $( ".LoteNumero"+numeroVuelos+" > .verMasVuelos").last().addClass("d-block");
 		    		  }
 		    		  
-			    	  $( ".verMasVuelos :button").click(function() {
+			    	  $( ".verMasVuelos :button").click(function() { 
 			    		  			    		  
 			    		  var numeroVuelos=($( this ).parent().parent().attr("id")).split("Numero");
 			    		  numeroVuelos=	(parseInt(numeroVuelos[1]))+1;
 			    		  mostrarMas(numeroVuelos);
 			    		});
 			    	  
-			    	  $( ".card > .contenidoImagenTexto > .contenidoTexto > div > .reservarVuelo").click(function() {
+			    	  $( ".card > .contenidoImagenTexto > .contenidoTexto > div > .reservarVuelo").click(function() { //Aqui guardamos el vuelo y su id en la sesion local
   			    		  
 			    		  var idVuelo=($( this ).attr("id").split(" "));
 			    		  idVuelo=(idVuelo[1]).split("_");
 			    		  idVuelo=idVuelo[1];
 			    		  
-//			    		  var precio=$(".idVuelo_"+idVuelo+" > .contenidoImagenTexto > .contenidoTexto > div > .precioVuelo").text().split(": ");
-//			    		  console.log(precio[1]);
+			    		  //var precio=$(".idVuelo_"+idVuelo+" > .contenidoImagenTexto > .contenidoTexto > div > .precioVuelo").text().split(": ");
+			    		  //console.log(precio[1]);
 			    		  
 			    		  var VueloReservada=localStorage.getItem("Vuelo_"+idVuelo);
-			    		  console.log("antes: "+VueloReservada);
+			    		  //console.log("antes: "+VueloReservada);
 			    		  
 			    		  if(VueloReservada==="null"  || VueloReservada ==null){
 			    			  localStorage.setItem("Vuelo_"+idVuelo,1);
@@ -242,13 +247,13 @@ function filtroUbicacion(nombreFiltro,datosVuelos){
 			    		  $("#borrarUnaReservaIdVuelo_"+idVuelo).html(`<button type="button" class="btn btn-danger active">Cancelar un vuelo</button>`);
 			    		 });
 
-			    	  $( ".card > .contenidoImagenTexto > .contenidoTexto > div > .borrarUnaReserva").click(function() {
+			    	  $( ".card > .contenidoImagenTexto > .contenidoTexto > div > .borrarUnaReserva").click(function() { //Aqui quitamos una noche reservada de la sesion local
   			    		  
 			    		  var idVuelo=($( this ).attr("id").split("_"));
 			    		  idVuelo=idVuelo[1];
 			    		  
 			    		  var VueloReservada=localStorage.getItem("Vuelo_"+idVuelo);
-			    		  console.log("antes: "+VueloReservada);
+			    		  //console.log("antes: "+VueloReservada);
 			    		  
 			    		  if((VueloReservada!="null"  || VueloReservada != null )&& VueloReservada !=1){
 

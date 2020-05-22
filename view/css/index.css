@@ -4,6 +4,11 @@
 	height:50px;
 }
 
+.ImagenesIndex{
+	width:200px;
+	height:200px;
+}
+
 #botonPagar,#botonIndex{
 	padding:15px;
 	display: flex;
