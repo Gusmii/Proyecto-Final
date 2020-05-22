@@ -51,7 +51,7 @@ $(document).ready(function(){
 //Show Reservas
 function ShowReservas() {
 
-  
+  $("#FooterComponente").hide();
  
   htmlCode+= '<a id="volverIndex">Volver al inicio</a>';
   $.ajax({
@@ -63,10 +63,12 @@ function ShowReservas() {
 	    	  $("#botonIndex").html(`<button type="button" class="btn btn-danger">Volver al inicio</button>`);
 	    	  $("#botonIndex").on("click",function(){
 	    		    localStorage.setItem("verReservas",false);  
-	    		    $("#contenidoIndex").html("");
-	    		    mostrarCards();
+					$("#contenidoIndex").html("");
+					mostrarCards();
+					$("#FooterComponente").show();
 	    		    $("#botonIndex").html(``);
-	    			$("#botonPagar").html(``);
+					$("#botonPagar").html(``);
+					
 
 	    	  });
 	    		  
