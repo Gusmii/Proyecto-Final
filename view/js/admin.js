@@ -50,7 +50,7 @@ $(document).ready(function(){
   	    			  var val=value.replace("object","");
   	  	    		  htmlCodeCabeceraObject+=`<th scope="col">`+val+``;
 
-  	    		  }else if (value==="tipo"||value==="ubicacion" || value==="id_usuario" || value.startsWith("codigo")){
+  	    		  }else if (value==="tipo"||value==="ubicacion" || value==="id_usuario" || value.startsWith("codigo")|| value.startsWith("dni")){
   	    			  htmlCodeCabecera+=""; 
   	    		  }else{
   	    			  htmlCodeCabecera+=`<th scope="col">`+value+`</th>`;
@@ -92,10 +92,13 @@ $(document).ready(function(){
 			    	    			  var val=Object.getOwnPropertyNames(dato);
 			    	      	    	//se añade a la cabecera de la tabla las keys del objeto
 
-				    	    		  if((!( $.isNumeric(dato))) && ($.inArray(dato,arrayKeysNombre)==-1) && valor_llave!="contrasenia"){//si es numerico y (si no esta en el array el dato siempre dara -1)
-				    	    			  htmlCodeCabeceraObjectName+=htmlCodeCabeceraObject+`_`+valor_llave+`</th>`;
-					    	    			 arrayKeysValue.push(valor_llave);
+				    	    		  if((!( $.isNumeric(dato))) && ($.inArray(dato,arrayKeysNombre)==-1) && (valor_llave!="contrasenia")){//si es numerico y (si no esta en el array el dato siempre dara -1)
+				    	    			 if( valor_llave!="dni"){
+				    	    				 htmlCodeCabeceraObjectName+=htmlCodeCabeceraObject+`_`+valor_llave+`</th>`;
+				    	    				 arrayKeysValue.push(valor_llave);
 					    	  	  	    		objectExist=true;
+					    	  	  	    		}
+					    	    			 
 
 				    	    		  }
 				    	      	    	//fin de se añade a la cabecera de la tabla las keys del objeto
@@ -105,8 +108,10 @@ $(document).ready(function(){
 						    	    			 htmlCodeCuerpo+=`<td scope="col"><img src="`+dato+`"></td>`;
 	
 				    	    			  }else{
-						    	    			 htmlCodeCuerpo+=`<td scope="col">`+dato+`</td>`;
-				    	    			  }
+						    	    			 if( valor_llave!="dni"){
+						    	    				 htmlCodeCuerpo+=`<td scope="col">`+dato+`</td>`;
+						    	    			 }
+						    	    		}
 				    	    			 arrayKeysValue.push(dato);
 				    	    		  }
 			    	    		  }
@@ -117,7 +122,7 @@ $(document).ready(function(){
     	      	    			htmlCodeCuerpo+=`<td class="button-box" scope="col"><button type="button" id="vuelosReservados_`+datosSeleccionados[a].id+`" class="vuelosReservados btn btn-primary btn-sm">Vuelos</button><br> <button type="button" id="estanciasReservadas_`+datosSeleccionados[a].id+`" class="estanciasReservadas btn btn-secondary btn-sm">Estancias</button></td>`;
     	      	    		}
 	    	      	  	
-    	    		  }else if (value==="tipo" || value==="ubicacion" || value==="id_usuario" || value.startsWith("codigo")){//este if va con el de startwithobjecto
+    	    		  }else if (value==="tipo" || value==="ubicacion" || value==="id_usuario" || value.startsWith("codigo") || value.startsWith("dni")){//este if va con el de startwithobjecto
     	    			  htmlCodeCuerpo+="";
       	    		  }else{
     	    			  //si el atributo al que accede no tiene mas atributos dentro vendra a este else
