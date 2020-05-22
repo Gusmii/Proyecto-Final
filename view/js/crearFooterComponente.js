@@ -45,7 +45,7 @@ $(document).ready(function(){
 
     htmlCode+=`<div class="footerSuperior">`;
     
-    htmlCode+=`<a href="../vQuienesSomos.html"><p>Quienes somos</p></a>`; //Para redirigir a la pagina de Quienes Somos
+    htmlCode+=`<a href="view/vQuienesSomos.html"><p>Quienes somos</p></a>`; //Para redirigir a la pagina de Quienes Somos
     
     htmlCode+=`<p class="contact" data-toggle="modal" data-target="#exampleModal">Contactanos</p>`; //Para hacer aparecer el modal
 

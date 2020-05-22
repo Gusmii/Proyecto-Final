@@ -112,6 +112,7 @@ grid-area: C;
 
 a:hover{
     text-decoration: none;
+    color: white;
 }
 
 input{
@@ -128,6 +129,12 @@ input{
     border-radius: 50px;
 
 }
+
+a{
+    color: white;
+}
+
+/* MEDIA */
 
 @media only screen and (max-width: 600px) {
     
